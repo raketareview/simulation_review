@@ -489,7 +489,7 @@ public Simulation(GameMap entities, List<Actions> turnActions)
 ```
 
 
-**14. class Simulation**  
+**14. class Main**  
 
 +Только создает и запускает Симуляцию, это хорошо.
 Было бы прикольно, если бы ты создал несколько майнов, каждый из которых запускал бы симуляцию с разными конфигурациями action'ов.  
