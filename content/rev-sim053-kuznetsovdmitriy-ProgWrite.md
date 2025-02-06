@@ -488,7 +488,6 @@ private String selectPictureForEntity(Entity entity) {
 public Simulation(GameMap entities, List<Actions> turnActions) 
 ```
 
-
 **14. class Main**  
 
 +Только создает и запускает Симуляцию, это хорошо.
