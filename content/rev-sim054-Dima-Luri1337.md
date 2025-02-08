@@ -354,7 +354,9 @@ public abstract class Entity {
 }  
 
 public class Creature extends Entity {
-
+  public boolean hasMoved;
+  public Coordinates nextMove;
+  
   public Creature(Coordinates coordinates, int hp) {
     super(coordinates);
     this.hp = hp;
