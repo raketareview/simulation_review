@@ -96,7 +96,7 @@ public boolean canShift(CoordinatesShift shift) {
 
 -Стандартные переопределения типа `equals()` и `hashCode()` должны располагаться в самом низу кода.
 
-**5. class CoordinatesShif**
+**5. class CoordinatesShift**
 
 - В существовании этого класса нет смысла, его прекрасно может заменить class Coordinates. Например так
 ```
@@ -392,7 +392,7 @@ public Creature eat(GameMap map) {
 
 - Класс, которого не должно быть.  
 Во-первых, Карта не должна хранить сущность "Пустая ячейка", о чем я писал выше.  
-Во-вторых, Пустота не может быть наследником Существа, потому что существо существует, а пустота нет.
+Во-вторых, Пустота не может быть наследником Существа, потому что существо существует, а пустота нет. Вернее существует, но в виде пустоты, ну ты понял.
 
 **14. class MapConsoleRenderer**
 
@@ -411,9 +411,9 @@ for (int x = 1; x <= 10; x++) {
     line.append(getSpriteForEmptySquare(new Coordinates(x, y)));
     //...
   }
-  line.append(RESET);
-  System.out.println(line);
 }
+line.append(RESET);
+System.out.println(line);
 ```
 
 **15. class Simulation**
@@ -474,9 +474,7 @@ public class Board {
     this.скорость = скорость;
   }
   
-  public int getСкорость() {
-    return скорость;
-  }
+  public void ходить() {...}
 }
 
 класс Бегемот наследует Креатура {
@@ -490,9 +488,7 @@ public class Board {
     this.глубинаНыряния = ГЛУБИНА_НЫРЯНИЯ;
   }
   
-  public int getГлубинаНыряния() {
-    return глубинаНыряния;
-  }
+  public void нырять() {...}
 }
 ```
 
