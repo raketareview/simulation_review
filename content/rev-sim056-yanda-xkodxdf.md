@@ -138,7 +138,7 @@ private void eat(Coordinates foodCoordinates) {...}
 
 + (+)Сделал разные реализации карты, потренировался с наследованием и полиморфизмом- это хорошо.
 
-**8. `interface WorldMap<C, V>`**, интерфейс универсальной игровой карты
+**8. interface WorldMap<C, V>**, интерфейс универсальной игровой карты
 
 Более радикальная реализация моей идеи универсальной доски: https://t.me/zhukovsd_it_chat/53243/132434 п."Архитектура".  
 Но здесь интерфейс принимает два дженерика, где второй дженерик это класс хранимого в доске объекта(шахматная фигура, ентити симуляции, клетка морского боя etc).
@@ -190,7 +190,7 @@ public interface WorldMap<C, V> {
 Методы чужих ответственностей должны находиться в тех классах, в интересх которых они работают.
 Если один и тот же метод используют разные классы, то метод нужно вынести в отдельный класс, например, BoardUtils.
 
-**9. `abstract class BaseWorldMap<C, V> implements WorldMap<C, V>`**
+**9. abstract class BaseWorldMap<C, V> implements WorldMap<C, V>**
 
 - Карта не должна хранить пустые координаты
 ```
@@ -238,7 +238,7 @@ protected abstract void clearEntities();
 protected abstract void clearValues();
 ```
 
-**10. `class WorldArrayMap extends BaseWorldMap<Coordinates, Entity>`**, реализация карты на массиве
+**10. class WorldArrayMap extends BaseWorldMap<Coordinates, Entity>**, реализация карты на массиве
 
 - Для невозврата null нужно либо кидать исключение при попытке прочитать отсутствующее существо.  
 Либо возвращать Optional, как обертку над значением или null.  
@@ -398,7 +398,7 @@ public Herbivore(WorldMapManage mapManager) {
 }
 ```
 
-**20. `interface PathFinder<C>`**
+**20. interface PathFinder<C>**
 
 - Интерфейс сделан настолько базовым и абстрактным, что по сигнатуре метода я не могу даже предположить, как им можно пользоваться
 ```
@@ -407,7 +407,7 @@ public interface PathFinder<C> {
 }
 ```
 
-**21. `class PathFinderBFS implements PathFinder<Coordinates>`**, поиск пути
+**21. class PathFinderBFS implements PathFinder<Coordinates>**, поиск пути
 
 - Мне непонятно, как можно корректно возвращать путь через сет координат
 ```
