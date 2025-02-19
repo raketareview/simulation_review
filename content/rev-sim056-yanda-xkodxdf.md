@@ -277,7 +277,7 @@ protected Coordinates createCoordinate(int x, int y) {
 private final Config config;
 private WorldMap<Coordinates, Entity> map;
 ```
-Очевидно, в этом классе обитают две сущности. Одна сущность это утилитный класс и содержит полезные методы для разных применений карты, типа вернуть случайную пустую координату.
+Очевидно, в этом классе обитают несколько сущностей. Одна сущность это утилитный класс и содержит полезные методы для разных применений карты, типа вернуть случайную пустую координату.
  а другая сущность/сущности это что-то другое. Нужно разделить этот класс на несколько.
 
 - Утилитный класс должен быть final, иметь закрытый конструктор, все его методы должны быть static, не должен хранить поля.
@@ -413,10 +413,9 @@ public interface PathFinder<C> {
 ```
 public Set<Coordinates> getPath(...)
 ```
-Есть самнения, что поиск рабтает правильно.
+Есть сомнения, что поиск работает правильно.
 
-Путь это последовательность соседствующих друг с другом кординат.
-То есть, для описания пути нужно чтобы координаты находились в строго определенном последовательном порядке, а это возможно только в List'e.  
+Путь это последовательность соседствующих друг с другом кординат, для описания пути нужно чтобы координаты находились в строго определенном последовательном порядке, а это возможно только в List'e.  
 Set не гарантирует последовательный порядок размещения в нем объектов 
 ```
 public class Main {
@@ -455,13 +454,13 @@ public class PathFinderBFS implements PathFinder<Coordinates> {
 ```
 
 Класс должен просто искать путь от точки старта до точки, соответствующей заданным условиям. 
-В данном случае- до точки, в которой находится существо нужного класса. В рамках этого поиска класс должен сам нходить цель, доступные для ходьбы координаты и выполнять прочие вспомогательные действия.
+В данном случае- до точки, в которой находится существо нужного класса. В рамках этого поиска PathFinderBFS должен сам находить цель, доступные для ходьбы координаты и выполнять прочие вспомогательные действия.
 Сигнатура поиска должна выглядеть примерно так
 ```
 public List<Coordinates> getPath(Карта карта, Coordinates tart, Class<? extends Entity> target) {...}
 ```
 
-Или так, если в качестве цели могут быть несколько разных классов
+Или так, если в качестве цели могут выступать несколько разных классов
 ```
 public class Лиса {
   //...
@@ -634,14 +633,14 @@ public enum Currency {
 Значит нужен класс, в который мы кинем существо, а обратно получим его изображение(спрайт). Нам нужно два класса: один будет возвращать буквы, другой- emoji.
 Классы должны быть родственны и взамозаменяемы, а значит должны работать через полиморфизм и реализовывать общий интерфейс
 ```
-public interface EntitySprite {
+public interface SpritePool {
   String get(Entity entity);
 }
 ```
 
 2. Реализации интерфейса для букв и эмоджи будут иметь общий код, поэтому делаем общий для них абстрактный класс
 ```
-public abstract class AbstractEntitySprite implements EntitySprite {
+public abstract class AbstractSpritePool implements SpritePool {
   @Override
   public String get(Entity entity) {
     return switch (entity.getClass().getSimpleName()) {
@@ -650,7 +649,7 @@ public abstract class AbstractEntitySprite implements EntitySprite {
       default -> throw new IllegalStateException("illegal entity: " + entity);
     };
   }
-  
+
   protected abstract String rabbit();
   protected abstract String fox();
 }
@@ -658,7 +657,7 @@ public abstract class AbstractEntitySprite implements EntitySprite {
 
 3. И собственно делаем две реализации
 ```
-public class EmojiEntitySprite extends AbstractEntitySprite{
+public class EmojiSpritePool extends AbstractSpritePool {
 
   private final static String RABBIT = "🐇";
   private final static String FOX = "🦊";
@@ -674,7 +673,7 @@ public class EmojiEntitySprite extends AbstractEntitySprite{
   }
 }
 
-public class TextEntitySprite extends AbstractEntitySprite{
+public class TextSpritePool extends AbstractSpritePool {
 
   private final static String RABBIT = "R";
   private final static String FOX = "F";
@@ -696,10 +695,10 @@ public class TextEntitySprite extends AbstractEntitySprite{
 public class BoardRenderer {
 
   private static final String GROUND_SPRITE = " ";
-  private final EntitySprite entitySprite;
+  private final SpritePool spritePool;
 
-  public BoardRenderer(EntitySprite entitySprite) {
-    this.entitySprite = entitySprite;
+  public BoardRenderer(SpritePool spritePool) {
+    this.spritePool = spritePool;
   }
 
   public void render(Board board) {
@@ -710,7 +709,7 @@ public class BoardRenderer {
           System.out.print(GROUND_SPRITE);
         } else {
           Entity entity = board.get(coordinates);
-          String sprite = entitySprite.get(entity);
+          String sprite = spritePool.get(entity);
           System.out.print(sprite);
         }
       }
@@ -727,8 +726,8 @@ public class Main {
     Board board = new Board(10, 10);
     //заселить карту зайцами и лисами
 
-    EntitySprite entitySprite = new EmojiEntitySprite();
-    BoardRenderer boardRenderer = new BoardRenderer(entitySprite);
+    SpritePool spritePool = new EmojiSpritePool();
+    BoardRenderer boardRenderer = new BoardRenderer(spritePool);
 
     Game game = new Game(board, boardRenderer);
     game.start();
