@@ -240,7 +240,9 @@ protected abstract void clearValues();
 
 **10. `class WorldArrayMap extends BaseWorldMap<Coordinates, Entity>`**, реализация карты на массиве
 
-- Для невозврата null нужно либо кидать исключение при попытке прочитать отсутствующее существо. Либо возвращать Optional, который в себе будет либо хранить . Но не то и другое вместе
+- Для невозврата null нужно либо кидать исключение при попытке прочитать отсутствующее существо.  
+Либо возвращать Optional, который в себе будет хранить значение или null.  
+Но не то и другое вместе
 ```
 @Override
 public Optional<Entity> getValue(Coordinates coordinates) throws InvalidCoordinatesException {
