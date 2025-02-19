@@ -241,7 +241,7 @@ protected abstract void clearValues();
 **10. `class WorldArrayMap extends BaseWorldMap<Coordinates, Entity>`**, реализация карты на массиве
 
 - Для невозврата null нужно либо кидать исключение при попытке прочитать отсутствующее существо.  
-Либо возвращать Optional, который в себе будет хранить значение или null.  
+Либо возвращать Optional, как обертку над значением или null.  
 Но не то и другое вместе
 ```
 @Override
@@ -258,7 +258,7 @@ public void validateCoordinates(C coordinates) throws InvalidCoordinatesExceptio
 }
 ```
 
-**11. `class WorldHashMap extends BaseWorldMap<Coordinates, Entity>`**, реализация карты на хешмапе
+**11. class WorldHashMap extends BaseWorldMap<Coordinates, Entity>**, реализация карты на хешмапе
 
 - Нарушение DRY. Такая же реализация метода есть в `WorldArrayMap`
 ```
