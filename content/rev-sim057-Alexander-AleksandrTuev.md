@@ -450,7 +450,8 @@ public class Корабль extends Транспорт{
     return false;
   }
 }
-
+```
+```
 public class Самолет extends Транспорт{
   protected Самолет(double cargoWeight) {
     super(cargoWeight);
