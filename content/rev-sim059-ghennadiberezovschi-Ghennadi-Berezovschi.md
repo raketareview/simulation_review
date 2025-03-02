@@ -418,7 +418,7 @@ for(Action a: actions) {
 */
 ```
 
-Подробнее про Action я писал тут: https://t.me/zhukovsd_it_chat/53243/147969
+Подробнее про Action я писал тут: https://t.me/zhukovsd_it_chat/53243/147969, п."Архитектура"
 
 **14. class SimulationManager**, Симуляция
 
