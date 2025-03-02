@@ -190,14 +190,14 @@ class SimulationManager {
 
 **5. class SetupEntities**, что-то типа фабрики
 
-- В отличии от фабрики существ, этот класс не создает, заселяет и возвращает фабрику, а принимает фабрику и заселяет ее
+- В отличии от фабрики существ, этот класс не создает, заселяет и возвращает карту, а принимает уже готовую карту и заселяет ее
 ```
 class SetupEntities {
   public void setupCustomPositions(GameBoard board, int numberOfRabbits, /*другие количества*/) {...} 
 }     
 ``` 
 
-Вместо этого класса сделай простую фабрику карты- это стандартная и понятная всем практика
+Вместо этого класса сделай простую фабрику карты, это стандартная и понятная всем практика
 ```
 public class InteractiveMain {
   public static void main(String[] args) {
@@ -251,7 +251,7 @@ public List<Position> getPathToTarget(GameBoard board, Position startPosition, C
 ```
 
 - Если пользовательские классы не будут возвращать null, то не придется проверять результат на null. А значит, если забудешь это сделать(проверить на null), не будет NPE.  
-`board.getEntityAt(...)` должен возвращать Entity или бросать исключение, если клетка пустая
+Метод `board.getEntityAt(...)` должен возвращать Entity или бросать исключение, если клетка пустая
 ```
 Entity entity = board.getEntityAt(currentPosition);
 
