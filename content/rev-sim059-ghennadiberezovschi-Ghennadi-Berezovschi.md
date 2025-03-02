@@ -376,7 +376,7 @@ else if (entity instanceof Roc) {
 } else {
   //бросить исключение
 }
-``` 
+```
 
 **13. Отсутствуют Action's**
 
