@@ -137,7 +137,7 @@ List<Coordinates> find(Coordinates fromCoordinates, Coordinates toCoordinates, S
 ```
 public List<Coordinates> getPatch(World world, Coordinates start, Class<? extends Entity> target) {...}
 ```
-Если для для того, чтобы алгоритм AStar рассчитал путь к цели ему нужно заранее знать координату цели, то класс поиска все равно должен самостоятельно найти эту координату. 
+Если для того, чтобы алгоритм AStar рассчитал путь к цели ему нужно заранее знать координату цели, то класс поиска все равно должен самостоятельно найти эту координату. 
 И только потом скормить эту координату алгоритму AStar.
 Сейчас координаты целей ищат сами Predator и Herbivore, то есть берут на себя часть ответственности класса поиска пути.
 
@@ -285,7 +285,7 @@ public class WorldMapEditor implements WorldMapFactory{
 Это в свою очередь скорее всего приведет к тому, что отпадет надобность в классах InitParamsFactory и InitParams. Часть кода из этих классов окажется ненужной, остальное переместится в AbstractWorldMapFactory.
 
 Тогда при выборе пункта меню "Играть со случайными параметрами" карту будет создавать фабрика карты с параметрами по умолчанию. 
-А при выборе "Играть со своими параметрами" карту будет создавать фабрика карты с параметрами, вводимыми вручну. То есть, редактор карты.
+А при выборе "Играть со своими параметрами" карту будет создавать фабрика карты с параметрами, вводимыми вручную. То есть, редактор карты.
 
 **14. class RockFactory/TreeFactory extends EntityFactory**, семейство фабрик существ
 
@@ -354,15 +354,15 @@ for (Entity entity : entities) {
 ```
 for (Entity entity : entities) {
   if (entity instanceof Creature creature) {
-    if (shouldMove(creature, currentTick)) {
+    if (shouldMove(creature)) {
       creature.makeMove(worldMap, pathFinder);
     }
   }
 }
 
 //...
-private boolean shouldMove(creature, currentTick) {
-  return return currentTick % creature.getTurnFrequency() == 0;
+private boolean shouldMove(creature) {
+  return currentTick % creature.getTurnFrequency() == 0;
 }
 ```
 
