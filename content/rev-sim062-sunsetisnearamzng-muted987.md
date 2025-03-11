@@ -204,7 +204,7 @@ public <T extends Entity> Map<Coordinates, T> entityMapBy(Class<T> clazz) {
 
 **7. class RandomArrangement**
 
-- Класс для первоначального заселения карты существами. Класс странный и непонятный. Кажется, он выполняет функция InitAction из ТЗ.
+- Класс для первоначального заселения карты существами. Класс странный и непонятный. Кажется, он выполняет функцию InitAction из ТЗ.
 
 **8. class AmountOfEntities**
 
