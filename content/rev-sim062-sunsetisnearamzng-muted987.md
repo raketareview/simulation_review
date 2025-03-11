@@ -190,7 +190,7 @@ public <T extends Entity> Map<Coordinates, T> entityMapBy(Class<T> clazz) {
   Map<Coordinates, T> result = new HashMap<>();
   for (Map.Entry<Coordinates, Entity> entry : simulationMap.entrySet()) {
     if (clazz.isInstance(entry.getValue())) {
-      result.put(entry.getKey(), (T) entry);
+      result.put(entry.getKey(), (T) entry.getValue());
     }
   }
   return result;
