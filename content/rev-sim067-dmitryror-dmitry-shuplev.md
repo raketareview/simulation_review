@@ -6,7 +6,7 @@ https://github.com/dmitry-shuplev/simulation
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
 
-1. Программа постоянно пишет в консоль сообщения об ошибках
+1. Программа постоянно пишет в консоль сообщения об ошибках. То есть, все время происходят ошибки
 ```
 Ошибка. Обьект с такими координатами уже существует.
 Ошибка. Обьект с такими координатами уже существует.
@@ -14,10 +14,10 @@ https://github.com/dmitry-shuplev/simulation
 ```
 
 2. Карта выводится в окно, а текстовые сообщения выводятся в консоль
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/res-sim067/img0.jpg)
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/res-sim067/img0.png)
 
 3. Если сделать и запустить `jar`, то картинки не показываются. Если в коде найти баг и исправить, то картинки будут показываться
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/res-sim067/img1.jpg)
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/res-sim067/img1.png)
 
 ## ХОРОШО
 
