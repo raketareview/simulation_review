@@ -12,7 +12,7 @@ https://github.com/FiSheNiR/Simulation
 
 **1. Нейминг**
 
-- Названия пакетов пишутся стилем lower_snake: "Actions" -> "acions".
+- Названия пакетов пишутся стилем lower_snake: "Actions" -> "actions".
 
 - Название должно быть информативным, но лакончиным
 ```
@@ -57,6 +57,14 @@ public Entity getEntityByCoordinate(Coordinate coordinate)
 //ПРАВИЛЬНО:
 public void remove(Coordinate coordinate) 
 public Entity get(Coordinate coordinate)
+```
+
+- Название метода вводит в заблуждение. Этот метод не преобразует поля в проверки. Метод создает сдвиговые координаты
+```
+Set<CoordinateShift> fieldsToCheck()
+
+//ПРАВИЛЬНО:
+Set<CoordinateShift> createShiftCoordinates()
 ```
 
 *Oracle Java code conventions, part."Naming conventions"*  
@@ -108,7 +116,7 @@ public final class Settings {
   public static final int HOUSE_ROOMS = 5;
 }
 
-/ПЛОХО:
+//ПЛОХО:
 public static void main(String[] args) {
   House house = new House();
   //oth code
@@ -175,8 +183,7 @@ coordinates = coordinates.shift(shiftCoordinates);
 ```
 
 - Нарушение SRP и Low Coupling. Координата не должна определять, можно ли ее сдвинуть в интересах какого-то другого класса или нельзя.
-Потому что это не касается единой ответственности координаты- хранение информации для идентификации точки в пространстве.  
-Сейчас координата вынуждена знать про совершенно посторонние для себя вещи- про существование класса Карта, классов Камень и Хищник(?!) и правил игровой логики
+Потому что это не касается единой ответственности координаты- хранение информации для идентификации точки в пространстве
 ```
 public boolean canShift(CoordinateShift shift) {  <-- проверка "возможноси сдвига" - чужая ответственность
   //...
@@ -232,7 +239,7 @@ private void removeEntity(Coordinates coordinates) {
 - Метод совершения хода в карте- нарушение SRP.
 Теперь можно вызвать из карты метод хода и телепортировать зайца из одного края в другой минуя все правила игровой логистики
 ```
-Карта карта = new Карта(100, 100);
+Карта карта = new Карта();
 карта.setEntities(new Coordinates(0, 0), new Заяц());
 карта.moveEntity(new Coordinates(0, 0), new Coordinates(99, 99));
 
@@ -392,6 +399,8 @@ return switch (entity.getClass().getSimpleName()) {
 ## ВЫВОД
 
 Для лучшего понимания декомпозиции ООП посмотреть ролики Сергея про шахматы. Посмотреть ролики Немчинского про SOLID.
+
+P.S. У кого вы все друг за другом подсматриваете `class CoordinateShift` и `boolean canShift(CoordinateShift shift)`? Не подсматривайте больше.
 
 n.68(154)  
 #ревью #симуляция
