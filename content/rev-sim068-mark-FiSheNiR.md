@@ -400,7 +400,7 @@ return switch (entity.getClass().getSimpleName()) {
 
 Для лучшего понимания декомпозиции ООП посмотреть ролики Сергея про шахматы. Посмотреть ролики Немчинского про SOLID.
 
-P.S. У кого вы все друг за другом подсматриваете `class CoordinateShift` и `boolean canShift(CoordinateShift shift)`? Не подсматривайте больше.
+P.S. У кого вы все друг за другом подсматриваете `class CoordinateShift` и `boolean canShift(CoordinateShift shift)` классе координаты? Не подсматривайте больше.
 
 n.68(154)  
 #ревью #симуляция
