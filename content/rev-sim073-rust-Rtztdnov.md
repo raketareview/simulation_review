@@ -253,7 +253,7 @@ private final static List<Coordinates> SHIFT_COORDINATES = List.of{ new Coordina
 
   for(Coordinates shift: SHIFT_COORDINATES) {
     Coordinates neighbour = new Coordinates(column + shift.getColumn(), row + shift.getRow());
-    neighbours.add
+    neighbours.add(neighbour);
   }
 ```
 
