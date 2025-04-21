@@ -74,7 +74,7 @@ if (...) {
 return false;
 ```
 
-**5. Не старайся засунуть все в одну строку в ущерб читаемости кода**. Что происходит этом коде- совершенно непонятно, пока его не разложишь в нормальном виде
+**5. Не старайся засунуть все в одну строку в ущерб читаемости кода**. Что происходит в этом коде- совершенно непонятно, пока его не разложишь в нормальном виде
 ```
 if (worldMap.getEntitiesMap().get(target) instanceof Prey) {
   ((Prey) worldMap.getEntitiesMap().get(target)).takeDamage(getPower());
@@ -244,7 +244,7 @@ Coordinates neighbour1 = new Coordinates(column - 1, row - 1);
 neighbours.add(neighbour1);
 Coordinates neighbour2 = new Coordinates(column, row - 1);
 neighbours.add(neighbour2);
-//еще миллион таких правила
+//еще миллион таких пар
 
 //ПРАВИЛЬНО:
 private final static List<Coordinates> SHIFT_COORDINATES = List.of{ new Coordinates(0, 1), new Coordinates(1, 1), ...};
@@ -261,7 +261,7 @@ private final static List<Coordinates> SHIFT_COORDINATES = List.of{ new Coordina
 
 - Конструктор по конвенции всегда должен стоять выше остальных методов.
 
-- Что будет, если после получения повреждения, hp будет отрицательным? Что будет, если damage будет отрицательным?
+- Что будет, если после получения повреждения, hp будет отрицательным? Что будет, если в поле метода передадут отрицательный damage?
 ```
   public void takeDamage(int damage) {
     hp -= damage;
