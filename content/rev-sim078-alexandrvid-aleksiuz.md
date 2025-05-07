@@ -190,7 +190,7 @@ public List<Coordinates> start(Coordinates start, Entity target)
 У этого класса должен быть один публичный метод, который просто ищет путь от точки старта до точки, соответствующей условиям. Например, так:
 ```
 public List<Coordinates> getPatch(World world, Coordinates start, Class<? extends Entity> target) {...}
-``` 
+```
 
 Или так, если в качестве цели могут быть несколько разных классов
 ```
