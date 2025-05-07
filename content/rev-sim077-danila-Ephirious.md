@@ -407,7 +407,7 @@ public class DefaultEntityFactory implements EntityFactory {
   }
 }
 ```
-И далее инжектил бы эту фабрику в Комманду
+И далее инжектил бы эту фабрику в Команду
 ```
 EntityFactory entityFactory = new DefaultEntityFactory(simulationMap);
 List<Command> initCommands = List.of(
