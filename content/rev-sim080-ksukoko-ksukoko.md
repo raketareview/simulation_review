@@ -73,7 +73,7 @@ Coordinates[] Neighbours
 class staticObject
 ```
 
-- Название класса должно быть глаголом
+- Название класса должно быть существительным
 ```
 class Move implements Action
 
