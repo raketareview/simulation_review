@@ -88,7 +88,8 @@ class MoveAction implements Action
 
 Поля ниже методов- в классе `GameMap`.
 
-**3. Если в блоке if есть return**(break, continue, throw, exit и т.д.), то else не пишется - в этом случае неважно, будет else или нет, так как программа будет работать одинаково и код выглядит читабельней
+**3. Если в блоке if есть return**(break, continue, throw, exit и т.д.), то else не пишется.  
+В этом случае неважно, будет else или нет, так как программа будет работать одинаково и код без `else` будет выглядить читабельней
 ```
 if (!applicant.isEmpty()) {
   int randomIndex = random.nextInt(applicant.size());
