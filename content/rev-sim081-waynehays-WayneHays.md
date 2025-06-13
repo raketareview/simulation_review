@@ -212,7 +212,7 @@ public static void validatePositiveCount(int count) {
     throw new IllegalArgumentException(AMOUNT_NEGATIVE_TEMPLATE.formatted(count));
   }
 }
-``` 
+```
 
 **11. Пакет actions**
 
@@ -313,7 +313,7 @@ public Simulation(GameMap gameMap, Renderer renderer, List<Action> initActions, 
 Action передвижения существ передвигает существ по карте, как игрок шахматные фигуры на доске- сейчас это твоя концепция, ок.   
 Во время совершения хода нужно распечатывать сообщение о том, какое существо откуда и куда совершило ход.
 
-Делаем соответствующий экшен и внедряем в него обратный звонок.
+Делаем соответствующий экшен и внедряем в него обратный звонок
 ```
 public interface Action {
   void execute(GameMap gameMap);
