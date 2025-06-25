@@ -1,4 +1,4 @@
-https://github.com/ZloyPomidor/simulationJP/tree/master  
+https://github.com/ZloyPomidor/simulationJP  
 [FreedomНый]
 
 После первого рефакторинга. Стало лучше, но есть над чем поработать.  
