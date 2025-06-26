@@ -477,8 +477,8 @@ public class Main {
 Этот конструктор должен принимать необходимые зависимости, как минимум- экземпляр карты.  
 Примерно так
 ```
-public Simulation(Word word) {
-  this.word = word;
+public Simulation(World world) {
+  this.world = world;
 }
 ```
 
