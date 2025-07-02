@@ -265,10 +265,16 @@ private String getEntitySprite(Entity entity) {
 
 - Класс должен принимать в конструктор не ширину и высоту карты, а сам экземпляр карты
 ```
-public Simulation(int width, int height)
+public Simulation(int width, int height) {
+  worldMap = new WorldMap(width, height, new HashMap<>());
+  //...
+}
 
 //ПРАВИЛЬНО:
-public Simulation(WorldMap worldMap)
+public Simulation(WorldMap worldMap) {
+  this.worldMap = worldMap;
+  //...
+}
 ```
 Хочешь спросить, почему в этом случае не актуален паттерн "Creator"? 
 Потому что, если симуляция будет принимать размеры и потом по этим размерам создавать карту, то значит, что процесс создания экземпляра карты размазывается на два класса. 
