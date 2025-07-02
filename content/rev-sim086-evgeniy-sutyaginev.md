@@ -127,7 +127,7 @@ public void addEntity(Entity entity) {
 
 + 👍 Интерфейс поиска пути это хорошо. Теперь можно делать разные реализации поиска: BFS, AStar и т.д.
 
-+ 👍 Сигнатура поиска- лучше обычного. Благодаря предикату, существо потенциально может охотиться не на один класс существ, а на несколько.
++ 👍 Сигнатура поиска- лучше обычного. Благодаря предикату, существо потенциально может охотиться не на один класс существ, а на несколько
 ```
 List<Coordinate> findPathToNearest(Coordinate start, Predicate<Entity> targetCondition);
 ```
@@ -186,7 +186,7 @@ protected boolean isFood(Entity entity) {
   return entity instanceof Herbivore || entity instanceof Kolobok;
 }
 ```
-И тогда можно будет этоот метод передавать в аргументы поиска пути качестве предиката
+И тогда можно будет этот метод передавать в аргументы поиска пути в качестве предиката
 ```
 //ВМЕСТО:
 List<Coordinate> pathToTarget = pathFinder.findPathToNearest(getCoordinate(), getTargetPredicate());
@@ -241,15 +241,21 @@ private String getEntitySprite(Entity entity) {
 
 - Спрайты нужно сделать константами
 ```
-String sprite = switch (entity.getClass().getSimpleName()) {
-  case "Tree" -> "🌳";
-  //...
+private String getEntitySprite(Entity entity) {
+  String sprite = switch (entity.getClass().getSimpleName()) {
+    case "Tree" -> "🌳";
+    //...
+  }
 }
 
 //ПРАВИЛЬНО:
-String sprite = switch (entity.getClass().getSimpleName()) {
-  case "Tree" -> TREE;
-  //...
+private final static String TREE = "🌳";
+
+private String getEntitySprite(Entity entity) {
+  String sprite = switch (entity.getClass().getSimpleName()) {
+    case "Tree" -> TREE;
+    //...
+  }
 }
 ```
 
