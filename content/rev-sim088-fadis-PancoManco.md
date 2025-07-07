@@ -160,8 +160,8 @@ private static final int[][] DIRECTIONS = {
 
 //ПРАВИЛЬНО:
 private static final Coordinates[] DIRECTIONS = { 
-	new Coordinates(1, 0),  // движение вправо
-	//...
+  new Coordinates(1, 0),  // движение вправо
+  //...
 };
 ```
 
@@ -198,8 +198,8 @@ public abstract class Entity {
 }
 
 public class Grass extends Entity {
-	public Grass() {
-	}
+  public Grass() {
+  }
 }
 
 //ПРАВИЛЬНО:
@@ -315,13 +315,13 @@ public void makeMove(GameMap map) {
 В данном случае, ты просто забыл заприватить этот метод
 ```
 public class TurnActions implements Action {
-	//...
-	@Override
-	public void execute() {
-		makeIteration(map);
-	}
+  //...
+  @Override
+  public void execute() {
+    makeIteration(map);
+  }
 
-	public void makeIteration(GameMap map) {...}
+  public void makeIteration(GameMap map) {...}
 }
 
 //ПРАВИЛЬНО:
