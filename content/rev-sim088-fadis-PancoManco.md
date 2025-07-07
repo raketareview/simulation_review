@@ -81,7 +81,7 @@ Map<Coordinates, Entity> entities = new HashMap<>();
 
 Да, бывают ситуации, когда, например, с LinkedList нужно работать именно как с LinkedList, а не с List. Но это уже нюансы.
 
-**3. Нарушение DRY**, магические буквы, числа, слова. Вводи константы (1)
+**3. Нарушение DRY**, магические буквы, числа, слова. Вводи константы
 ```
 System.out.println("- Введите 'q' и нажмите Enter для выхода.");
 if (input.equals("q")) {...}
@@ -108,7 +108,7 @@ System.out.printf("Неизвестная команда. Для выхода н
 
 **5. class GameMap**
 
-- Карта не должна быть строго фиксированного размера- это делает карту неуниверсальной. 
+- Карта не должна создаваться только одного размера- это делает карту неуниверсальной. 
 Нужно ввести перегруженый конструктор, который позволит создавать карту произвольного размера
 ```
 public GameMap() {
@@ -158,7 +158,7 @@ private static final int[][] DIRECTIONS = {
   //...
 };
 
-//ПРАИВЛЬНО:
+//ПРАВИЛЬНО:
 private static final Coordinates[] DIRECTIONS = { 
 	new Coordinates(1, 0),  // движение вправо
 	//...
@@ -182,13 +182,10 @@ public List<Coordinates> getPatch(Карта карта, Coordinates start, Clas
 }
 ```
 
-- Зачем тут нужны препятствия- неясно. ????????????
-
-
 **7. Два отдельных пакета: Entities и Creatures**
 
 Не должно быть два отдельных пакета Entities и Creatures- потому что Creatures это и есть Entities. 
-Потому что Creature наследуется от Entiry.
+Потому что Creature наследуется от Entity.
 Креатуры могут находиться в отдельном от всех остальных энтити пакете, но этот пакет должен быть вложенным в пакет "entities"
 
 **8. abstract class Entity и его "простые" потомки Grass/Tree/Rock**
@@ -226,10 +223,10 @@ public class Herbivore extends Creature {
 }
 
 public class Predator extends Creature {
-	public Predator() {
-		this.health = 20;
-		this.speed = 2; 
-	}
+  public Predator() {
+    this.health = 20;
+    this.speed = 2; 
+  }
   //...
 }
 
@@ -249,7 +246,7 @@ public class Predator extends Creature {
   private final static HEALTH = 20;
   private final static SPEED = 2;
   
-	public Predator() {...}
+  public Predator() {...}
   //...
 }
 ```
@@ -260,7 +257,7 @@ public class Kolobok extends Creature {
   private final static HEALTH = 30;
   private final static SPEED = 3;
   
-	public Kolobok() {
+  public Kolobok() {
     this.health = HEALTH;
     this.speed = SPEED;
   }
@@ -302,7 +299,7 @@ public void makeMove(GameMap map) {
 
 **11. Пакет Actions**
 
-Внезапно: содержит файл ".gitignore". Этот файл не вялется экшеноми не должен находиться в данном пакете.
+Внезапно: содержит файл ".gitignore". Этот файл не явлется экшеном и не должен находиться в данном пакете.
 
 **12. class InitActions implements Action**
 
