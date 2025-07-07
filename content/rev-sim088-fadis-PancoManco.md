@@ -1,4 +1,4 @@
-https://github.com/PancoManco/SimulationConsole_secondProject.git  
+https://github.com/PancoManco/SimulationConsole_secondProject  
 [FADIS]
 
 В целом, неплохо.
