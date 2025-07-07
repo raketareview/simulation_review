@@ -336,9 +336,9 @@ private void makeIteration(GameMap map) {...}
 ```
 public String getSymbol(Entity entity) {
   if (entity == null)
-	  return " "; <-- НУЖНО БРОСИТЬ ИСКЛЮЧЕНИЕ
-	String symbol = entitySymbols.get(entity.getClass());
-	return symbol != null ? symbol : "?"; <-- ЕСЛИ NULL- НУЖНО БРОСИТЬ ИСКЛЮЧЕНИЕ
+    return " "; <-- НУЖНО БРОСИТЬ ИСКЛЮЧЕНИЕ
+  String symbol = entitySymbols.get(entity.getClass());
+  return symbol != null ? symbol : "?"; <-- ЕСЛИ NULL- НУЖНО БРОСИТЬ ИСКЛЮЧЕНИЕ
 }
 ```
 Потому что при добавлении нового существа в проект, можно забыть добавить его спрайт в распечатку.
