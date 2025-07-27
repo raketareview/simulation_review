@@ -483,7 +483,7 @@ private static int readSpeed(Scanner scanner, String prompt) {
   );
 }
 
-private static int readParameter(Scanner scanner, String prompt,String Constants.RIGHT_SPEED, int min, int max) {
+private static int readParameter(Scanner scanner, String prompt, String failMessage, int min, int max) {
   while (true) {
     int value = readInt(scanner, prompt);
     if (value >= min && value <= max) {
