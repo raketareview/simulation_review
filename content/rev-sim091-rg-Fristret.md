@@ -64,7 +64,7 @@ List<Coordinates> walk(GameMap gameMap, Creature creature)
 class CreateNewWorld
 ```
 
-- Избыточный контекст. Из сигнатуры мы видим, что символ берется из `Entity`
+- Избыточный контекст. Из сигнатуры мы видим, что символ берется по `Entity`
 ```
 String getEntitySymbol(Entity entity) {...}
 
