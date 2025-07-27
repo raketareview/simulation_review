@@ -535,8 +535,7 @@ public Entity(Coordinates coordinates) {
 
 **15. class Nothing extends Entity**, класс-заглушка для обозначения отсутствия Entity для геттера в Карте.
 
-- Заглушка, используется как что-то вроде паттерна `NullObject`. 
-
+Эта заглушка используется как что-то вроде паттерна `NullObject`. 
 В принципе, почему бы и нет. Но это несуществующее существо почему-то хранит координату
 ```
 public class Nothing extends Entity {
