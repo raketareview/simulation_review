@@ -344,13 +344,13 @@ public class Creature ... {
     return nearest;
   }
 
-  protected abstract List<Entity> getAllTargetCoordinates();
+  protected abstract List<Coordinates> getAllTargetCoordinates();
 }
 
 public class Herbivore ... {
   //...
   @Override
-  protected List<Entity> getAllTargetCoordinates() {
+  protected List<Coordinates> getAllTargetCoordinates() {
     return world.getGrass().keySet();
   }
 }
@@ -358,7 +358,7 @@ public class Herbivore ... {
 public class Predator ... {
   //...
   @Override
-  protected List<Entity> getAllTargetCoordinates() {
+  protected List<Coordinates> getAllTargetCoordinates() {
     return world.getHerbivore().keySet();
   }
 }
