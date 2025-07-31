@@ -5,7 +5,7 @@ https://github.com/Arsen0205/simulation
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
 
-Существа плохо ищут еду
+Существа плохо ищут еду  
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim092/img0.png)
 
 ## ХОРОШО
