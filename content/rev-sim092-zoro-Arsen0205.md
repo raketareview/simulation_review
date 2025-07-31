@@ -334,10 +334,10 @@ public class Creature ... {
     Coordinates nearest = null;
     int minDistance = Integer.MAX_VALUE;
 
-    for (Coordinates target : getAllTargetCoordinates()) {
-      int distance = coordinates.distanceTo(target);
+    for (Coordinates targetCoordinates : getAllTargetCoordinates()) {
+      int distance = coordinates.distanceTo(targetCoordinates);
       if (distance <= this.vision && distance < minDistance) {
-         nearest = target;
+         nearest = targetCoordinates;
          minDistance = distance;
       }
     }
