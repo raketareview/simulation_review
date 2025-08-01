@@ -252,7 +252,7 @@ public List<Coordinates> pathFinder(Location location, Class<? extends Creature>
 ```
 class Factory
 
-//ТУТ ПРАВИЛЬНО:
+//ПРАВИЛЬНО:
 class КонкретнаяПродукцияFactory
 ```
 
