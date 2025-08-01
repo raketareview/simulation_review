@@ -23,7 +23,7 @@ factory
 bfs
 ```
 
-- Эта пара обычно называется row/volumn
+- Эта пара обычно называется row/column
 ```
 public class Coordinates {
   private int line;
@@ -73,7 +73,7 @@ int turnCount = 1;
 System.out.println("Turn" + turnCount++);
 ```
 
-Правильный ответ 1, но при прочтении кода на лету отгадают не только лишь все. Поэтому лучше упрощать:
+Правильный ответ 1, но при прочтении кода на лету ответ отгадают не только лишь все. Поэтому лучше упрощать:
 ```
 System.out.println("Turn" + turnCount);
 turnCount++
@@ -84,7 +84,7 @@ turnCount++
 - Это должен быть простейший класс, который должен содержать только два числа, обозначающие положение точки на плоскости: x,y или row,column.
 Лучше даже, если этот класс будет record'ом.
 
-Здесь же класс отвечает не только за хранение координаты, но выполняет другие действия, тем самым нарушая SRP: проверяет координату на валидность для класса Карты и содержит в себе максимальные размеры Карты
+Здесь же класс отвечает не только за хранение координаты, но выполняет другие действия, тем самым нарушая SRP: проверяет координату на валидность для класса Карты и содержит в себе размеры Карты
 ```
 public class Coordinates {
   public static final int MAX_LINE = 10;  <-- ЭТО ПРОБЛЕМЫ КАРТЫ
@@ -106,10 +106,10 @@ public record Coordinates (int row, int column){
 }
 ```
 Record'ы по умолчанию умеют правильно делать `hashCode()`, `equals()` и `toString()`.  
-Единственный нюанс- record'ы immutable, а значит их значения только для чтения и сеттеры для них сделать невозможно.
+Единственный нюанс- record'ы immutable, а значит их значения могуть быть только для чтения и сеттеры для них сделать невозможно.
 Но это для координаты даже лучше- нет особых оснований делать поля координаты row и column изменяемыми.
 
-**5. class Location**, карта  симуляции
+**5. class Location**, карта симуляции
 
 Одна из самых компактных реализация Карты
 ```
@@ -126,7 +126,7 @@ public class Location {
 ```
 
 - Нарушение SRP. Карта здесь не отвечает за свои размеры, эту часть ее ответственности берет на себя Координата. 
-Координата хранит в себе в виде констант размеры карты и проверяет координаты на вхождение в карту.
+Координата хранит в себе в виде констант размеры карты и проверяет координаты на расположение в пределах карты.
 Методы `boolean isValid(Coordinates coordinates)` нужно переместить в карту.
 
 - Карта содержит в себе фиксированные размеры- которые, опять же, в виде констант хранятся не в ней, а в Координате. 
@@ -145,6 +145,15 @@ public class Location {
 public void addEntity(Coordinates coordinates, Entity entity) {
   entities.put(coordinates, entity);
 }
+
+//ПРАВИЛЬНО:
+public void addEntity(Coordinates coordinates, Entity entity) {
+  if( /*координата не находится в пределах карты*/) {
+    throw new ... //бросить исключение
+  }
+  entities.put(coordinates, entity);
+}
+
 ```
 Сейчас можно поместить существо на координату, которая находится за пределами карты.
 
@@ -163,7 +172,7 @@ public Entity getEntity(Coordinates coordinates) {
 - В целом, класс не содержит в себе ничего лишнего- и в этом смысле не нарушает принципа единой ответственности. 
 Но он нарушает SRP по-другому- часть своей ответственности он передал другим классам.
 
-Карта должна хранить в себе и выдавать свои размеры- без этой информации клиентскому коду будет невозможно пользоваться картой, а значит эти методы составляют часть ее SRP.  
+Карта должна хранить в себе и сообщать свои размеры- без этой информации клиентскому коду будет невозможно пользоваться картой, а значит эти методы составляют часть ее SRP.  
 Карта должна содержать в себе публичный метод, который будет проверять координату на ее вхождение в размеры карты.  
 Карта должна содержать в себе приватный метод валидации координаты- если координата не находится в пределах размеров карты, нужно кидать исключение. 
 Валидацию нужно проводить во всех методах, во входящие аргументы которых приходит координата.
@@ -222,8 +231,6 @@ public List<Coordinates> pathFinder(Location location, Class<? extends Creature>
 //ПРАВИЛЬНО:
 public List<Coordinates> pathFinder(Location location, Coordinates start, Class<? extends Entity> target) {
   //...
-  Class<? extends Entity> targetClass = Creature.getTarget(hunterClass);
-  //..
 }
 ```
 
@@ -326,7 +333,7 @@ public void spawnRock(Location location) {
 
 **8. class SpawnEntities implements Action**
 
-Нарушение DRY,дублирование кода, как и в прошлом примере.
+Нарушение DRY, дублирование кода как в прошлом примере.
 
 **9. abstract class Entity и его простые наследники Tree/Rock/Grass**
 
@@ -442,7 +449,7 @@ for (int line = Coordinates.MAX_LINE - 1; line >= 0; line--) {
 
 - В каждом switch-case должен быть default. Здесь в default нужно кидать исключение. 
 Потому что при добавлении нового существа в проект, можно забыть добавить его спрайт в распечатку.
-И тогда существо будет жить на карте своей жизнью, но мы этого не увидим- существо просто не распечатается и этот глюк будет выявлен далеко не сразу
+И тогда существо будет жить на карте своей жизнью, но мы этого не увидим- существо просто не распечатается и этот глюк будет выявлен далеко не сразу.
 
 - Геттер должен что-то возвращать
 ```
@@ -477,19 +484,17 @@ private final static String HERBIVORE = "\uD83D\uDC07";
 
 public void renderInConsole(Location location) {
   //...  
-  if (location.getEntity(coordinates) == null) {
+  if (location.isEmpty(coordinates)) {
     System.out.print(" . ");
   } else {
-    String sprite = getSprite(location, coordinates);
+    Entity entity = location.getEntity(coordinates);
+    String sprite = toSprite(entity);
     System.out.print(" " + sprite);
   }
   //...
 }
 
-private void getSprite(Location location, Coordinates coordinates) {
-  Entity entity = location.getEntity(coordinates);
-  //...
-
+private String toSprite(Entity entity) {
   return switch (entity.getClass().getSimpleName()) { <-- НОВАЯ УДОБНАЯ ФОРМА ЗАПИСИ
     case "Herbivore" -> HERBIVORE;
     case "Predator" -> PREDATOR;
@@ -509,7 +514,7 @@ private void creatureMove() {...}
 ```
 private final SpawnEntities spawnEntities = new SpawnEntities();
 ```
-Согласно ТЗ, в этом классе должны содержаться экшены, которые вызываются в начале старта симуляции или во время каждого хода.  
+Согласно ТЗ, в этом классе должны содержаться экшены, которые вызываются в начале старта симуляции и во время каждого хода.  
 Должно быть примерно так:
 ```
 private final List<Action> initActions = List.of(new ПервоначальноеЗаселениеКартыСуществамиAction());
