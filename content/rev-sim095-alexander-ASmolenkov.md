@@ -568,8 +568,7 @@ public void perform() {
   });
 }
 ```
-Не знаю, правда, зачем здесь `new HashMap<>()`, возможно только для того, чтобы запутать читателя.
-Вот так было бы понятнее:
+Не знаю, правда, зачем здесь `new HashMap<>()`, вот так было бы понятнее:
 ```
 Map<Coordinates, Entity> entities = mapWorld.getEntityPositionMap();
 entities.forEach((coordinate, entity) -> {
