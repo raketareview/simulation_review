@@ -104,7 +104,7 @@ public interface GameMap {
 **6. class GameMapImpl implements GameMap**
 
 - Назвать класс по принципу ИмяИнтерфейсаImpl это самый ленивый вариант. 
-В данном случае лучше в названии класса нужно отразить его внутреннюю суть- хранение данных в хешмапе: HashGameMap. 
+В данном случае в названии класса лучше отразить его внутреннюю суть- хранение данных в хешмапе: HashGameMap. 
 Потому что может быть другая реализация интерфейса- на основе не хешмапы, а массива.
 
 - Нарушение инкапсуляции. Свои собственные размеры карта не хранит в себе, а берет из констант стороннего класса
@@ -125,7 +125,7 @@ for (int y = 0; y < Simulation.HORIZONTAL_BOUND; y++) {
 }
 ```
 
-- Карта не должна проводить быть заполнена "пустыми записями, которые хранят соотношение координата-null. 
+- Карта не должна быть заполнена "пустыми записями", которые хранят соотношение координата-null. 
 Иначе теряется все преимущество, которое дает HashMap для хранения сущностей
 ```
 map.put(new Coordinate(x, y), null);
@@ -152,7 +152,7 @@ public Entity getEntity(Coordinate coordinate) {
 *Мартин, "Чистый код", гл.7.7-8*  
 *Ютуб, Немчинский "Почему нельзя возвращать NULL?"*
 
-- При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность. (2 - своб.ячейка)
+- При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность.  
 Если координата некорректна(находится вне пределов карты), нужно бросать исключение
 ```
 public boolean contains(Coordinate coordinate) {
@@ -264,7 +264,7 @@ List<Coordinate> path = switch (creature) {
 List<Coordinate> path = searchService.search(coordinate, creature.getFood()); //или .getTarget();
 ```
 
-- Этот Action не соответствует идея Action'ов, изложенных в ТЗ. 
+- Этот Action не соответствует идее Action'ов, изложенных в ТЗ. 
 Потому что этот Action не самодостаточен. Он подготавливает путь, но не выполняет движения. 
 А значит, одно действие,- движение существ,- выполняют два экшена, которые функционально зависят друг от друга.
 Эти два экшена нужно совместить в один.
@@ -305,15 +305,7 @@ class MoveAction реализует Action {
 ```
 public class SpawnAction extends Action {
   private final static int КОЛИЧЕСТВО_ТРАВЫ = 10;
-  
   //...  
-  private final Supplier<Entity> entitySupplier;
-  private final int amount;
-
-  public SpawnAction(Supplier<Entity> entitySupplier, int amount) {
-    this.entitySupplier = entitySupplier;
-    this.amount = amount;
-  }
 
   @Override
   public void execute(Карта карта) {
@@ -364,7 +356,6 @@ case Prey -> System.out.print("\uD83D\uDC07");
 case "p":
 case "h":
 System.out.println("Unknown command: '" + input + "'. Type 'h' for help.");
-break;
 System.out.println("Controls: [ENTER/p] = pause/resume, [q] = quit, [h] = help");
 
 //ПРАВИЛЬНО:
@@ -375,7 +366,6 @@ private final static String HELP = "h";
 case PAUSE:
 case HELP:
 System.out.printf("Unknown command: '%s'. Type '%s' for help.", input, HELP);
-break;
 System.out.printf("Controls: [ENTER/%s] = pause/resume, [%s] = quit, [%s] = help", PAUSE, QUIT, HELP);
 ```
 *Фаулер, "Рефакторинг", гл.8, "Замена магического числа символической константой"*  
@@ -385,7 +375,7 @@ System.out.printf("Controls: [ENTER/%s] = pause/resume, [%s] = quit, [%s] = help
 Сейчас карта создается с фиксированными размерами, которые хранятся в константах Simulation.
 Значит, нельзя создать в виде отдельных Main'ов разные конфигурации игры с рзными разными размерами карт.
 
-- Нарушение DI. Раз в проекте есть разные интерфейсы(которые вообщето вводить было необязательно), типа `Renderer`, 
+- Нарушение DI. Раз в проекте есть разные интерфейсы(которые вообще-то вводить было необязательно), типа `Renderer`, 
 то Simulation должен получать их в конструктор, а не самостоятельно устанавливать, как это сделано сейчас:
 ```
 GameMapImpl map = new GameMapImpl();
@@ -395,7 +385,8 @@ ConsoleRenderer consoleRenderer = new ConsoleRenderer(map);
 ## АРХИТЕКТУРА
 
 ООП здесь часто является карго-культом: интерфейсы не несут полезной нагрузки, а существуют просто для красоты.
-В программе есть полезные интерфейсы: `Renderer`, `GameMap` и другие. 
+
+В программе есть полезные интерфейсы: `Renderer`, `GameMap` и другие.  
 Эти интерфейсы *потенциально* полезны тем, что можно делать их разные реализации и подставлять в проект. 
 Например, рендерер эмодзи и рендерер, где существа это буквы.
 
