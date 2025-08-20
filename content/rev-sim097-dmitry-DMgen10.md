@@ -501,7 +501,7 @@ public Simulation(SimulationConfig config) {
 public class Main {
   public static void main(String[] args) throws InterruptedException {
     SettingsProvider settingsProvider = DefaultSettingsProvider();
-    SimulationConfig config = settingsProvider()
+    SimulationConfig config = settingsProvider.getConfig();
 
     Simulation simulation = new Simulation(config);
     simulation.start();
