@@ -49,7 +49,6 @@ Action newActionTool
 //ПРАВИЛЬНО:
 Action action
 ```
-
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
 *Ютуб, Немчинский "Как называть переменные, методы и классы?"*  
