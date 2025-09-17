@@ -517,7 +517,7 @@ public class Main001 {
 
 public class Coordinates бла-бла {
   //...
-  public Coordinates(int x, int y) {...}  <-- ПЕРВЫМ В АРГУМЕНТАХ СТОИТЬ ОСЬ X
+  public Coordinates(int x, int y) {...}  <-- ПЕРВЫМ В АРГУМЕНТАХ СТОИТ ОСЬ X
 }
 ```
 
