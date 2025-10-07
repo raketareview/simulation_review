@@ -677,7 +677,7 @@ public class ColorConsoleMessagePrinter extends MessagePrinter {
 }
 
 public enum Color {
-   DEFAULT(""\u001B[0m")") 
+   DEFAULT("\u001B[0m")") 
    RED("\u001B[31m"),
    //oth's color
 
