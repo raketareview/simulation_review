@@ -49,9 +49,10 @@ private final Map<Coordinate, Entity> map = new HashMap<>();
 private final Map<Coordinate, Entity> entities = new HashMap<>(); 
 ```
 
-- Если в названии имеется союз "and", значит метод делает больше одного дела сразу- такой метод нужно разделить на несколько. Методы должны делать только одно дело
+- Если в названии имеется союз "and" или "or", значит метод делает больше одного дела сразу- такой метод нужно разделить на несколько. Методы должны делать только одно дело
 ```
 void insertGrassOrHerbivore(int number)
+void counterGrassAndHerbivore()
 ```
 
 - Метод, который что-то проверяет, должен вернуть результат своей проверки в виде boolean.
@@ -103,7 +104,7 @@ protected void performAction(MapEntity map, Coordinate target) {
 Map<Coordinate, Entity> map1 = map.getMap();
 ```
 
-- Кстати, вот пример путаницы, когда переменные разного типа называются одинаково
+- Кстати, вот пример путаницы, когда переменные разного типа называются одинаково: map, map1
 ```
 public void perform(MapEntity map) {
   Map<Coordinate, Entity> map1 = map.getMap();
@@ -170,7 +171,7 @@ public void createDefaultMap() {
 ```
 Для начальной инициализации класса специально придуманы конструкторы. 
 
-Использование вместо коснтрукторов инициализационных методов приводит к тому, что правила использования такого класса заметно усложняются.
+Использование вместо контрукторов инициализационных методов приводит к тому, что правила использования такого класса заметно усложняются.
 Потому что клиенту нужно знать, что недостаточно просто создать объект, его нужно еще проинициализировать путем вызова специального метода.
 
 - Карта содержит в себе фиксированные размеры, поэтому становится не универсальной
@@ -184,7 +185,7 @@ private static final int DEFAULT_SIZE_BY_Y = 10;
 Фиксированные размеры могут быть у шахматной доски(8x8) или игры крестики-нолики(3x3).  
 Здесь размеры должны приниматься в конструктор, чтобы можно было создавать карту произвольных размеров.
 
-Если хочется иметь возможность простого создания карты с дефолтными координатами, нужно делать не один конструктор, а два.  
+Если хочется иметь возможность простого создания карты с дефолтными размерами, нужно делать не один конструктор, а два.  
 Например, так:
 ```
 public MapEntity() {
@@ -211,7 +212,7 @@ public MapEntity(int width, int height) {
 Методы чужих ответственностей должны находиться в тех классах, в интересах которых они работают.
 Если один и тот же метод используют разные классы, то метод нужно вынести в отдельный класс, например, BoardUtils.
 
-- Неправильное использование Хэшмапы для хранения существ. 
+- Неправильное использование хэшмапы для хранения существ. 
 
 Карта не должна хранить запись координата-null, то есть пустые ячейки. 
 Иначе теряется  все преимущество, которое дает HashMap для хранения сущностей
@@ -452,7 +453,7 @@ public interface Action {
 
 **12. class InitializationAction implements Action**
 
-В этом классе должно происхлдить создание и заселение существ на карту, а не делегирование этого функционала самой карте
+В этом классе должно происходить создание и заселение существ на карту, а не делегирование этого функционала самой карте
 ```
 @Override
 public void perform(MapEntity map) {
@@ -553,7 +554,7 @@ public class MainOne {
   public static void main(String[] args) {
     MapEntity mapEntity = new MapEntity(10, 10);
     Renderer renderer = new ConsoleEmojiRenderer();
-    Simulation simulation = new Simulation(mapEntity, mapEntity);
+    Simulation simulation = new Simulation(mapEntity, renderer);
     //...
   }
 }
@@ -563,7 +564,7 @@ public class MainTwo {
   public static void main(String[] args) {
     MapEntity mapEntity = new MapEntity(25, 25);
     Renderer renderer = new ConsoleMonochromeTextRenderer();
-    Simulation simulation = new Simulation(mapEntity, mapEntity);
+    Simulation simulation = new Simulation(mapEntity, renderer);
     //...
   }
 }
