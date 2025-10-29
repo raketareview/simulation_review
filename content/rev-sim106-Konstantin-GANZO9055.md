@@ -1,5 +1,5 @@
 https://github.com/GANZO9055/simulation  
-[Konsantin]
+[Konstantin]
 
 В целом, удручающе.
 
