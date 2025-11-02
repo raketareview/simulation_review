@@ -80,7 +80,7 @@ if (firstDiff == secondDiff) {
 return -1;
 ```
 
-**3. Нарушение DRY**, магические буквы, числа, слова. Вводи константый
+**3. Нарушение DRY**, магические буквы, числа, слова. Вводи константы
 ```
 public void startInfinitySimulation() {
   //...
@@ -141,17 +141,14 @@ private final Map<Entity, Cell> entityCellGameMap = new HashMap<>();
 - При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность. 
 Если координата некорректна(находится вне пределов карты), нужно бросать исключение
 ```
-private boolean isAtBorder(Cell cell) {
-  if (cell.row() >= 1 && cell.row() <= mapHeight) {
-    if (cell.column() >= 1 && cell.column() <= mapWidth) {
-      return true;
-    }
+public void placeEntity(Cell cell, Entity entity) {
+  if (cellEntityGameMap.containsKey(cell)) {  <-- ПРОВЕРЯЕТ, ЧТО ЯЧЕЙКА НЕ ПУСТАЯ, НО НЕ ПРОВЕРЯЕТ ЧТО ОНА В ПРЕДЕЛАХ КАРТЫ
+    throw new IllegalStateException("Cell already taken");
   }
-  return false;
+  cellEntityGameMap.put(cell, entity);
+  entityCellGameMap.put(entity, cell);
 }
 ```
-Сейчас, если у карты спросить, свободна ли ячейка с координатой (+100500, -100500), то карта скажет, что свободна. 
-А правильный ответ- такой координаты в карте вообще нет.
 
 - Координаты в карте должны начинаться с точки 0,0 а не 1,1
 ```
@@ -222,7 +219,7 @@ List<Cell> getPath(Cell target);
 ```
 На самом деле поиск пути должен сам искать цель и прокладывать к ней путь. Сигнатура метода для этого должна выглядеть примерно так
 ```
-List<Cell> getPath(GameMap gameMap, Cell start, Class<? extends Entity> target); {
+List<Cell> getPath(GameMap gameMap, Cell start, Class<? extends Entity> target) {
   //ищет путь на карте от точки start
   //до точки, где находится существо нужного класса(напр. target == Grass.class)
 }
@@ -246,11 +243,11 @@ public Bfs(Cell creaturePosition, GameMap gameMap, GameMapUtils gameMapUtils) {
 }
 ```
 
-- Для BFS поиска не нужно знать координату цели. 
-Этот поиск ищет первую попавшуюся ячейку с подходящим существом, а не прокладывает путь к какой-то конкретной ячейке
+- Для BFS поиска не нужно знать координату цели, а сейчас метод поиска зачем-то требует координаты цели:
 ```
 public List<Cell> getPath(Cell target)
 ```
+Алгоритм BFS должен искать первую попавшуюся ячейку с подходящим существом, а не прокладывать путь к какой-то конкретной ячейке.
 
 - Мапа координата-координата обычно при реализации поиска используется как эрзац-заменитель связного списка
 ```
