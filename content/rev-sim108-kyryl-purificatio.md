@@ -174,8 +174,8 @@ public Map<Cell, Entity> getCellEntityGameMap() {
 Теперь можно вызвать из карты метод хода и телепортировать зайца из одного края в другой минуя все правила игровой логистики
 ```
 Карта карта = new Карта(100, 100);
-карта.putEntity(new Coordinates(0, 0), new Заяц());
-карта.moveEntity(new Coordinates(0, 0), new Coordinates(99, 99));
+карта.placeEntity(new Координата(0, 0), new Заяц());
+карта.moveEntity(new Координата(0, 0), new Координата(99, 99));
 
 /* class Карта */
 public void moveEntity(Cell from, Cell to) {
@@ -338,13 +338,14 @@ public Predator() {
 }
 
 //ПРАВИЛЬНО:
+private static final List<Class<? extends Entity>> FOODS = List.of(Herbivore.class);
 private int damage;
 
 public Predator() {
   super(
     DEFAULT_PREDATOR_HEALTH_POINTS,
     DEFAULT_PREDATOR_STEP_LENGTH,
-    List.of(EntityType.HERBIVORE) // List.of(Herbivore.class)
+    FOODS
   )  
   this.damage = DEFAULT_PREDATOR_DAMAGE;
 }
@@ -392,10 +393,10 @@ List<Cell> temp = new ArrayList<>(cells);
 Сейчас логика, которая выполняет передвижение существ, разделена на три класса: этот, Creature `makeMove(...)` и GameMap `moveEntity(...)`.
 
 Эта логика должна лежать либо в самой креатуре и быть реализована в его методе `makeMove(...)`.  
-И тогда креатура интерпритируется как сущность с собственной волей.
+И тогда креатура интерпретируется как сущность с собственной волей.
 
 Либо находиться в отдельном классе, например `MoveCreaturesAction`, но тогда в самой креатуре не должно быть `makeMove(...)`.
-И сущность будет интерпритироваться как сущность без собственной воли, как фигура в шахматах, которую передвигает кто-то еще.
+И сущность будет интерпретироваться как сущность без собственной воли, как фигура в шахматах, которую передвигает кто-то еще.
 
 Если логика передвижения находится в Creature, то мувер должен только инициализировать движение.  
 Например, так:
@@ -418,7 +419,7 @@ class MoveAction реализует Action {
 
 **17. interface UserInput**
 
-Лучше сделай интерфейс универсального инпутера и его реализации для конкретного типа данных 
+Лучше сделай интерфейс универсального инпутера и отдельные его реализации для конкретного типа данных 
 ```
 public interface UserInput {
   int getInteger() throws IOException;
@@ -465,7 +466,7 @@ public int getInteger()  {  <-- НЕТ МУСОРА В СИГНАТУРЕ
 ```
 *"ЧК", гл.7, "...проверяемые исключения"*
 
-- Нарушение DRY
+- Нарушение DRY. Одинаковые сообщения сделай константой
 ```
 public int getInteger() throws IOException {
   //...  
