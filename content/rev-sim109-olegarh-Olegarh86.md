@@ -325,7 +325,7 @@ public class Settings {
   public static final int ROOM_NUMBERS = 5;
 }
 
-ПЛОХО:
+//ПЛОХО:
 public static void main(String[] args) {
   House house = new House();
   //oth code
@@ -372,7 +372,7 @@ public class Settings {
   }
 }
 
-ПЛОХО:
+//ПЛОХО:
 public static void main(String[] args) {
   House house = new House(new Settings());
   //oth code
@@ -468,9 +468,7 @@ List<Coordinate> wayToTarget = new ArrayList<>();
 Collections.reverse(wayToTarget);
 ```
 
-- Алгоритм реализован неправильно. Он работает(возможно), но внутренее устройство его какое-то странное
-
-Вот и разгадка предыдущего замечания.
+- Алгоритм реализован неправильно. Он работает, но внутренее устройство его какое-то странное
 
 Сначала происходит поиск цели, результатом поиска является координата, где была найдена цель-существо нужного класса (#1)  
 Далее вызывается метод, который по этой координате как-то хитро находит путь (#2)
@@ -501,7 +499,7 @@ public List<Coordinate> findWayToTarget(...) {
 
 **12. class Herbivore/Predator extends Creature**
 
-Концеgция препятствий непонятна. Получается, что препятствием является все, что не еда
+Из кода получается, что препятствием является всё, что не еда
 ```
 //ВОЛК
 private static final Class<? extends Entity> TARGET = Herbivore.class;
@@ -511,7 +509,8 @@ private static final List<Class<? extends Entity>> OBSTACLES = List.of(Rock.clas
 private static final Class<? extends Entity> TARGET = Grass.class;
 private static final List<Class<? extends Entity>> OBSTACLES = List.of(Rock.class, Tree.class, Herbivore.class, Predator.class);
 ```
-Это вполне логично. Но зачем делать специальный список с перечислением всех, кто не еда- не ясно.
+Вполне логично, считать препятствием всё, что не еда.  
+Но зачем делать специальный список с перечислением всех, кто не еда- не ясно.
 В таком случае проще сделать алгоритм поиска, который будет считать препятствием любое существо, кроме класса-цели(то есть еды).
 
 А сейчас при такой реализации эти классы нарушают принцип открытости/закрытости- сейчас они открыты для изменений.  
