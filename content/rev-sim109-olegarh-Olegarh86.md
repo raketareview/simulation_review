@@ -363,7 +363,7 @@ public class House {
 ```
 
 ```
-#2:
+//#2:
 public class Settings {
   private final static int ROOM_NUMBERS = 5;
 
