@@ -66,7 +66,7 @@ public List<Node> bfs(Node start, Node goal, Field field)
 public List<Node> findPath(Node start, Node goal, Field field)
 ```
 
-- Почему `myCoordinates`, но не `mySpeed`?
+- Почему `myCoordinates`, но не `mySpeed`? Придерживайся единообразия
 ```
 Creature(Coordinates myCoordinates, int speed, int hp)
 
@@ -171,8 +171,12 @@ public Map<Coordinates, Entity> entities = new HashMap<>();
 Общее правило: ArrayList нужно использовать через List, HashMap- через Map и т.д.  
 Это позволяет пользоваться преимуществами полиморфизма.
 
-Да, бывают ситуации, когда, например, с LinkedList нужно работать именно как с LinkedList, а не с List. Но это уже нюансы.  
-*Блох, "Java эффективное программирование" гл.9.8*
+Да, бывают ситуации, когда, например, с LinkedList нужно работать именно как с LinkedList, а не с List. 
+Но это уже нюансы
+```
+"Если вы выработаете привычку использовать в качестве типов интерфейсы, ваша программа будет гораздо более гибкой" - Блох.
+```
+*"Java. Эффективное программирование" гл.9.8*
 
 **4. Нарушение конвенции кода**
 
