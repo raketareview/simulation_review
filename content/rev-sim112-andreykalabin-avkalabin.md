@@ -5,9 +5,8 @@ https://github.com/avkalabin/simulation
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ  
 
-1. Карта распечатывается неровно  
+1. Карта распечатывается неровно, нужно подобрать спрайты одинаковой ширины  
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim112/img0.png)  
-Нужно подобрать спрайты одинаковой ширины.
 
 ## ХОРОШО
 
