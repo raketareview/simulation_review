@@ -28,7 +28,7 @@ class InteractionService implements IIteractionService
 
 //ПРАВИЛЬНО:
 interface IteractionService
-class InteractionServiceImp implements IteractionService
+class IteractionServiceImp implements IteractionService
 ```
 Писать названия интерфейсов через "I" требуется делать в некоторых других языках, например, в C#.  
 В яве названия интерфейсов пишут либо с постфиксом "able", например Runnable. Либо просто называют существительным, например List.
@@ -55,11 +55,11 @@ Map<Coordinates, Entity> entities = new HashMap<>();
 Это позволяет пользоваться преимуществами полиморфизма.
 
 Да, бывают ситуации, когда, например, с LinkedList нужно работать именно как с LinkedList, а не с List. 
-Но это уже нюансы
+Но это уже нюансы.  
+*"Java. Эффективное программирование" гл.9.8*
 ```
 "Если вы выработаете привычку использовать в качестве типов интерфейсы, ваша программа будет гораздо более гибкой" - Блох.
 ```
-*"Java. Эффективное программирование" гл.9.8*
 
 **3. Не используй статические импорты**
 
@@ -135,7 +135,7 @@ public void removeEntity(Coordinates coordinates) {
 Ок, сервисы, так сервисы.  
 Но классы-сервисы должны представлять из себя бизнес-логику работы с данными. 
 Сервисы не должны ничего печатать в консоль или куда-то еще. 
-То есть, сервисы не должны зависить от представления
+То есть, сервисы не должны зависеть от представления
 ```
 public class InteractionService implements IIteractionService {
   @Override
@@ -155,9 +155,9 @@ public class InteractionService implements IIteractionService {
 
 **7. interface IIteractionService**
 
-Нарушение ISP, интерфейс Зайцеволка.
+Нарушение ISP, интерфейс Волкозайца.
 
-функционал интерфейса относится к двум разным явлениям: Волку и Зайцу
+Функционал интерфейса относится к двум разным явлениям: Волку и Зайцу
 ```
 public interface IIteractionService {
   void attack(WorldMap map, Coordinates attackerPosition, Coordinates targetPosition);  <-- ДЛЯ ВОЛКА
@@ -206,7 +206,7 @@ Optional<Coordinates> findTarget(WorldMap map, Coordinates from, int range, Clas
 ```
 Но выносить этот метод в интерфейс точно не надо.
 
-Во-первых потому, что этот метод является вспомогательным для `findTarget(...)` и представляет из себя подробности его внутренней организации.
+Во-первых потому, что этот метод является вспомогательным для `findTarget(...)` и представляет из себя подробность его внутренней организации.
 А значит, метод `findTarget(...)` должен быть приватным и находиться в классе *конкретной реализации поиска*, а не в общем интерфейсе.
 
 Во-вторых, не для всех алгоритмов поиска вообще нужно сначала искать координату цели, а потом прокладывать к ней путь.  
@@ -215,7 +215,7 @@ Optional<Coordinates> findTarget(WorldMap map, Coordinates from, int range, Clas
 Теоретически, раз существует специальный интерфейс `INavigationService`, то у него могут быть разные реализации с разными алгоритмами поиска.  
 Значит, этот интерфейс должен содержать только общие абстракции, а не методы, которые описывают особенности отдельных поисковых алгоритмов. 
 
-И тогда общий интерфейс должен выглядеть как-то так
+Общий интерфейс должен выглядеть как-то так:
 ```
 public interface INavigationService {
   List<Coordinate> findPath(WorldMap map, Coordinates start, Class<? extends Entity> target, int speed);
@@ -226,7 +226,7 @@ public interface INavigationService {
 **9. class InteractionService implements IIteractionService**
 
 - Нарушение SRP 
-  - Реализует процесс еды Зайцеволка, проблема проистекает из имплементируемого интерфейса
+  - Реализует процесс еды Волкозайца, проблема проистекает из имплементируемого интерфейса
   - Зависит от представления
 
 - Мысли объектно 
