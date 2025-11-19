@@ -35,10 +35,10 @@ class IteractionServiceImp implements IteractionService
 
 - Названия переменных пишутся с маленькой
 ```
-IAction IAction
+for (IAction IAction : turnIActions) 
 
 //ПРАВИЛЬНО:
-IAction action
+for (IAction action : turnIActions) 
 ```
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
