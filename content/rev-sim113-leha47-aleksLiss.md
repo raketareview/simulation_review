@@ -196,7 +196,7 @@ simulationMap.putIntoMap(coords, new Predator());
 
 - Неиммутабельный класс
 
-Объект является изменяемым - в классе есть сеттеры.
+Объект является изменяемым - в классе есть сеттеры.  
 Предпочтительнее этот класс сделать иммутабельным.
 
 - Класс может быть преобразован в record без потери функционала. Но при этом он станет иммутабельным.
@@ -226,7 +226,7 @@ public List<Coords> getPredatorsCoordsList() {...}
 public List<Coords> getGrassesCoordsList() {...}
 
 //ПРАВИЛЬНО:
-public List<Coords> getAllEntityCoordinatesBy(Class<? extends Entity> clazz)  //вернуть координаты существ определенного класса 
+public List<Coords> getEntitiesCoordinatesBy(Class<? extends Entity> clazz)  //вернуть координаты существ определенного класса 
 ```
 
 Здесь тоже какая-то логика, рассчитанная на знание конкретных типов существ и особенностей взаимодествия с ними:
