@@ -27,7 +27,7 @@ class Coordinates
 ```
 
 - Для избежания путаницы не называй пакеты, классы, интерфейсы так же, как называются классы и интерфейсы стандартной библиотеки.
-Есть стандартный интерфейсы `Set` и `Map`, не должно быть кастомных пакетов с таким же названием
+Есть стандартные интерфейсы `Set` и `Map`, не должно быть кастомных пакетов с таким же названием
 ```
 package ru.simulation.app.action.set;
 package ru.simulation.app.map;
@@ -121,12 +121,10 @@ List<Coords> staticEntities
 ```
 class CalculatePath
 class AddGrass
-class CheckCountObjects
 
 //ПРАВИЛЬНО:
 class PathFinder
-class GrassSpawner
-class EntityCounter
+class GrassSpawnAction
 ```
 
 - Придерживайся единообразия. Названия пакетов делай либо в единственном, либо во множественном числе
@@ -143,11 +141,11 @@ public class RandomCoordinates {
 
 //ПРАВИЛЬНО:
 public class RandomCoordinatesFactory {
-  public static Coords get(int size) {...}
+  public static Coords get(int max) {...}
 }
 ```
 
-- Не дублируй имя класа в названии его метода
+- Не дублируй имя класса в названии его метода
 ```
 public interface Action {
   void doAction();
@@ -165,8 +163,8 @@ public interface Action {
 
 **2. Кривое форматирование**
 
-Приоритет- читаемость кода. Не стремись засунуть несколько инструкций в одну. 
-Особенно, когда инструкция получается такой длинной, что ее хочется написать в несколько строк
+Приоритет- читаемость кода. Не стремись засунуть несколько инструкций в одну.  
+Особенно, когда эта инструкция получается такой длинной, что ее хочется написать в несколько строк
 ```
 simulationMap.putIntoMap(
   RandomCoordinates.getRandomCoordinate(simulationMap.getSize()), new Predator());
