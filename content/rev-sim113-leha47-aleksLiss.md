@@ -226,7 +226,7 @@ public List<Coords> getPredatorsCoordsList() {...}
 public List<Coords> getGrassesCoordsList() {...}
 
 //ПРАВИЛЬНО:
-public List<Coords> getEntitiesCoordinatesBy(Class<? extends Entity> clazz)  //вернуть координаты существ определенного класса 
+public List<Coords> getAllCoordinatesBy(Class<? extends Entity> clazz)  //вернуть координаты существ определенного класса 
 ```
 
 Здесь тоже какая-то логика, рассчитанная на знание конкретных типов существ и особенностей взаимодествия с ними:
