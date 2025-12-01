@@ -727,7 +727,8 @@ spawnEntities(() -> new Rock(), ROCK_NUMBER);
 
 private void spawnEntities(Supplier<AbstractEntity> supplier, int number) {
   for (int i = 0; i < number; i++) {
-    spawnRandomEntity(supplier.get());
+    AbstractEntity entity = supplier.get();
+    spawnRandomEntity(entity);
   }
 }
 ```
@@ -749,7 +750,7 @@ if (isНазваниеКотороеВсеОбъясняет()) {...}
 Потому что это никуда не годится.
 
 Например, есть метод поиска и класс поиска. 
-Они друг с другом никак не связаны, класс не имплементирует интерфейс
+Они друг с другом никак не связаны, класс не имплементирует интерфейс:
 ```java
 public interface IFind<Coordinates, EntityType> {
   Queue<Coordinates> find(Coordinates coordinates, EntityType entityType);
@@ -777,7 +778,7 @@ private Queue<Coordinates> FindEntity(Coordinates start, EntityType type) {
 }
 ```
 
-Интерфейсы для выполнения этой задачи должны использоваться вот так:
+На самом деле интерфейсы для выполнения этой задачи правильно должны использоваться вот так:
 
 Создаем интерфейс и его реализации
 ```java
@@ -815,8 +816,8 @@ Creature creature = new Заяц(pathFinder, ...);
 ## ВЫВОД
 
 Есть простейшие нарушения конвенции кода, которые сильно мешают читать код.  
-Превым делом нужно почитать *Oracle Java code conventions*.  
-Без этоого вообще нельзя никуда дальше ехать.
+Первым делом нужно почитать *Oracle Java code conventions*.  
+Без этого вообще нельзя никуда дальше ехать.
 
 Видно непонимание ООП на базовом уровне: зачем нужны инкапсуляция, конструкторы и сеттеры, как строить иерархию наследования,
 как использовать дженерики и т.д. 
