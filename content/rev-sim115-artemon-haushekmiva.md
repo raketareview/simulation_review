@@ -38,6 +38,19 @@ private Map<Entity, Coordinates> coordinates = new HashMap<>(); //или: coordi
 ```java
 class Render
 ```
+
+- Только конструктор класса может называться так же, как сам класс. 
+Остальные методы должны называться по-другому хотя бы потому, что название класса должно быть существительным, а метода- глаголом
+```java
+public class Render {
+  public static void render(...) 
+}
+
+//ПРАВИЛЬНО:
+public class Renderer {
+  public static void render(...) 
+}
+```
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
 *Ютуб, Немчинский "Как называть переменные, методы и классы?"*
