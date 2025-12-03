@@ -833,6 +833,3 @@ Creature creature = new Заяц(pathFinder, ...);
 
 n.114(261)  
 #ревью #симуляция 
-
-
-
