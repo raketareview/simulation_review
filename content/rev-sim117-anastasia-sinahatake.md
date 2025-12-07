@@ -582,7 +582,7 @@ private final static int RESPAWN_LEVEL = 0;
 
 private final List<Action> turnActions = List.of(
   new MoveAllCreaturesAction(),
-  new RespawnAction(Grass.class, RESPAWN_LEVEL, Grass::new),
+  new RespawnAction(Grass.class, RESPAWN_LEVEL, Grass::new, 5),
   new RespawnAction(Tree.class,  RESPAWN_LEVEL, Tree::new, 5),
   //...  
 );
