@@ -603,7 +603,7 @@ public class CreationEntity extends Action {
 }
 ```
 
-**13. public class Render**
+**13. class Render**
 
 Печатает не только карту, но и разные тексты. 
 В принципе, почему бы и нет.
