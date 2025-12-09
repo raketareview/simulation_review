@@ -9,7 +9,7 @@ https://github.com/Kirillzhukov737/simulation
 Не слышал, чтобы в реальности тигры охотились на слонов. 
 
 2. Хищники на протяжении десятков ходов никак не могут догнать и съесть травоядных, все время отставая от них на шаг  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim112/img0.png) 
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim119/img0.png) 
 
 ## ХОРОШО
 
