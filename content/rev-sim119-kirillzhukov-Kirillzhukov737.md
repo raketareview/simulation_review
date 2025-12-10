@@ -48,7 +48,7 @@ class BfsPathFinding
 ```
 Тогда сразу видно, где заканчивается одно слово и начинается другое, например: HTTPURL и HttpUrl.
 
-- Лучше называть сущности более персонализировано. Примеры: `Reader`, а не Reading; `Manager`, а Menagement; `Renderer`, а не Rendering
+- Лучше называть сущности более персонализировано. Примеры: Reader, а не Reading; Manager, а Menagement; Renderer, а не Rendering
 ```java
 class BFSPathFinding
 
