@@ -301,7 +301,7 @@ public class Rock extends Entity implements PassiveObject, Obstacle {
   public Rock(Coordinate coordinate) {...}
 }
 ```
-Иначе возникает вопрос- почему в Creature есть метод `isObstacle()`, но нет `isPassiveObject()`?
+Иначе возникает вопрос- почему в Entity есть метод `isObstacle()`, но нет `isPassiveObject()`?
 
 **8. abstract class Creature extends Entity implements AliveObject**
 
