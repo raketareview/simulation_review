@@ -565,7 +565,7 @@ for(Action a: actions) {
 public interface PathFinder {
   //ищет путь на карте от точки start
   //до точки, где находится существо нужного класса(напр. target == Grass.class)  
-  List<Coordinates> find(Coordinate start, GameMap gameMap, Class<? extends Entity> target);  
+  List<Coordinates> find(GameMap gameMap, Coordinate start, Class<? extends Entity> target);  
 }
 ```
 
