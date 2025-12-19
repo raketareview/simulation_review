@@ -1,4 +1,4 @@
-https://github.com/codleto/Simulation.git  
+https://github.com/codleto/Simulation  
 [Boris]
 
 Есть очень-очень много, над чем нужно вдумчиво поработать.  
@@ -631,4 +631,4 @@ public class Herbivore extends Creature {
 Мой стрим [Крестики-нолики в ООП стиле](https://t.me/zhukovsd_it_chat/53243/187097)
 
 n.121(270)  
-#ревью #симуляция 
+#ревью #симуляция  
