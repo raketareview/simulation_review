@@ -70,7 +70,6 @@ public class GameMap {
 }
 
 public class PathFinder {
-
   ArrayList<Coordinates> path = new ArrayList<>();
   //...
 }
