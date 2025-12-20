@@ -337,7 +337,7 @@ private String emoji;
 
 **11. abstract class Creature extends Entity**
 
-Это значение не изменяется вов ремя работы программы, оно должно быть final
+Это значение не изменяется во время работы программы, оно должно быть final
 ```java
 private int speed;
 
@@ -389,7 +389,7 @@ public void makeMove(GameMap gameMap, Path path) {
 }
 ```
 
-Замени услови на `path.findPath(..., getTarget(), ...)` и вынеси общий код во вспомогательный метод предка.
+Замени условие на `path.findPath(..., getTarget(), ...)` и вынеси общий код во вспомогательный метод предка.
 
 - Магия
 ```java 
@@ -403,7 +403,6 @@ private final static String SPRITE = "\uD83D\uDC3A";
 private final static int SPEED = 2;
 private final static int HP = 20;
 private final static int DAMAGE = 5;
-
 
 public Predator(Coordinates coordinates) {
   super(coordinates, SPRITE, SPEED, HP);
@@ -422,7 +421,7 @@ public Coordinates getRandomCoordinates(GameMap map)
 ```
 Функционал должен появляться только на тех уровнях иерархии, где этот функционал нужен.
 
-Это такая же ошибка, как в классе Entity, который хранит координату на уровне базового `Entity`, а должен хранить начиная с `Creature`.
+Это такая же ошибка, как в классе Entity. Он там хранит координату на уровне базового `Entity`, а должен хранить начиная с `Creature`.
 
 **14. Общие замечания по Action'ам**
 
@@ -430,7 +429,7 @@ public Coordinates getRandomCoordinates(GameMap map)
 Каждый из этих классов должен делать что-то свое с картой: одна акция должна заселять карту существами, другая делать ходы и т.д.  
 Action'ы, изложенные в ТЗ, это вариант реализации паттерна Command. 
 
-Смысл Action'ов состоит в том, что должен быть общий класс/интерфейс Action и его наследники.  
+Должен быть общий класс/интерфейс Action и его наследники.  
 В каждом экшене должен быть **только один публичный метод**(не публичных может быть сколько угодно).  
 Это вариация паттерна Command- экшены должны быть родственны и одинаково использоваться через полиморфизм. 
 
@@ -476,10 +475,10 @@ public class SpawnAction extends Action {
 ```
 Использование:
 ```java
-SpawnAction заяцSpawnAction = new SpawnAction((c) -> new Заяц(c), КОЛИЧЕСТВО_ЗАЙЦЕВ);
-SpawnAction волкSpawnAction = new SpawnAction((c) -> new Волк(c), КОЛИЧЕСТВО_ВОЛКОВ);
-заяцSpawnAction.execute(карта); 
-волкSpawnAction.execute(карта); 
+SpawnAction траваSpawnAction = new SpawnAction((c) -> new Трава(c), КОЛИЧЕСТВО_ТРАВЫ);
+SpawnAction каменьSpawnAction = new SpawnAction((c) -> new Камень(c), КОЛИЧЕСТВО_КАМНЕЙ);
+траваSpawnAction.execute(карта); 
+каменьSpawnAction.execute(карта); 
 ```
 
 **16. class SpawnGrassAction/SpawnHerbivoreAction extends Action**
