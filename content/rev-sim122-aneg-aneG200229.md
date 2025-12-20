@@ -59,7 +59,6 @@ public class GameMap {
 }
 
 public class Path {
-
   ArrayList<Coordinates> path = new ArrayList<>();
   //...
 }
