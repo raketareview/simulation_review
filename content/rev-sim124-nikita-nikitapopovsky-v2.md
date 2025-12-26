@@ -95,6 +95,37 @@ if (entityClass == Tree.class) {
 Следовательно, этот метод существует не в интересах единой ответственности карты, а в интересах кого-то другого.  
 Этот метод сейчас нужен только одному классу- `ActionUtil`, вот там он и должен находиться.
 
++ 👍 Хороший метод, но мне кажется, он несколько сложноват для использования клиентом
+```java
+public Map<Coordinate, Entity> getEntityByClass(Class<? extends Entity> entityClass)
+```
+Вместо него я бы использовал два простых метода:
+```java 
+public List<? extends Entity> getAllBy(Class<? extends Entity> clazz)  //вернуть существ определенного класса 
+public Coordinates getCoordinates(Entity entity)
+```
+Использоваие:
+```java
+//СЕЙЧАС ТАК:
+Map<Coordinate, Entity> entities = gameMap.getEntityByClass(Creature.class);
+
+for (Map.Entry<Coordinate, Entity> entity : entities.entrySet()) {
+  Creature creature = (Creature) entity.getValue();
+  Map<Coordinate, Entity> targets = gameMap.getEntityByClass(creature.getTargetClass());
+  for (Coordinate neighbor : GameMapUtil.getNeighbors(entity.getKey())) {...}
+  //...
+}
+
+//БУДЕТ:
+List<Creatures> creatures = gameMap.getAllBy(Creature.class);
+
+for(Creature creature : creatures) {
+  Coordinate coordinate = gameMap.getCoordinate(creature);
+  List<Coordinate> neighbors = GameMapUtil.getNeighbors(coordinate);
+  //...
+}
+```
+
 - Никогда не возвращай null
 ```java
 private final HashMap<Coordinate, Entity> entities;
