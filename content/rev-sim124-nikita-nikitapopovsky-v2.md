@@ -326,6 +326,25 @@ class Creature бла-бла {
 }
 ```
 
+При этом мувер должен просто инициировать движение креатур, а дальше они должны действовать сами в рамках логики своего метода движения.  
+Например, так:
+```java
+class MoveAction реализует Action {
+
+  @Override
+  public void execute(Карта карта) {
+    List<Creature> creatures = getCreatures(карта);
+    for(Creature creature: creatures) {
+      creature.makeMove(карта);  //даёт пинка
+    }
+  }
+
+  private static List<Creature> getCreatures(Карта карта) {
+    //найти и вернуть все креатуры из карты
+  }
+}
+```
+
 **14. Дробление**
 
 Антипаттерн дробление- разделение одного действия на несколько классов.  
