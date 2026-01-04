@@ -1,4 +1,4 @@
-https://github.com/Blackened07/simulationMap 
+https://github.com/Blackened07/simulationMap  
 [Тимофей]
 
 В целом, удручающе.
