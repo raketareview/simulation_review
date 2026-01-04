@@ -461,7 +461,7 @@ private void nextTurn() {
 
 private void executeActions(List<Action> actions) {
   for(Action a : actions) {
-    a.execute(board);
+    a.execute(worldMap);
   }
 }
 ```
