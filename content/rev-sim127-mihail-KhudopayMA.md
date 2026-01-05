@@ -66,7 +66,7 @@ if (neighborEntity != null && !target.isInstance(neighborEntity)) {
 }
 
 //ПРАВИЛЬНО:
-if (!isTarget(neighborEntity)) {
+if (!isTargetEntity(neighborEntity)) {
   continue;  
 }
 ```
