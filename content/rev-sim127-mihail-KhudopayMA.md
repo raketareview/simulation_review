@@ -111,7 +111,7 @@ public final int y;
 private final int hash;
 ```
 
-- В `equals()` не нужно сранивать хэш-код
+- В `equals()` не сранивают хэш-код
 ```java
 @Override
 public boolean equals(Object o) {
