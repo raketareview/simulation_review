@@ -375,7 +375,7 @@ public abstract void takeTurn(WorldMap worldMap);
 a) Сделать ход  
 b) Установить/вернуть здоровье  
 с) Установить/вернуть координату  
-в) Cказать жив или мертв
+d) Cказать жив или мертв
 
 - Нарушение SRP.
 
@@ -642,7 +642,7 @@ Simulation(SimulationBuilder builder) {
 public class Simulation implements Runnable {
   private final Config config;
 
-  protected Simulation(Config config) {
+  public Simulation(Config config) {
     this.config = config;
   }
   //...
