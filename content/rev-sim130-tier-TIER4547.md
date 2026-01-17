@@ -383,7 +383,7 @@ public class Simulation {
   //...
 
   public void start() {
-    map = new MapFactory().spawnRandomEntities();  <-- Аргумент map должен принимать в конструктор
+    map = new MapFactory().spawnRandomEntities();  <-- Аргумент map нужно принимать в конструктор
     //...
   }
 }
