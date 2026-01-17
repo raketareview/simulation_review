@@ -19,7 +19,7 @@ https://github.com/Eug4n4/simulation
 
 **1. Нейминг**
 
-+ 👍 В основном, норм.
++ 👍 В основном, всё ок.
 
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
