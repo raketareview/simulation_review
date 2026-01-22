@@ -20,7 +20,6 @@ https://github.com/Kamil1developer/Simulation
 
 **1. Нейминг**
 
-
 - Названия пакетов нужно писать стилем all lowercase 
 ```java
 package turnActions;
