@@ -3,7 +3,7 @@ https://github.com/Kamil1developer/Simulation
 
 После первого рефакторинга стало значительно лучше. Но есть над чем поработать.  
 
-Ревью на первую версию программы [тут](https://github.com/raketareview/simulation_review/blob/master/content/rev-sim132-kamilkhusainov-Kamil1developer.md).
+Ревью на первую версию программы [тут](https://github.com/raketareview/simulation_review/blob/master/content/rev-sim132-kamilkhusainov-Kamil1developer.md)
 
 ## ХОРОШО
 
