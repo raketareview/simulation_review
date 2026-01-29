@@ -859,7 +859,7 @@ class Task implements Runnable {
 Примерно, так:
 ```java
 public abstract class Creature extends Entity {
-  private final static PathFinder PATH_FINDER = new ParthFinder(); 
+  private final static PathFinder PATH_FINDER = new PathFinder(); 
   private final Class<? extends Entity> food; 
   //...
 
