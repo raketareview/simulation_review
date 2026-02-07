@@ -353,7 +353,7 @@ public enum SimulationCommand {
 public class InputCommand {
   //...
 
-  public static Optional<Command> input(String title, String failMessage) {
+  public static Command input(String title, String failMessage) {
     while(true) {
        //запросить вод команды- распечатать title
        //если введена корректная команда- вернуть ее
