@@ -260,11 +260,11 @@ public List<Coordinates> findPath(Map map, ...)
 public List<Coordinates> findPath(GameMap gameMap, ...)
 ```
 
-- Из сигнатуры неясно, как пользоватья поиском
+- Из сигнатуры неясно, как пользоваться поиском
 ```java
 public List<Coordinates> findPath(Coordinates start, Coordinates target, Map map, Class<? extends Entity> targetType)
 ```
-Если поиск выполняется по алгоритму A*, то этот алгоритм должен искать путь между двуумя известными точками.  
+Если поиск выполняется по алгоритму A*, то этот алгоритм должен искать путь между двумя известными точками.  
 И тогда сигнатура должна быть такой:
 ```java
 public List<Coordinates> find(GameMap gameMap, Coordinates from, Coordinates to)
@@ -640,7 +640,7 @@ public Simulation(...) {
   executeActions(initActions);  //выполнение экшенов на старте
 }
 
-private void nextTurn() {
+public void nextTurn() {
   //...
   executeActions(turnActions);  //выполнение экшенов на каждом ходе
 }
