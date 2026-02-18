@@ -543,7 +543,7 @@ spawn(gameMap, ()-> new Заяц(), КОЛИЧЕСТВО_ЗАЙЦЕВ);
 spawn(gameMap, ()-> new Волк(), КОЛИЧЕСТВО_ВОЛКОВ);
 //...
 
-protected spawn(GameMap gameMap, Supplier<Entity> entitySupplier, int count) {
+protected void spawn(GameMap gameMap, Supplier<Entity> entitySupplier, int count) {
   for(....) {
     Coordinates coordinates  = getRandomEmptyCoordinates(gameMap);
     Entity entity = entitySupplier.get();
