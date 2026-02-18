@@ -46,6 +46,21 @@ class RenderMap
 class GameMapRenderer
 ```
 
+- Геттер должен называться так же, как возвращаемое им поле + префикс "get"
+```java
+private final HashMap<Coordinates, Entity> worldMap = new HashMap<>();
+
+public java.util.Map<Coordinates, Entity> getEntities() {
+  return worldMap;
+}
+
+//ПРАВИЛЬНО:
+private final HashMap<Coordinates, Entity> entities = new HashMap<>();
+
+public java.util.Map<Coordinates, Entity> getEntities() {
+  return entities;
+}
+```
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
 *Ютуб, Немчинский "Как называть переменные, методы и классы?"*
@@ -275,6 +290,11 @@ public class AstarPathFinder implements PathFinder{
 
   private Coordinates findКоординатаЦели(...) {...}
 }
+```
+
++ 👍 Хороший вспомогательный класс для процесса поиска
+```java
+private record Node(Coordinates coordinates, int priority) implements Comparable<Node>
 ```
 
 **8. abstract class Entity**
