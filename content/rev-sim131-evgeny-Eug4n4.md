@@ -232,15 +232,18 @@ for (int row = 0; row < worldMap.getHeight(); row++) {
 public Simulation(WorldMapRenderer renderer, List<Action> initActions, List<Action> turnActions) 
 ```
 
+
 - Нарушение паттерна GRASP "Creator"(Создатель)
 
 Здесь класс принимает в конструктор зависимость, которую должен создавать самостоятельно:
 ```java
-public Simulation(
-    WorldMapRenderer renderer, <-- Неправильно, должен сам создавать
-    List<Action> initActions, <-- Правильно, может принимать в конструктор
-    List<Action> turnActions <-- Правильно, может принимать в конструктор
-    ) 
+public Simulation(List<Action> initialActions, ... , SimulationEndCondition endCondition, ...) {...}
+
+//ПРАВИЛЬНО:
+public Simulation(List<Action> initialActions, ...) {
+  //...
+  this.endCondition = new SimulationEndCondition();
+}
 ```
 Creator гласит, что создавать объект должен тот, кто его использует. 
 
@@ -249,15 +252,16 @@ Creator гласит, что создавать объект должен тот
 В данном случае `Simulation` принимает в конструктор `initActions`- это правильно.  
 Потому что список экшенов может быть разным. 
 
-Но принимать в конструктор WorldMapRenderer- уже неправильно.  
-Потому что WorldMapRenderer это конкретный класс, а не интерфейс и этот класс не параметризируется. 
+Но принимать в конструктор `SimulationEndCondition`- уже неправильно.  
+Потому что `SimulationEndCondition` это конкретный класс, а не интерфейс и этот класс не параметризируется. 
 
-Экземпляр WorldMapRenderer всегда одинаковый.  
-Поэтому, согласно паттерна Creator, объект WorldMapRenderer *здесь* должен создавать сам класс Simulation.
+Экземпляр `SimulationEndCondition` всегда одинаковый.  
+Поэтому, согласно паттерна Creator, объект `SimulationEndCondition` *здесь* должен создавать сам класс Simulation.
 
-Технически, можно создать наследника WorldMapRenderer, переопределить в нем методы и передавать в конструктор Simulation.  
+Технически, можно создать наследника `SimulationEndCondition`, переопределить в нем методы и передавать в конструктор Simulation.  
 Но если программист хочет использовать в своем классе разные рендереры через полиморфизм, то он должен обозначить свои намерения более явно.  
 Например, передавать в конструктор интерфейс или абстрактный класс.
+
 
 - Слишком большие условия выноси во вспомогательные методы, которые своим названием будут объяснять, что проиходит
 ```java
