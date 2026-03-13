@@ -610,7 +610,7 @@ public interface EntityFactory {
 
 //ПРАВИЛЬНО:
 public interface EntityFactory {
-  Entity create(Class <? extends Entity> type);
+  Entity create(Class<? extends Entity> type);
 }
 ```
 
@@ -667,6 +667,12 @@ public class ConsoleControlHintRenderer implements HintRenderer {
 Это не консольные рендереры- потому что печатают в интерфейс, а не в консоль
 ```java
 public class ConsoleControlMenuRenderer implements ControlMenuRenderer {
+
+  private final Output output;
+
+  public ConsoleControlMenuRenderer(Output output) {
+    this.output = Objects.requireNonNull(output, "output must not be null");
+  }
 
   public void printPaused() {
     output.println("Симуляция поставлена на паузу.");
