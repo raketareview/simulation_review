@@ -866,7 +866,6 @@ public abstract class Action {
 **14. class RefreshResources extends Action**
 
 - Магические числа.
-
 ```java
 if (countInhabitant <= 3) {...}
 if (countSoldier <= 3) {...}
