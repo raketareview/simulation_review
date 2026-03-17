@@ -6,7 +6,7 @@ https://github.com/MonYamau/Simulation
 ## ХОРОШО
 
 + 👍 Визуальная эстетика просто вау!   
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim112/img0.png) 
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim144/img0.png) 
 + 👍 Альтернативная трактовка: мышки, котики и сыр
 + 👍 Перед началом работы показываются правила
 + 👍 Спрайты существ не хранятся в самих существах
