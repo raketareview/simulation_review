@@ -67,7 +67,7 @@ public Optional<Coordinates> getCoordinates(Entity entity)
 ```
 
 - Это константа.  
-По стандартам не только конвенции Oracle, но и Google, здесь название должно быть написано UPPER_SNAKE-  
+По стандартам не только конвенции Oracle, но и Google, здесь название должно быть написано UPPER_SNAKE:  
 `Set.of(...)` создает `immutable` список
 ```java
 private static final Set<Coordinates> shifts = Set.of(...);
