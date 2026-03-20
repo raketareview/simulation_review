@@ -1,7 +1,7 @@
 https://github.com/Mihail233/Simulation  
 [михаил]
 
-[Ревью сделано в рамках учебной подписки](https://zhukovsd.it/services/student-subscription/).
+[Ревью сделано в рамках учебной подписки](https://zhukovsd.it/services/student-subscription/)
 
 Есть много над чем поработать.
 
