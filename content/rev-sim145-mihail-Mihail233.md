@@ -692,7 +692,7 @@ public class CoinHunter extends Creature {
 - Нарушение DRY. Дублирование полей у родственников.
 
 И Призрак и Охотник имеют одинаковое поле
-```java 
+```java
 public class CoinHunter extends Creature {
   private final TurnStrategy turnStrategy;
   //...
