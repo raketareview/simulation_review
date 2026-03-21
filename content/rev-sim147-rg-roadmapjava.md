@@ -83,7 +83,7 @@ if (entity.getClass().getSimpleName().equals("Predator")) {
 }
 
 //ПРАВИЛЬНО:
-String name = className = entity.getClass().getSimpleName();
+String className = entity.getClass().getSimpleName();
 if (className.equals("Predator")) {
   target = getTarget(worldMap, entity, Herbivore.class);
 } else if (className.equals("Herbivore")) {
@@ -109,13 +109,13 @@ if (input.length() != 1 || input.charAt(0) < 49 || input.charAt(0) > 51 || input
 if (input.length() != 1 || input.charAt(0) < '1' || input.charAt(0) > '3' || input.equals(" "))
 ```
 
-**Нарушение конвенции кода, в одном файле должен быть один класс**
+**5. Нарушение конвенции кода, в одном файле должен быть один класс**
 
 В файле Simulation.java находится несколько равнозначных классов.  
 А должен быть только один класс.
 
 
-**5. class Coordinates**
+**6. class Coordinates**
 
 + 👍 Нет ничего лишнего, это хорошо. 
 
@@ -124,7 +124,7 @@ if (input.length() != 1 || input.charAt(0) < '1' || input.charAt(0) > '3' || inp
 Record'ы по умолчанию умеют правильно делать `hashCode()`, `equals()` и `toString()`.  
 Про возможности рекордов почитай [тут](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html).
 
-**6. class CoordinateShift**
+**7. class CoordinateShift**
 
 Это координата для сдвига
 ```java
@@ -135,7 +135,7 @@ public class CoordinatesShift {
 }
 ```
 
-- Нет необходимости в существовании этого класса, он не дает ничего больше, чем может дать класс Coordinates. 
+- Нет необходимости в существовании этого класса, он не дает ничего больше, чем может дать класс Coordinates.  
 Для обозначения координат сдвига достаточно использовать обычные координаты, например так
 ```java
 Coordinates shifDownRightCoordinates = new Coordinates(-1, 1);
@@ -157,7 +157,7 @@ public static List<CoordinatesShift> getDefaultShifts() {
 Метод для нахождения соседних координат нужен процессу поиска пути.  
 Значит его нормальное месторасположение- в классе поиска пути.
 
-Если разные классы ищут соседние координаты, значит этот метод нужно вынести в третий класс.  
+Если несколько разных классов ищут соседние координаты, тогда этот метод нужно вынести в третий класс.  
 Например:
 ```java
 public final class CageMapUtils {
@@ -170,9 +170,7 @@ public final class CageMapUtils {
 }
 ```
 
-то луч
-
-**7. class WorldMap**
+**8. class WorldMap**
 
 В таких случаях используй перечисления
 ```java
@@ -232,6 +230,11 @@ public class WorldMap {
   //...
 }
 ```
+
+На уровне этого класса такое ограничение необосновано.  
+В проекте можно оставить ограничение на создание карт трех размеров.  
+Но реализовываться это ограничение должно быть в другом месте.  
+Например, в фабрике карты.
 
 - Нарушение OCP.
 
@@ -338,7 +341,7 @@ public void setupDefaultEntityPositions() {
 
 + 👍 Нарушения SRP есть, но их относительно немного. Для этого класса это уже хорошо.
 
-**8. class PathSearcher**
+**9. class PathSearcher**
 
 Нарушение SRP.
 
@@ -381,7 +384,7 @@ public class AstarPathFinder {
 Плюсы- унификация сигнатуры разных алгоритмов поиска для полиморфизма.  
 То есть, можно сделать семейство родственных классов поиска, объединенных общим интерфейсом.
 
-**9. abstract class Entity**
+**10. abstract class Entity**
 
 Содержит координату. Но координата нужна только тому существу, которое ходит.  
 Поэтому entities должны хранить координату только начиная с уровня `Creature`
@@ -389,7 +392,7 @@ public class AstarPathFinder {
 private Coordinates coordinates;
 ```
 
-**10.abstract class Creature extends Entity**
+**11. abstract class Creature extends Entity**
 
 - Это не константа
 ```java
@@ -401,7 +404,7 @@ private final int speed;
 
 + 👍 Особых замечаний нет.
 
-**11. class Herbivore/Predator extends Creature**
+**12. class Herbivore/Predator extends Creature**
 
 - Не должно быть больше 2-3 уровней вложенности.  
 Если больше, это антипаттерн "Стрела", такой код очень труден для понимания
@@ -446,7 +449,7 @@ if (i == 0) {
 }
 ```
 
-**12. abstract class Action**
+**13. abstract class Action**
 
 👍 Идеально
 ```java
@@ -455,7 +458,7 @@ public abstract class Action {
 }
 ```
 
-**13. class AddingEntitiesAction extends Action**
+**14. class AddingEntitiesAction extends Action**
 
 Нарушение DRY, дублирование кода.  
 Общий код выноси во вспомогательные методы
@@ -472,7 +475,7 @@ if (grassCounter <= 2) {
 }
 ```
 
-**14. class MoveAction extends Action**
+**15. class MoveAction extends Action**
 
 👍 Почти идеально
 ```java
@@ -505,7 +508,7 @@ public class MoveAction extends Action {
 }
 ```
 
-**15. class WorldMapCreator**
+**16. class WorldMapCreator**
 
 - Стандартным являениям давай стандартные названия. Это простая фабрика
 ```java
@@ -555,7 +558,7 @@ case LARGE:  //...
 *Фаулер, "Рефакторинг", гл.8, "Замена магического числа символической константой"*  
 *refactoring.guru "Замена магического числа символьной константой"*
 
-**16. class Simulation**
+**17. class Simulation**
 
 - Нарушение инкапсуляции. Эти поля должны быть приватными, а доступ к ним- только через методы
 ```java
