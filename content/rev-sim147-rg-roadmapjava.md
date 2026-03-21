@@ -634,6 +634,9 @@ public class Simulation {
 
 - Создание и использование объекта должны быть разными операциями
 ```java
+new InputThread().start();
+
+//ПРАВИЛЬНО:
 InputThread inputThread = new InputThread();
 inputThread().start();
 ```
