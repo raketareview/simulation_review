@@ -62,8 +62,8 @@ public Map<Entity, Coordinates> getEntitiesWithCoordinates() {
 }
 ```
 
-- Венгерская ноттация это плохо.  
-Венгерская ноттация, которая обманывает- еще хуже.  
+- Венгерская нотация это плохо.  
+Венгерская нотация, которая обманывает- еще хуже.  
 Эта переменная не принадлежит к типу List
 ```java
 Map<Coordinates, Way> closeList = new HashMap<>();
