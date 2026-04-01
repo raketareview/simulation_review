@@ -224,7 +224,7 @@ public void makeMove() {
 Вводи поясняющие переменные
 ```java
 int remainingHP = ((Creature) getSimProcess().getEntityLocations().get(target)).getHp() - powerAttack;
-``` 
+```
 
 **7. Если в блоке if есть return(break, continue, throw, exit и т.д.), то else не пишется.**
  
