@@ -617,7 +617,7 @@ public class RealEntityFactory implements EntityFactory {  <-- ФАБРИКА
 }
 ```
 Зачем в этом случае нужна фабрика, мне неясно.  
-Фабрика была бы более уместна,если бы существа создавались более сложно.  
+Фабрика была бы более уместна, если бы существа создавались более сложно.  
 Например:
 ```java
 public class RealEntityFactory implements EntityFactory {  <-- ФАБРИКА
