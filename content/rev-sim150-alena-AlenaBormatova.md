@@ -517,9 +517,7 @@ public final class Simulation {
 //ПРАВИЛЬНО:
 public final class Simulation {
   //...
-  public Simulation(WorldMap map, Renderer renderer, Random random) {...}
-
-  public void init() {
+  public Simulation(WorldMap map, Renderer renderer, Random random) {
     //...
     init();
   }
