@@ -85,7 +85,7 @@ WorldMap map
 
 //ПРАВИЛЬНО:
 WorldMap worldMap
-``` 
+```
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
 *Ютуб, Немчинский "Как называть переменные, методы и классы?"*
@@ -253,7 +253,7 @@ for (Coordinates neighborPosition : WorldMapNeighborhoods.neighbors8(map, curren
 //ПРАВИЛЬНО:
 List<Coordinates> neighbors = WorldMapNeighborhoods.neighbors8(map, currentPosition);
 for (Coordinates neighborPosition : neighbors) {...}
-``` 
+```
 
 + 👍 В целом по классу особых замечаний нет.
 
@@ -433,7 +433,7 @@ class AdvancedSpawnEntityFactory extends SpawnEntityFactory {
     public AdvancedSpawnEntityFactory(Конфиг конфиг) {...}
    //... 
 }
-```  
+```
 
 **13. class EnsureMinimumSpawnsAction implements Action**
 
