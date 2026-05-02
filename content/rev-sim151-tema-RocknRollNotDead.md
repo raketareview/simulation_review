@@ -1,7 +1,7 @@
 https://github.com/RocknRollNotDead/Simulation2  
 [Тёма]
 
-В целом- предельно удручающе.
+В целом- удручающе.
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
 
@@ -13,9 +13,9 @@ https://github.com/RocknRollNotDead/Simulation2
 
 ## ХОРОШО
 
-+ 👍 Несколько разных интерфейсов: консоль, web, Windows (последние два- навайбкодены)
++ 👍 Несколько разных интерфейсов: консоль, WEB, Windows (последние два- навайбкодены)
 + 👍 Windows UI красивый, возможно лучший, что я тут видел(спасибо AI)  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim152/img0.png) 
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim151/img0.png) 
 
 ## ЗАМЕЧАНИЯ
 
@@ -27,7 +27,7 @@ https://github.com/RocknRollNotDead/Simulation2
 public class Position {
   //...
 
-  public int[] getPosition() {  <-- Этот метод возвращает не экземпляр Positin
+  public int[] getPosition() {  <-- Этот метод возвращает не экземпляр Position
     return new int[]{x, y};
   }
 }
@@ -44,10 +44,10 @@ Position[] arrPos
 
 //ПРАВИЛЬНО:
 String name = clazz.getSimpleName().toUpperCase() + "_MAX_LEVEL";
-Position[] positins
+Position[] positoins
 ```
 
-- Хуже венгерской ноттации только венгерская нотация, которая обманывает.  
+- Хуже венгерской нотации только венгерская нотация, которая обманывает.  
 Здесь в названии переменной имеется слово "List", но эта переменная не принадлежит к типу List, это Set
 ```java
 Set<Entity> eatingList = new HashSet<>();
@@ -82,39 +82,6 @@ void createEntities()
 class Edible
 ```
 
-- Константы нужно писать стилем UPPER_CASE
-```java
-private static final String gray = "\u001B[97m";
-
-//ПРАВИЛЬНО:
-private static final String GRAY = "\u001B[97m";
-```
-
-- Придерживайся единообразия. Называй классы или во множественном, или в единственном числе
-```java
-class Animals
-class Tree
-class Wolf
-
-v
-class Animal
-class Tree
-class Wolf
-```
-
-- Не называй переменные object/objects.
-
-В java всё- объекты. 
-
-Поэтому назвать что-то "объекты" это все равно, что никик не назвать.  
-Название должно объяснять суть переменной
-```java
-Map<Position, Entity> objects
-
-//ПРАВИЛЬНО:
-Map<Position, Entity> entities //или positionWithEntity 
-```
-
 - Называй поля нормальными английскими словами, translitom ne nazyvay
 ```java
 int znakX = random.nextInt(2);
@@ -135,7 +102,40 @@ public static final String colorFon = "\u001B[40m";
 
 //ПРАВИЛЬНО:
 public static final String resetColor = "\u001B[0m";
-public static final String backgoundColor = "\u001B[40m";
+public static final String backgroundColor = "\u001B[40m";
+```
+
+- Константы нужно писать стилем UPPER_CASE
+```java
+private static final String gray = "\u001B[97m";
+
+//ПРАВИЛЬНО:
+private static final String GRAY = "\u001B[97m";
+```
+
+- Придерживайся единообразия. Называй классы или во множественном, или в единственном числе
+```java
+class Animals
+class Tree
+class Wolf
+
+//ПРАВИЛЬНО:
+class Animal
+class Tree
+class Wolf
+```
+
+- Не называй переменные "object"/"objects".
+
+В java всё- объекты. 
+
+Поэтому назвать что-то "объекты" это все равно, что никик не назвать.  
+Название должно объяснять суть переменной
+```java
+Map<Position, Entity> objects
+
+//ПРАВИЛЬНО:
+Map<Position, Entity> entities //или positionWithEntity 
 ```
 
 - Это название читается как "установить Pos(ition)" и похоже на обычный сеттер, но это не сеттер
@@ -143,11 +143,11 @@ public static final String backgoundColor = "\u001B[40m";
 Set<Position> setPos
 
 //ПРАВИЛЬНО:
-Set<Position> positins
+Set<Position> positions
 ```
 Префикс "set" может быть только у названия метода-сеттера, больше нигде.
 
- В названия не нужно вставлять частицы "Of", "The" и т.д.
+- В названия не нужно вставлять частицы "Of", "The" и т.д.
 
 Это только делает названия более громоздкими.  
 Если конечно там "Of" не используется в контексте valueOf()
@@ -158,12 +158,12 @@ class OutForConsole
 class ConsoleOutput
 ```
 
-- Название обманывает. Метод возвращает не Move, а Poition
+- Название обманывает. Метод возвращает не Move, а Position
 ```java
 public Position getMove()
 
 //ПРАВИЛЬНО:
-public Position getPositin()
+public Position getPosition()
 ```
 
 *Oracle Java code conventions, part."Naming conventions"*  
@@ -293,7 +293,7 @@ private static int someMethod(Class<?> clazz, String key) {
 } 
 ```
 
-- Если ине получилось прочитать значения из файла, обозначь это внятной реакцией.
+- Если не получилось прочитать значения из файла, обозначь это внятной реакцией.
 
 Сейчас, если не удается прочитать файл настроек, методы возвращают ноль.  
 Что это, код ошибки или значение по умолчанию- неясно
@@ -304,7 +304,7 @@ public static int getMaxLevel(Class<?> clazz) {
     return Integer.parseInt(env.get(stringName));
   } catch (RuntimeException e) {
     log.error("Не удалось найти {}", stringName);
-    return 0;  <-- Код ошибки или значенпе по умолчанию?
+    return 0;  <-- Код ошибки или значение по умолчанию?
   }
 }
 ```
@@ -378,6 +378,8 @@ public class House {
 
 **7. class Position**
 
++ 👍 Хранит только необходимые поля(x,y) это хорошо. 
+
 - Метод getPosition() тут вообще не нужен, потому что для осей x,y есть отдельные геттеры
 ```java
 public class Position {
@@ -397,8 +399,6 @@ public class Position {
   public int getY() {...}
 }
 ```
-
-+ 👍 Хранит только необходимые поля(x,y) это хорошо. 
 
 - Этот класс стоит сделать иммутабельным
 ```java
@@ -463,7 +463,7 @@ private final int y;
 
 Здесь методы чужих ответственностей:  
 Выполнить ход, добавить death событие(что бы это ни значило), логирование, увеличение счетчика id...  
-И миллион других методов, которые не имеют никокго отношения к единой ответствеенности Карты и тем самым делают её божественным объектом.  
+И миллион других методов, которые не имеют никокго отношения к единой ответственности Карты и тем самым делают её божественным объектом.  
 
 Наверное, для проекта в целом полезно иметь метод, который увеличивает счетчик уникальных номеров.  
 Но этот процесс не имеет никакого отношения к единой ответственности карты- хранению существ в себе.  
@@ -789,10 +789,10 @@ public abstract class Animals extends Entity {
 }
 ```
 
-- Код в классе читаетсяч плохо. Он запутанный и непонятный.
+- Код в классе читается плохо. Он запутанный и непонятный.
 
 Для начала нужно вынести отсюда поиск пути.  
-А потом посмотреть, останится ли что-то еще лишнее в этом классе.
+А потом посмотреть, останется ли что-то еще лишнее в этом классе.
 
 **13. Пакет util**
 
