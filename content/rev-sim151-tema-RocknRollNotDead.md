@@ -15,7 +15,7 @@ https://github.com/RocknRollNotDead/Simulation2
 
 + 👍 Несколько разных интерфейсов: консоль, WEB, Windows (последние два- навайбкодены)
 + 👍 Windows UI красивый, возможно лучший, что я тут видел(спасибо AI)  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim151/img0.png) 
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim151/img1.png) 
 
 ## ЗАМЕЧАНИЯ
 
