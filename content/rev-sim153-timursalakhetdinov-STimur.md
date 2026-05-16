@@ -218,7 +218,7 @@ public Position find(Entity entity) {
   return positions.get(entity); <-- КООРДИНАТА ВОЗВРАЩАЕТСЯ МАКСИМАЛЬНО БЫСТРО
 }
 ```
-Но за это приходится заплатить более громоздким алгоритмом, дублированием хранимой информации, необходимостью дублировать данные в двух коллекциях.  
+Но за это приходится заплатить более громоздким алгоритмом и необходимостью дублировать данные в двух коллекциях.  
 
 При этом на *реальном быстродействии* такая оптимизация никак не скажется- 
 подавляющую часть времени программа будет пребывать в паузе. 
@@ -426,12 +426,12 @@ public Predator(int speed, int health, int attack) {
 }
 
 //ПРАВИЛЬНО:
-private static final int DEFAULT_SPEAD = 1;
+private static final int DEFAULT_SPEED = 1;
 private static final int DEFAULT_HEALTH = 1;
 private static final int DEFAULT_ATTACK = 1;
 
 public Predator() {
-  super(DEFAULT_SPEAD, DEFAULT_HEALTH, DEFAULT_ATTACK);
+  super(DEFAULT_SPEED, DEFAULT_HEALTH, DEFAULT_ATTACK);
 }
 
 public Predator(int speed, int health, int attack) {
