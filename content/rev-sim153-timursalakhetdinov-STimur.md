@@ -391,7 +391,7 @@ public abstract class Creature extends Entity {
   }
 
   public boolean isAlive() {
-    return health == 0;
+    return health > 0;
   }
   //...
 }
