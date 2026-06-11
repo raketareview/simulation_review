@@ -30,13 +30,13 @@ Map<Coordinates, Coordinates> road = new HashMap<>();
 - Названия классов не должны оканчиваться на "able".
 
 На "able" могут заканчиваться только названия интерфейсов, эта частица означает "способный(делать что-то)".  
-Классы-имплементации называй как-то осознанно.  
-Или в крайнем случае просто называй как интерфейс, добавив к названию "Imp"
+Слова на "able" являются прилагательными(бегающий, итерирующий), а названия классов должны быть существительными.  
+В крайнем случае просто называй этот класс как интерфейс, добавив к названию "Imp"
 ```java
 class InputRunnable implements Runnable 
 
 //ПРАВИЛЬНО НАПРИМЕР ТАК:
-class InputRunnableImp implements Runnable 
+class InputHandler implements Runnable 
 ```
 
 *Oracle Java code conventions, part."Naming conventions"*  
@@ -81,7 +81,6 @@ public abstract class PlaceEntityAction implements Action {
 }
 
 //ПРАВИЛЬНО:
-
 public abstract class PlaceEntityAction implements Action {
 
   private final Random random = new Random();
@@ -93,6 +92,9 @@ public abstract class PlaceEntityAction implements Action {
   protected abstract double getDensity();
 }
 ```
+
+Это не формальность, это действительно важно- не обнаружив конструктор на привычном месте, 
+можно неправильно понять как работает класс.
 
 - Второстепенные вспомогательные методы должны стоять ниже главных публичных
 ```java
@@ -113,9 +115,6 @@ public abstract class MoveEntityAction implements Action {
   protected abstract Class<? extends Creature> getEntityClass();
 }
 ```
-
-Это не формальность, это действительно важно- не обнаружив конструктор на привычном месте, 
-можно неправильно понять как работает класс.
 
 *"Oracle Java code conventions"*  
 
@@ -187,7 +186,6 @@ if (str.equalsIgnoreCase(STOP)) {...}
 
 - По сути, это просто константный класс.
 
-По сути, это простой константный класс.  
 Инкапсуляция и публичные методы никакой полезной нагрузки тут не несут
 ```java
 public class EntityConfig {
@@ -217,19 +215,19 @@ public final class EntityConstants {
 Например:
 ```java
 public interface EntityConfig {
-  double getGrassDensity();
-  double getHerbivoresDensity();
+  double grassDensity();
+  double herbivoresDensity();
 }
 
 public class EntityConfigEasy implements EntityConfig {
   private static final double GRASS_DENSITY = 0.07;
   private static final double HERBIVORES_DENSITY = 0.05;
 
-  public static double getGrassDensity() {
+  public static double grassDensity() {
     return GRASS_DENSITY;
   }
 
-  public static double getHerbivoresDensity() {
+  public static double herbivoresDensity() {
     return HERBIVORES_DENSITY;
   }
 }
@@ -238,11 +236,11 @@ public class EntityConfigHard implements EntityConfig {
   private static final double GRASS_DENSITY = 0.12;
   private static final double HERBIVORES_DENSITY = 0.15;
 
-  public static double getGrassDensity() {
+  public static double grassDensity() {
     return GRASS_DENSITY;
   }
 
-  public static double getHerbivoresDensity() {
+  public static double herbivoresDensity() {
     return HERBIVORES_DENSITY;
   }
 }
@@ -298,18 +296,8 @@ Coordinates coordinates = new Coordinates(+100500, -100500);
 карта.setEntity(coordinates, new Заяц());
 ```
 
-Если координата некорректна(находится вне пределов карты), нужно бросать исключение:
-```java
-public void setEntity(Cell cell, Entity entity) {
-  validate(cell);  <-- Если координата вне пределов карты, бросает исключение
-  this.getEntities().put(cell, entity);
-}
-```
++ 👍 С точки зрения соблюдения SOLID, я бы назвал этот класс почти идеальным.
 
-Ближайшая аналогия- стандартные хранилища типа List и массива.  
-При попытке обратиться к ним по несуществующему индексу, бросается исключение.
-
-+ 👍 С точки зрения соблюдения SOLID, я бы назвал этот класс почти идеальным.  
 Тут не хватает только метода `Coordinates getCoordinates(Entity entity)`.
 
 **7. interface Search**
@@ -327,7 +315,7 @@ public interface Search {
 
 - Нарушение SRP, OCP. 
 
-Класс должен просто искать путь от точки старта до точки, соответствующей заданным условиям согласно алгоритму BFS или AStar. 
+Класс должен просто искать путь от точки старта до точки, соответствующей заданным условиям согласно алгоритму BFS или AStar.  
 Эти условия класс должен принимать в себя и НЕ ДОЛЖЕН определять эти условия самостоятельно, например путем анализа принадлежности Creature тому или иному виду существ
 ```java
 if (entity instanceof Rock) return false;
@@ -431,7 +419,7 @@ public void makeMove(GameMap map, Coordinates coordinates) {
 
 //ПРАВИЛЬНО:
 public void makeMove(GameMap gameMap) {
-  Coordinates current = gameMap.getCoordinates(current);
+  Coordinates current = gameMap.getCoordinates(this);
   //...
 }
 ```
@@ -503,7 +491,7 @@ public abstract class Action {
 }
 ```
 
-**13. Init actions**
+**13. Init Action's**
 
 Семейство классов в пакете `actions.init`.
 
@@ -662,7 +650,7 @@ public class House {
 ```
 Про классы констант, конфигурации и их использование я писал [ТУТ](https://t.me/zhukovsd_it_chat/53243/176984)
 
-**17. Turn actions**
+**17. Turn Action's**
 
 Семейство классов в пакете `actions.turn`.
 
@@ -676,11 +664,10 @@ class AddGrassAction extends AddEntityAction
 etc
 ```
 
-Как и в случае с init-экшенами, здесь есть группа классов для добавления существ в карту.
+Как и в случае с init-экшенами, здесь есть группа классов для добавления существ в карту.  
 Эти классы используются для поддержания поголовья существ в карте на протяжении игры. 
 
 Ситуация с ними та же самая, что и с init-экшенами:  
-
 Можно или сделать один универсальный экшен.  
 Или упростить код родительского класса так, чтобы его наследники были предельно простые.
 
@@ -693,11 +680,11 @@ class MoveHerbivoresAction extends MoveEntityAction
 class MovePredatorsAction extends MoveEntityAction 
 ```
 
-Та же самая история- не вижу смысла в куче классов, когда можно сделать один универсальный мувер.
+Та же самая история- не вижу смысла в куче классов, когда можно сделать один универсальный мувер.  
 Представим, что проект разросся с 2 видов ходящих существ до 20-ти.  
 То что, каждому существу свой мувер делать?
 
-То есть потенциал для масштабирования у твой архитектуры очень мал.
+То есть потенциал для масштабирования у такой архитектуры весьма небольшой.
 
 Ну ок, я смысл понимаю- разные муверы для разных существ сделаны для того, чтобы можно было сначала походить зайцами, а потом волками.  
 Но я не думаю, что параметризация одного универсального мувера это настолько неудобнее, что нужно вводить в проект вместо этого кучу других классов
