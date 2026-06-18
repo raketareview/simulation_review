@@ -7,7 +7,7 @@ https://github.com/rustamizteleu/Simulation
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
 
 1. Карта распечатывается неровно, нужно подобрать спрайты одинаковой ширины  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim157/img0.png
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim157/img0.png)
 
 2. В программе не реализована работа с потоками и выполнение старт/стоп во время работы симуляции.  
 Хотя это требование есть в ТЗ.
@@ -121,7 +121,7 @@ Record'ы по умолчанию умеют правильно делать `ha
 какой именно из Map'ов имеется в виду- стандартный или кастомный
 ```java
 Map map = new Map(30, 15);
-``` 
+```
 
 Чтобы компилятор понимал, про какой именно `Map` идет речь, приходится писать полный путь к стандартному интерфейсу Map через прописывание полного пути к этому интерфейсу
 ```java
