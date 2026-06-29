@@ -63,7 +63,6 @@ C
 ## ХОРОШО
 
 + 👍 Координаты существ не хранятся в самих существах(мне так больше нравится)
-+ 👍 Координаты в существах хранятся начиная с Creature
 + 👍 Меню для создания карт разного размера
 + 👍 Красивая распечатка карты  
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim158/img0.png) 
@@ -157,12 +156,20 @@ private int hp;
 И вообще не употребляй венгерскую нотацию.  
 Название переменной должно отвечать на вопрос что хранит переменная, а не как хранит
 ```java
-Set<EntityType> availableSet = new HashSet<>();
-Set<Coordinates> coordinatesSet = new HashSet<>();  //class Movement
+String strM = inputScanner.nextLine();
+int intM = Integer.parseInt(strM);
 
 //ПРАВИЛЬНО:
-Set<EntityType> availableEntityTypes = new HashSet<>();
-Set<Coordinates> neighborCoordinates = new HashSet<>();
+String line = inputScanner.nextLine();
+int height = Integer.parseInt(line);
+```
+
+- Избыточно
+```java
+Scanner inputScanner = new Scanner(System.in);
+
+//ПРАВИЛЬНО:
+Scanner scanner = new Scanner(System.in);
 ```
 
 *Oracle Java code conventions, part."Naming conventions"*  
@@ -264,7 +271,7 @@ private static boolean isNumber(String s) {
 
 В этом пакете много классов, не все из которых идеологически могут быть в пакете с таким названием.  
 Название пакета должно объяснять, что он хранит.  
-Либо дай пакету более общее название типа "common"(хотя здесь именно это название неудачное).  
+Либо давай таким пакетам более общее название типа "common"(хотя здесь именно это название будет неудачным).  
 Либо, что лучше, сделай несколько пакетов
 ```java
 map
@@ -349,40 +356,20 @@ public BaseEntity getEntity(Coordinates coordinates) {
 
 - При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность 
 ```java
-public void removeEntity(Position p) {
-  Entity entityToRemove = entities.remove(p);
-  positions.remove(entityToRemove);
+public void addEntity(BaseEntity entity, Coordinates coordinates) {
+  worldEntities.put(coordinates, entity);
 }
 
 //ПРАВИЛЬНО:
-public void removeEntity(Position position) {
-  validate(position);  <-- Если координата не в пределах карты, то бросает исключение  
-  Entity entityToRemove = entities.remove(p);
-  positions.remove(entityToRemove);
+public void addEntity(BaseEntity entity, Coordinates coordinates) {
+  validate(coordinates);  <-- Если координата не в пределах карты, то бросает исключение    
+  worldEntities.put(coordinates, entity);
 }
 ```
 Ближайшая аналогия- стандартные хранилища типа List и массива.  
 При попытке обратиться к ним по несуществующему индексу, бросается исключение.
 
-- При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность 
-
-Сейчас в карту можно вставить существо на координату, выходящую за размер карты.  
-Если координата некорректна(находится вне пределов карты), нужно бросать исключение:
-```java
-public void addEntity(BaseEntity entity, Coordinates coordinates) {
-  worldEntities.put(coordinates, entity);
-}
-
-public void addEntity(BaseEntity entity, Coordinates coordinates) {
-    validate(coordinates);  <-- Если координата вне пределов карты, бросает исключение
-  worldEntities.put(coordinates, entity);
-}
-```
-
-Ближайшая аналогия- стандартные хранилища типа List и массива.  
-При попытке обратиться к ним по несуществующему индексу, бросается исключение.
-
-- Яснее объясняй свои намерения
+- Чем больше инструкций в одной строке, тем тяжелее это читается
 ```java
 public int getCountEntities(EntityType entityType) {
   if (worldEntities.get(coordinates).getType().equals(entityType)) {
@@ -443,7 +430,7 @@ public class PathFinder {
 }
 ```
 
-Сейчас класс Path выглядит как общий класс и для процесса поиска пути по алгоритму BFS и возврата этого пути.  
+Сейчас класс Path выглядит как общий класс и для процесса поиска пути по алгоритму BFS и для возврата этого пути.  
 Таким образом, класс `Path` нарушает SRP.
 
 **7. class PathFinder**
@@ -535,9 +522,8 @@ switch (name) {
 В ТЗ этот класс называется "Entity", ты его назвала "BaseEntity".
 Непонятно, что дает такое переименование.
 
-Соблюдай ТЗ, это необходимый навык на работе.  
 Нельзя просто брать и нарушать ТЗ без причины.  
-Для переименования "Entity" в "BaseEntity" явной причины нет.
+Для переименования "Entity" в "BaseEntity" явной причины я не вижу.
 
 - Два метода, которые делают одно и то же
 ```java
@@ -558,7 +544,8 @@ public abstract class BaseEntity {
 - Не нужно использовать дополнительную типизацию
 ```java
 public abstract class BaseEntity {
-  public EntityType getType() {
+
+  public EntityType getType() {  <-- Это дополнительная внешняя типизация
     return returnType();
   }
 }  
@@ -566,7 +553,7 @@ public abstract class BaseEntity {
 Используй стандартные способы определения принадлежности типов объектов: `instanceof`, `getClass()`.
 
 Хранение в `entities` значений `EntityType` нарушает их SRP.  
-Потому что начинают знать много разного, что их не касается: своё изображение, коэффициенты для карты.
+Потому что `entities` начинают знать много разного, что их не касается: своё изображение, коэффициенты для карты etc.
 
 - Зависимость модели от представления это плохо.
 
@@ -649,7 +636,7 @@ public abstract void makeMove(WorldMap worldMap);
 
 - Нарушение инкапсуляции.
 
-Если метод нужен только самому класс и его наследникам, то такой метод должен быть private
+Если метод нужен только самому класс и его наследникам, то такой метод должен быть protected
 ```java
 public Path getPath() {return path;}
 
@@ -669,8 +656,7 @@ public void setPath(Path path) {  <-- Этого метода в классе б
 
 **11. Наследники Creature: классы Creature и Predator**
 
-- Нарушение DRY, нарушение чеклиста ТЗ.
-
+- Нарушение DRY, нарушение чеклиста ТЗ
 ```java
 Чеклист для самопроверки #
 Дублирование кода между классами Herbivore и Predator
@@ -689,7 +675,7 @@ public class Main1 {
     WorldMap worldMap = new WorldMap(10, 10);
     Herbivore herbivore = new Herbivore(1, 1);
     Grass grass = new Grass();
-    worldMap.addEntity(herbivore, new Coordinates(0, 1));
+    worldMap.addEntity(herbivore, new Coordinates(1, 1));
     worldMap.addEntity(grass, new Coordinates(5, 5));
 
     herbivore.makeMove(worldMap);
@@ -838,6 +824,8 @@ class MoveAction реализует Action {
   }
 }
 ```
+
+- Подробнее код в этом классе обсуждать не вижу смысла. Сначала нужно экшены сделать по ТЗ.  
 
 **13. class BaseEntityFactory**
 
@@ -988,9 +976,9 @@ public class FirstMain {
 public class SecondMain {
   public static void main(String[] args) {
     int width = inputWidth();
-    int hight = inputHight();
+    int height = inputHeight();
 
-    WorldMap worldMap = new WorldMap(width, hight);
+    WorldMap worldMap = new WorldMap(width, height);
     Simulation simulation = new Simulation(worldMap);
     simulation.start();
   }
@@ -1048,12 +1036,12 @@ public static void main(String[] args) {
  ```java
 public static void main(String[] args) {
   //много кода до 
-  int width = int inputWidth(...)
-  int hight = int inputHight(...)
+  int width = int inputWidth();
+  int height = int inputHeight();
   //много кода после
 }
 
-private static int inputWidth(int min, int max) {
+private static int inputWidth() {
     return inputNumber("Введите координату по горизонтали:", WIDTH_MIN, WIDTH_MAX);
 }
 
@@ -1111,10 +1099,10 @@ if ((counterStep % 5) == 0) {...}
 В ООП программе нужно выявить информационные сущности и сделать из них классы.  
 Такие классы должны соответствовать требованиям SOLID и GRASP.
 
-**Один из примеров нарушения SOLID в части SRP: класс `Simulation`.  **
+**Один из примеров нарушения SOLID в части SRP: класс `Simulation`.**
 
 Он совмещает в себе создание и использование системы.  
-Практическое следствие- нельзя создать несколько разных Main-классов для создания и запуска разных конфигураций программы.
+Практическое следствие- нельзя сделать несколько разных Main-классов для создания и запуска разных конфигураций программы.
 
 Одно из главных преимуществ ООП- при правильном распределении ответственностей между классами, классы становится довольно универсальными и их можно собирать в разных конфигурациях.
 
@@ -1132,9 +1120,9 @@ public class FirstMain {
 public class SecondMain {
   public static void main(String[] args) {
     int width = inputWidth();
-    int hight = inputHight();
+    int height = inputHeight();
 
-    WorldMap worldMap = new WorldMap(width, hight);
+    WorldMap worldMap = new WorldMap(width, height);
     Simulation simulation = new Simulation(worldMap);
     simulation.start();
   }
@@ -1216,13 +1204,13 @@ public class TextRenderer extends Renderer {
 Одна из фишек этого проекта- управление ходом программы через старт/стоп во время работы программы.  
 Для этого нужно ввести многопоточность.
 
-Но многопоточность в этом проекте, на мой взгляд не важна не сама по себе, хотя она важна и сама по себе.  
+Но многопоточность в этом проекте, на мой взгляд важна не сама по себе, хотя она важна и сама по себе.  
 Но важнее то, как её удастся вписать в архитектуру проекта.
 
 А вписать многопоточность нужно так, чтобы класс `Simulation` можно было запускать и с многопоточностю и без.  
 
 То есть, многопоточность должна быть вынесена в отдельный класс.  
-Задача такого класса- ожидать команды от юзера и когда они придут, дергать `Simulation` за его публичные методы, которые описаны в ТЗ
+Задача такого класса- ожидать команды от юзера и когда они придут, дергать `Simulation` за его публичные методы, которые описаны в ТЗ:
 ```
 Simulation #
 Главный класс приложения, включает в себя:
