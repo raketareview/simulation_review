@@ -240,6 +240,15 @@ public class WorldMap {
   public static final int VERTICAL_SIZE = 12;
   //...
 }
+
+//ПРАВИЛЬНО:
+public class WorldMap {
+  public final int width;
+  public final int height;
+
+  public WorldMap(int width, int height) {...}
+  //...
+}
 ```
 Фиксированные размеры могут быть у шахматной доски(8x8) или игры крестики-нолики(3x3).  
 То есть в тех играх, где размер игрового поля жестко фиксирован правилами.  
@@ -250,14 +259,14 @@ public class WorldMap {
 private final HashMap<Position, Entity> worldMap = new HashMap<>();  
 
 public Entity getEntityAt(Position position) {
-  return worldMap.get(position);  <-- вернет null если position нет в position
+  return worldMap.get(position);  <-- вернет null если в worldMap нет position
 }
 ```
 Возврат null повышает риск возникновения NullPointerException в программе.  
 *Мартин, "Чистый код", гл.7.7-8*  
 *Ютуб, Немчинский "Почему нельзя возвращать NULL?"*
 
-- При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность 
+- При всех операциях с участием координаты(добавить, выдать, удалить и т.д.), нужно проверять координату на корректность. 
 
 Сейчас в карту можно вставить существо на координату, выходящую за размер карты.  
 Если координата некорректна(находится вне пределов карты), нужно бросать исключение:
@@ -276,7 +285,7 @@ public boolean isCellEmpty(Position position) {
 Ближайшая аналогия- стандартные хранилища типа List и массива.  
 При попытке обратиться к ним по несуществующему индексу, то бросается исключение.
 
- Нарушение OCP. 
+- Нарушение OCP. 
 
 Карта должна работать со всеми хранимыми существами одинаково.  
 И не должна работать как-то по-особому с конкретными классами-наследниками Entity
@@ -325,9 +334,13 @@ public class MapPathFinder {
 
 //ПРАВИЛЬНО:
 public class MapPathFinder {
-  public static List<Position> computePathToTarget(Position position, WorldMap worldMap, Position target;) {...}
+  private Position target;
+  public static List<Position> computePathToTarget(Position position, WorldMap worldMap) {...}
 }
 ```
+
+И дело не в том, нужно ли конкретно в этой программе иметь одновременно больше одного экземпляра этого класса.  
+В любом случае в ООП программе все классы должны быть сделаны так, чтобы они могли корректно работать при любом количестве экземпляром.
 
 - Нарушение SRP. 
 
@@ -400,8 +413,7 @@ public abstract class Creature extends Entity {
   private final int speed;
   private final Class<? extends Entity> food;
 
-  public void Creature(int speed, Class<? extends Entity> food) {...}
-
+  public Creature(int speed, Class<? extends Entity> food) {...}
 
   public void makeMove(WorldMap worldMap, Position currentPosition) {
     //общий для всех потомков код совершения хода
@@ -761,7 +773,7 @@ private void startInputListener() {
 **Совет:**  
 Для тренировки и понимания некоторых ООП концепций, создай несколько майн-классов.  
 Один пусть запускает игру так, как это сейчас- с конфигурированием карты через диалог с юзером.  
-Второй майн пусть сразу запускает игру сразу с картой размером 10x10.
+Второй майн пусть сразу запускает игру сразу с картой размером 10x10.  
 Третий пусть сразу запускает игру картой размером 10x10, но без использования потоков и команд старт/стоп.
 
 **12. class Main**, содержит точку входа main
@@ -775,7 +787,7 @@ public static void main(String[] args) {
   int width = inputWidth();  //получить размеры карты через диалог с юзером
   int height = inputHeight();
 
-  WorldMap worldMap = new WorldMap(20, 20);  
+  WorldMap worldMap = new WorldMap(width, height);  
 
   Simulation simulation = new Simulation(worldMap);
   SimulationManager simulationManager = new SimulationManager(simulation);  //класс который в себе реализует многопоточность
