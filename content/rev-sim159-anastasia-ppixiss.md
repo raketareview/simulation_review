@@ -791,7 +791,7 @@ public static void main(String[] args) {
 
   Simulation simulation = new Simulation(worldMap);
   SimulationManager simulationManager = new SimulationManager(simulation);  //класс который в себе реализует многопоточность
-  simulation.execute();
+  simulationManager.execute();
 }
 ```
 *Про особенности использования main ищи соответствующую главу в "Чистом коде"*  
