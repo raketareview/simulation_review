@@ -31,7 +31,7 @@ public class Coordinates {
   //...
 }
 ```
-Сокращать имена было круто при Иване Грозном, когда IDE работали в текстовом режиме 80x25 символов.
+Сокращать имена было круто в 1980-90-х, когда IDE работали в текстовом режиме 80x24 символов.
 
 - Венгерская нотация.
 
@@ -223,14 +223,14 @@ System.out.printf("""
     """, STEP, START);
 }
 
-System.out.print("Неверная команда! Введите [%s] или [%s] %n", STEP, START);
+System.out.printf("Неверная команда! Введите [%s] или [%s] %n", STEP, START);
 ```
 *Фаулер, "Рефакторинг", гл.8, "Замена магического числа символической константой"*  
 *refactoring.guru "Замена магического числа символьной константой"*
 
 **6. class CoordsShif**
 
-- Нет необходимости в существовании этого класса, он не дает ничего больше, чем может дать класс Coordinates.  
+- Нет необходимости в существовании этого класса, он не дает ничего больше, чем может дать класс `Coordinates`.  
 Для обозначения координат сдвига достаточно использовать обычные координаты, например так
 ```java
 Coordinates shifDownRightCoordinates = new Coordinates(-1, 1);
@@ -491,7 +491,7 @@ public class AstarPathFinder {
 
 Просто ацкий ад, удоли.
 
-Логика движения к цели должна быть такой:
+Логика движения к цели должна быть такой:  
 Класс поиска пути по алгоритму BFS(а заявлен именно он) должен прокладывать путь по доступным(то есть пустым) клеткам от точки старта, до точки с соответствующими условиями: 
 ```java
 public class BfsPathFinder {
@@ -621,21 +621,8 @@ public class Herbivore extends Creature {
 }
 ```
 
-Общий код потомков выноси в методы потомков:
+Общий код потомков выноси в методы предка:
 ```java
-public class Herbivore extends Creature {
-  //...
-
-  public Coords makeMove(Set<Coords> availableCells) {
-
-    if (wasAttackedLastTurn) {
-      wasAttackedLastTurn = false; // Сбрасываем флаг (один раз убежали)
-      return findEscapeMove(availableCells);
-    }
-
-    return makeMove(availableCells, Grass.class);
-  }
-}
 
 public abstract class Creature extends Entity {
   //...
@@ -647,6 +634,27 @@ public abstract class Creature extends Entity {
         //то же самое
         target.isInstance(entity)
     );
+  }
+}
+
+public class Herbivore extends Creature {
+  //...
+
+  public Coords makeMove(Set<Coords> availableCells) {
+    if (wasAttackedLastTurn) {
+      wasAttackedLastTurn = false; // Сбрасываем флаг (один раз убежали)
+      return findEscapeMove(availableCells);
+    }
+
+    return makeMove(availableCells, Grass.class);
+  }
+}
+
+public class Predator extends Creature {
+  //...
+
+  public Coords makeMove(Set<Coords> availableCells) {
+    return makeMove(availableCells, Herbivore.class);
   }
 }
 ```
@@ -683,7 +691,8 @@ public class Actions implements IActionEngine {
 
 Смысл Action'ов состоит в том, что должен быть общий класс/интерфейс Action и его наследники.  
 В каждом экшене должен быть только один публичный метод(не публичных может быть сколько угодно).  
-Это вариация паттерна Command- экшены должны быть родственны и одинаково использоваться через полиморфизм. Примерно так
+Это вариация паттерна Command- экшены должны быть родственны и одинаково использоваться через полиморфизм.  
+Примерно так
 ```java
 interface Action{
  void execute(Карта карта);
@@ -717,10 +726,11 @@ for(Action a: actions) {
 
 Детально анализировать `class Actions` сейчас не имеет смысла.  
 Сначала нужно привести его к тому виду, который указан в ТЗ:
-
-"Action - действие, совершаемое над миром. Например - сходить всеми существами.  
+```java
+Action - действие, совершаемое над миром. Например - сходить всеми существами.  
 Это действие итерировало бы существ и вызывало каждому makeMove().  
-КАЖДОЕ действие описывается ОТДЕЛЬНЫМ КЛАССОМ и совершает операции над картой."
+КАЖДОЕ действие описывается ОТДЕЛЬНЫМ КЛАССОМ и совершает операции над картой.
+```
 
 **16. Пакет logic**
 
@@ -979,7 +989,7 @@ public class MainWithThreads {
 Дополнительные усложнения, при недостаточном умении строить архитектуру программы, приносят больше вреда, чем пользы.
 
 Внимательно читай и соблюдай ТЗ.  
-Переделай по ТЗ классы Action's: посмотри ролики на ютубе про паттерн "Command", чтобы получить об экшенах-командах общее представление.
+Переделай классы Action's по ТЗ: посмотри ролики на ютубе про паттерн "Command", чтобы получить об экшенах-командах общее представление.
 
 Введи в проект многопоточность.
 
