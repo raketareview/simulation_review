@@ -8,7 +8,7 @@ https://github.com/aglazovv77-svg/Simulation
 + 👍 Есть пауза/пуск во время работы
 + 👍 Спрайты существ не хранятся в самих существах
 + 👍 Подсветка ходящих существ  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim112/img0.png) 
+![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim161/img0.png) 
 
 ## ЗАМЕЧАНИЯ
 
