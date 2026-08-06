@@ -197,7 +197,7 @@ public Map<Position, Herbivore> getHerbivorePosition()
 
 - Поля x,y тут должны быть final.
 
-При прочих равных простые делай классы `immutable`.
+При прочих равных простые классы делай `immutable`.
 ```java
 "Классы должны быть неизменяемыми, если только нет очень важной причины, чтобы сделать их изменяемыми",
 "Вы всегда должны делать объекты с небольшими значениями, такими как PhoneNumber или Complex, неизменяемыми" - Блох. - Блох.
@@ -412,13 +412,13 @@ public abstract void makeMove();
 Класс не должен знать про своих потомков и как-то учитывать различия своих потомков в логике своей работы
 ```java
 public Boolean isMoveable(Position position, WorldMap worldMap) {
-  if (worldMap.getEntityAt(position) instanceof EmptyCell || worldMap.getEntityAt(position) instanceof Grass) {  <-- ПРИМ.*
+  if (worldMap.getEntityAt(position) instanceof EmptyCell || worldMap.getEntityAt(position) instanceof Grass) {  <-- ЗАМЕЧАНИЕ*
     return true;
   }
   return false;
 }
 
-*ПРИМ.: Класс знает и учитывает особенности поведения своих наследников Зайца и Волка
+*ЗАМЕЧАНИЕ: Класс знает и учитывает особенности поведения своих наследников Зайца и Волка
 ```
 Потому что при добавлении новых потомков, придется переписывать предка и тем самым нарушать правило "класс должен быть закрыт для изменений".
 
