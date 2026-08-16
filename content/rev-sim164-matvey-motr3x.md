@@ -125,7 +125,7 @@ package entity.stationaryentity
 *Мартин, "Чистый код", гл.2*  
 *Ютуб, Немчинский "Как называть переменные, методы и классы?"*
 
-**?. Комментарии**
+**2. Комментарии**
 
 Комментарии здесь в основном не несут полезной нагрузки.  
 Здесь комментарии вводят в заблуждение- один и тот же комментарий для разных перегруженных методов
@@ -145,8 +145,7 @@ public Creature(int hp, int speed) {
 В идеале, комментариев вообще не должно быть(кроме `TODO`), код должен объяснять сам себя через правильный нейминг и лаконичный код.  
 *Мартин, "ЧК", гл.4*
 
-
-**?. record Coordination**
+**3. record Coordination**
 
 + 👍 Нет ничего лишнего, это хорошо. Record для координаты- идеально.
 
@@ -172,7 +171,7 @@ public record Coordination(int x, int y) {
 Record'ы по умолчанию умеют правильно делать `hashCode()`, `equals()` и `toString()`.  
 Про возможности рекордов почитай [тут](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html).
 
-**?. class GameMap**
+**4. class GameMap**
 
 - Ненужное ограничение наследования.
 
@@ -220,7 +219,7 @@ public void add(Coordinates coordinates, Entity entity) {
 Ближайшая аналогия- стандартные хранилища типа List и массива.  
 При попытке обратиться к ним по несуществующему индексу, бросается исключение.
 
-**?. abstract class Entity и его простые наследники Tree/Rock/Grass**
+**5. abstract class Entity и его простые наследники Tree/Rock/Grass**
 
 + 👍 Идеально
 ```java
@@ -231,7 +230,7 @@ public class Rock extends Entity {
 }
 ```
 
-**?. final class CreatureConfig**
+**6. final class CreatureConfig**
 
 - Соблюдай требования константных классов. 
 
@@ -239,7 +238,7 @@ public class Rock extends Entity {
 Не должно быть возможности унаследоваться от утилиты или сделать ее экземпляр.  
 *Блох, "Java. Эффективное программирование", изд.3, гл.2.4*
 
-**?. abstract class Creature extends Entity**
+**7. abstract class Creature extends Entity**
 
 - Не используй статические импорты. 
 
@@ -374,7 +373,7 @@ public abstract class Creature extends Entity {
 По умолчанию все методы должны быть приватными, если нет причин для того, чтобы сделать их не приватными.  
 *Вайсфельд "Объектно-ориентированный подход", гл.5, "Минимальный открытый интерфейс"*
 
-**?. enum EntityType**
+**8. enum EntityType**
 
 Енам существует для дополнительной типизации классов
 ```java
@@ -404,7 +403,7 @@ switch (name) {
 }
 ```
 
-**?. class Herbivore/Predator extends Creature**
+**9. class Herbivore/Predator extends Creature**
 
 - Ссылка на несуществующий в проекте класс
 ```java
@@ -534,12 +533,12 @@ public class Herbivore extends Creature {
 }
 ```
 
-**?. Пакет utility**
+**10. Пакет utility**
 
 Не все классы в пакете являются утилитами.  
 `class EntitySpawner` не является утилитой. 
 
-**?. class Helper**
+**11. class Helper**
 
 - Нейминг.
 
@@ -553,7 +552,7 @@ public class Herbivore extends Creature {
 В классе находятся два метода, которые используются для разных ответственностей.  
 Класс удалить, его методы перенести в те классы, в интересах которых они используются. 
 
-**?. class PathFinder**
+**12. class PathFinder**
 
 - Возвращай `Optional` только тогда, когда это необходимо.
 
@@ -651,7 +650,7 @@ if (!path.getLast().equals(start)) {...}
 ```
 Вводи вспомогательные методы или поясняющие переменные.
 
-**?. class Menu**
+**13. class Menu**
 
 - Стрела.
 
@@ -674,9 +673,9 @@ void printMenu() {
 
 Про меню в ООП стиле я писал [ТУТ](https://t.me/zhukovsd_it_chat/53243/114908).
 
-**?. Отсутствуют указанные в ТЗ классы Action's**
+**14. Отсутствуют указанные в ТЗ классы Action's**
 
-**?. class Simulation**
+**15. class Simulation**
 
 - Свалка.
 
@@ -791,7 +790,7 @@ public class Simulation {
 }
 ```
 
-**?. class Main**, содержит точку входа main
+**16. class Main**, содержит точку входа main
 
 + 👍 Только создает и запускает Симуляцию, это хорошо.  
 *Мартин, "ЧК", гл.11, "Отделение конструирования системы от ее использования"*
@@ -810,7 +809,6 @@ public class Simulation {
 Посмотреть на ютубе ролики Немчинского про SOLID- по одному ролику на каждый принцип.
 
 Эталонная версия Симуляции с объяснениями есть у Сергея в расширенных материалах.
-
 
 n.164(349)  
 #ревью #симуляция 
