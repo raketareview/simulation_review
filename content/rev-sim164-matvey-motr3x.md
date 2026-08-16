@@ -199,7 +199,7 @@ public Optional<Entity> get(Coordination coordination) {...}
 Сейчас Карта не хранит в себе свои размеры.  
 Значит их хранит кто-то другой и забирает на себя, таким образом, часть ответственности Карты.
 
-+ 👍 Пусть будет, почему бы и нет
++ 👍 А этот метод пусть будет, почему бы и нет
 ```java
 public <T extends Entity> Queue<Coordination> getPositions(GameMap gameMap, Class<T> type) 
 ```
@@ -318,7 +318,7 @@ public class House {
 ```
 Про классы констант, конфигурации и их использование я писал [ТУТ](https://t.me/zhukovsd_it_chat/53243/176984)
 
-Да, класс может получать в конструктор не отдельные поля, а целый объект с набором этих полей. 
+Да, класс может получать в конструктор не отдельные поля, а целый объект с набором этих полей.  
 Но там должна быть только нужная классу информация.  
 *"ЧК", гл.3, "Объекты как аргументы"*
 
@@ -328,15 +328,15 @@ public class House {
 ```java
 public abstract boolean checkBarrier(GameMap gameMap, Coordination followCoordinate);
 
-public abstract boolean isGoal(GameMap gameMap, Coordination followCoordinate)
+public abstract boolean isGoal(GameMap gameMap, Coordination followCoordinate);
 
 //ПРАВИЛЬНО:
 public abstract boolean checkBarrier(Entity entity); 
 
-public abstract boolean isGoal(Entity entity)
+public abstract boolean isGoal(Entity entity);
 ```
 
-На мой взгляд, в этом классе не нужен специальный метод, который проверяет барьер.  
+На мой взгляд, в этом классе вообще не нужен специальный метод, который проверяет барьер.  
 Достаточно только метода, который проверяет еду.
 
 Потому что барьером можно считать всё, что не является едой.
@@ -681,7 +681,7 @@ void printMenu() {
 
 Половина кода в классе закомментирована.
 
-Закомментированный код это антипаттерн "Лодочный якорь", такой код никогда уже не понадобится.
+Закомментированный код это антипаттерн "Лодочный якорь", такой код никогда уже не понадобится.  
 Не превращай программу в свалку. 
 
 Если что-то хочешь сохранить на память, сделай коммит в гите с соответствующим комментарием.  
@@ -703,7 +703,7 @@ public Simulation(..., Boolean stopFlag) {...}
 public class GameMapRenderer {
   //...
 
-  public void print(GameMap gameMap) {
+  public void render(GameMap gameMap) {
     //печатает карту
   }    
 }
