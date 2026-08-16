@@ -102,6 +102,15 @@ public final class BfsPathFinder {
 }
 ```
 
+- Названия пакетов нужно писать стилем alllowercase 
+```java
+package entity.staticObject;
+
+//ПРАВИЛЬНО:
+package entity.staticobject;
+
+```
+
 - Несколько ошибок в названии.
   - В java всё- объекты, поэтому не используй это слово в названиях.  
   - Слово "static" тоже не используй в названиях классов и пакетов, чтобы не было ложных ассоциаций с зарезервированным словом `static`
@@ -109,7 +118,7 @@ public final class BfsPathFinder {
 package entity.staticObject;
 
 //ПРАВИЛЬНО:
-package entity.stationaryEntity
+package entity.stationaryentity
 ```
 
 *Oracle Java code conventions, part."Naming conventions"*  
