@@ -378,7 +378,7 @@ public abstract class LivingEntity extends Entity {
 Если метод предназначен только для использования потомками, то метод должен быть `protected`.  
 Остальные методы должны быть `private`.
 
-Сейчас в LivingEntity и его наследниках все методы публичные. Даже те, которые не предназначены для использования клиентами. 
+Сейчас в `LivingEntity` и его наследниках все методы публичные. Даже те, которые не предназначены для использования клиентами. 
 
 По умолчанию все методы должны быть приватными, если нет причин для того, чтобы сделать их не приватными.  
 *Вайсфельд "Объектно-ориентированный подход", гл.5, "Минимальный открытый интерфейс"*
@@ -445,7 +445,7 @@ public record SimulationConfig(
     FieldRenderer renderer
 ) {
 
-  public Map<EntityType, Integer> mapCopy() {  <-- ?
+  public Map<EntityType, Integer> mapCopy() {  
     return Map.copyOf(entitySpawnAmount);
   }
 
@@ -509,10 +509,11 @@ private final List<Action> turnActions = List.of(new MoveAction());
 
 //ПРАВИЛЬНО:
 private final List<Action> initActions;
-private final List<Action> turnActions = List.of(new MoveAction());
+private final List<Action> turnActions;
 
 public Simulation(SimulationConfig config) {
   this.config = config;
+  this.turnActions = List.of(new MoveAction());
   this.initActions = List.of(new WorldInitializeAction(config));
 }
 ```
