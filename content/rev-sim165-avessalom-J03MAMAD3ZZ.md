@@ -328,7 +328,7 @@ public class Tree extends Entity implements InanimateEntity {
 
 **9. abstract class LivingEntity extends Entity**
 
-Аналог класса `Herbivore`.  
+Аналог класса `Creature`.  
 Переименовано ради дихотомии `LivingEntity`/`InanimateEntity`, почему бы и нет.
 
 - Нарушение DIP.
@@ -524,7 +524,7 @@ public Simulation(SimulationConfig config) {
 public Simulation(SimulationConfig config) {...}
 ```
 Главное, чтобы в этом конфиге были все необходимые для Симуляции зависимости, в том числе `PathFinder`.  
-И конфиг должен лежать в одном пакете с `Simulation`, а не где-то у чёрта на куличках.
+И класс конфига должен лежать в одном пакете с `Simulation`, а не где-то у чёрта на куличках.
 
 Конфиг должен быть простым контейнером данных, поэтому для удобства его можно даже положить внутрь `Simulation`:
 ```java
