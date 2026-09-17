@@ -6,7 +6,7 @@ https://github.com/Tunyaa/Simulation
 
 ## ХОРОШО
 
-+ 👍 Красивый Windows UI интерфейс JavaFX  
++ 👍 Красивый Windows UI JavaFX  
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim167/img0.png) 
 
 ## ЗАМЕЧАНИЯ
