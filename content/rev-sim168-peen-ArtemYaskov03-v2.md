@@ -276,15 +276,8 @@ public void populateTheMap() {
   for (int numWolf = 0; numWolf < countWolf; numWolf++) {
     worldMap.putEntityOnRandomCoordinates(new Wolf());
   }
-  for (int numGrass = 0; numGrass < countGrass; numGrass++) {
-    worldMap.putEntityOnRandomCoordinates(new Grass());
-  }
-  for (int numRock = 0; numRock < countRock; numRock++) {
-    worldMap.putEntityOnRandomCoordinates(new Rock());
-  }
-  for (int numTree = 0; numTree < countTree; numTree++) {
-    worldMap.putEntityOnRandomCoordinates(new Tree());
-  }
+  for (int numGrass = 0; numGrass < countGrass; numGrass++) {...}
+  //...
 }
 
 //ПРАВИЛЬНО:
