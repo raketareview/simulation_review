@@ -599,15 +599,13 @@ public class AStar {
 
   public List<Coordinates> findWay() {
     //...
-    if (worldMap.getEntity(coordinates) instanceof Items) {
-      closeCoordinates.put(coordinates, new Way(coordinates, null, 0, searchH(coordinates, finish)));
-    }
+    if (worldMap.getEntity(coordinates) instanceof Items) {...}
     //...
   }
 }
 ```
 Но это просто еще одно свидетельство того, что класс поиска нарушает SRP.  
-Для корректного алгоритма поиска ему не нужно анализировать объект на карте на принадлежность к типу `Items`.  
+Для корректного алгоритма, поиску не нужно анализировать объект на карте на принадлежность к типу `Items`.  
 Поиск A* должен просто искать путь между двумя точками.
 
 Поэтому правильная иерархия должна выглядеть так
