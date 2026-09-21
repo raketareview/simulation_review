@@ -896,7 +896,7 @@ public class MainWithThreads {
 
     SimulationManager manager = new SimulationManager(simulation);  //работает с потоками, дергает симуляцию за методы пауза/пуск 
 
-    manager.start(); //симуляция с потоками и командами пауза/пуск
+    manager.start(); 
   }
 }
 ```
