@@ -108,7 +108,7 @@ public Coordinates getCoordinates(Entity entity) {
 }
 ```
 
-- Коллекции нужно назвать во множественном числе
+- Коллекции нужно называть во множественном числе
 ```java
 List<Entity> getAllEntity()
 
@@ -116,7 +116,7 @@ List<Entity> getAllEntity()
 List<Entity> getAllEntities()
 ```
 
-- Пары слов здесь будут "my-your" и "start-finish"
+- Правильная дихотомия здесь будет "my-your" или "start-finish"
 ```java
 int searchH(Coordinates myCoordinates, Coordinates finishCoordinates)
 
@@ -232,6 +232,7 @@ throw new RuntimeException("Данная координата находится
 ```java
 "Не ограничивайтесь генерацией RuntimeException. 
 Найдите подходящий подкласс или создайте собственный." - Хорстманн
+```
 
 - Текст в Exception всегда должен быть на английском языке.
 ```java
