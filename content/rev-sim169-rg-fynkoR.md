@@ -476,9 +476,6 @@ public static List<Position> bfs(GameMap gameMap, Position start, Position targe
 
 На самом деле BFS должен сам искать цель и прокладывать к ней путь. Сигнатура метода для этого должна выглядеть примерно так
 ```java
-List<Position> bfs(GameMap gameMap, Position start, Position target) 
-
-//ПРАВИЛЬНО:
 List<Coordinate> find(GameMap gameMap, Position start, Class<? extends Entity> target) {
   //ищет путь на карте от точки start
   //до точки, где находится существо нужного класса(напр. target == Grass.class)
@@ -617,7 +614,7 @@ protected abstract Class<? extends Entity> getTargetType();
 - Не нужно переопределять метод, если в нём нет нового поведения по сравнению с поведением предка
 ```java
 @Override
-public void makeMove() {  <-- ЛИШНИЙ МЕТОД В КЛАССЕ
+public void makeMove() {  <-- ЛИШНИЙ МЕТОД НА ЭТОМ УРОВНЕ ИЕРАРХИИ
   super.makeMove();
 }
 ```
@@ -667,7 +664,7 @@ public abstract class Action {
 Сейчас в `SpawnAction` много публичных методов
 ```java
 public abstract class SpawnAction extends Action {
-  public Random random;
+  //...
 
   @Override
   public void perform(GameMap map) {...}  <-- ТОЛЬКО ЭТОТ МЕТОД ДОЛЖЕН БЫТЬ ПУБЛИЧНЫМ
@@ -747,9 +744,9 @@ for (int i = 0; i < map.getSize(); i++) {
 }
 
 //ЛУЧШЕ:
-for (int x = 0; x < map.getSize(); x++) {
-  for (int y = 0; y < map.getSize(); y++) {
-    Position position = new Position(x, y);
+for (int y = 0; y < map.getSize(); y++) {
+  for (int x = 0; x < map.getSize(); x++) {
+    Position position = new Position(y, x);
   }
 }
 ```
@@ -808,10 +805,6 @@ Creator гласит, что создавать объект должен тот
 Экземпляр `MoveCounter` всегда одинаковый.  
 Поэтому, согласно паттерну Creator, объект `MoveCounter` *здесь* должен создавать сам класс Simulation.
 
-Технически, можно создать наследника `MoveCounter`, переопределить в нем методы и передавать в конструктор Simulation.  
-Но если программист хочет использовать в своем классе другие классы через полиморфизм, то он должен обозначить свои намерения более явно.  
-Например, передавать в конструктор интерфейс или абстрактный класс.
-
 - Сложные правила пользования классом.
 
 Если в классе нужно инициализировать значения при его создании, то делай это в конструкторе, а не в публичном инициализаторе
@@ -864,10 +857,7 @@ public class Simulation {
 - Класс не соответствует ТЗ
 ```java
 public class Simulation {
-  private final GameMap map;
-  private final MoveCounter moveCounter;
-  private List<Action> initActions;
-  private List<Action> turnActions;
+  //поля
 
   public Simulation(GameMap map, MoveCounter moveCounter) {
     this.map = map;
@@ -893,10 +883,12 @@ pauseSimulation() - приостановить бесконечный цикл �
 ```
 
 Сейчас этот класс похож на гибрид- он наполовину структура данных, наполовину объект.  
-От объекта в нем только поведение `nextTurn()`. В остальном это структура, которая просто хранит в себе поля и отдаёт их клиенту.  
+От объекта в нем только поведение `nextTurn()`.  
+В остальном это структура, которая просто хранит в себе поля и отдаёт их клиенту. 
+
 *"Чистый код", гл.6, "Гибриды"*
 
-Сделай этот класс по ТЗ, оставь в нём только три публичных метода, за которые этот класс должен дёргать клиент:
+Сделай этот класс по ТЗ, оставь в нём только три публичных метода, за которые клиент будет дёргать этот класс:
 ```java
 nextTurn() - просимулировать и отрендерить один ход
 startSimulation() - запустить бесконечный цикл симуляции и рендеринга
