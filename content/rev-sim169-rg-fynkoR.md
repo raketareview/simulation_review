@@ -12,7 +12,6 @@ https://github.com/fynkoR/simulation
 
 + 👍 Есть пауза/пуск во время работы
 + 👍 Координаты существ не хранятся в самих существах (мне так больше нравится)
-+ 👍 Алгоритм поиска A*
 
 ## ЗАМЕЧАНИЯ
 
@@ -42,7 +41,8 @@ private HashMap<Position, Entity> entities;  // или positionWithEntity
 
 - Хуже венгерской нотации только венгерская нотация, которая обманывает. 
 
-Здесь в названии переменной имеется слово "arr(ay).", но эта переменная не является массивом, это List
+Здесь в названии переменной имеется слово "arr(ay)." - то есть, массив.  
+Но эта переменная не является массивом, это List
 ```java
 List<Position> arr = new ArrayList<>();
 
@@ -139,11 +139,11 @@ class SimulationRunner implements Runnable
 
 **2. Используй классы через их интерфейсы**
 ```java
-private HashMap<Position, Entity> map;
+HashMap<Position, Entity> map;
 HashMap<Position, Entity> getMap()
 
 //ПРАВИЛЬНО:
-private Map<Position, Entity> entities;
+Map<Position, Entity> entities;
 Map<Position, Entity> getMap()
 ```
 Общее правило: ArrayList нужно использовать через List, HashMap через Map, HashSet через Set и т.д.  
@@ -237,7 +237,7 @@ public void moveEntity(Position position, Creature creature) {
   RenderMap.render(this);
 }
 ```
-Должна ли карта учитывать логистику зайцев? Если да, то как?  
+Должна ли карта учитывать правила логистики зайцев? Если да, то как?  
 Единственно правильный ответ- карта вообще не должна иметь в себе метод телепортации.
 
 - Нарушение SRP, зависимость модели от представления. 
@@ -288,13 +288,13 @@ public Entity findEntity(Position position) {
 - При всех операциях с участием координаты (добавить, выдать, удалить и т.д.) нужно проверять координату на корректность  
 ```java
 public Entity findEntity(Position position) {
-  return map.get(position);  <-- вернет null если position нет в map
+  return map.get(position);  
 }
 
 //ПРАВИЛЬНО:
 public Entity findEntity(Position position) {
   validate(coordinates);  <-- Если координата не в пределах карты, то бросает исключение 
-  return map.get(position);  <-- вернет null если position нет в map
+  return map.get(position);  
 }
 ```
 Ближайшая аналогия- стандартные хранилища типа List и массива.  
@@ -361,7 +361,7 @@ public <T extends Entity> List<Position> getEntitiesByClass(Entity entity, Class
 
 - Нарушение SRP, зависимость модели от представления.  
 
-Конкретный язык текстового сообщения ограничивает использование этой модели только русскоязычной программой 
+Конкретный язык текстового сообщения ограничивает использование этого класса-модели только русскоязычной программой 
 ```java
 public class MoveCounter {
   private int counter;
@@ -391,8 +391,8 @@ public class MoveCounter {
     this.counter++;
   }
 
-  public String getCounter() {
-    return "Текущий ход симуляции: " + counter;
+  public int getCounter() {
+    return counter;
   }
 }
 ```
