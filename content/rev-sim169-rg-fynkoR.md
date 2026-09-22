@@ -869,6 +869,9 @@ public class Simulation {
   public void createInitActions() {...}
 
   public void createTurnActions() {...}
+
+  public List<Action> getInitActions() {...}
+  public List<Action> getTurnActions() {...}
 }
 ```
 
