@@ -767,7 +767,7 @@ public class Rocket extends Vehicle {
   @Override
   public void drive() {}  <-- ОТКАЗ ОТ НАСЛЕДСТВА
 
-  public void fly()   public void drive() {
+  public void fly() {
     <код алгоритма полёта>
   }
 }
