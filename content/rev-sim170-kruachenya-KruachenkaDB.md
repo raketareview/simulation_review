@@ -649,7 +649,7 @@ public class PartnerPathFinder extends PathFinder{
 //            тут должна была быть логика поиска партнера
 ```
 
-Нужно использовать всё тот же поиск, но передавать в него для поиска класс цели не как "цель-еда", а как "цель-партнёр"
+Нужно использовать всё тот же поиск, но класс цели передавать в него для поиска не как "цель-еда", а как "цель-партнёр"
 ```java
 public abstract class Creature extends Entity {
   //...
@@ -689,7 +689,7 @@ public class BfsPathFinder {
 ```java
 List<Coordinates> partnerPath = BfsPathFinder.find(gameMap, start, this.getClass());
 ```
-Но тут думай, как изменить алгоритм BFS поиска, чтобы в такой ситуации не ловить самого себя за хвост.
+Но тут думай, как изменить алгоритм BFS поиска так, чтобы не ловить самого себя за хвост.
 
 **10. abstract class Entity**
 
@@ -746,6 +746,50 @@ public class Tree extends Entity {
   }
 }
 ```
+
+Если в методах потомков приходится переопределять методы предков и делать их пустыми, значит иерархия классов построена неправильно.  
+Условный пример:
+```java
+//ПЛОХО:
+abstract class Vehicle {
+  public void drive() {
+    <алгоритм езды по земле>
+  }
+}
+
+public class Car extends Vehicle {
+  //получает в наследство от предка метод езды по земле
+}
+
+public class Rocket extends Vehicle {
+
+  @Override
+  public void drive() {}  <-- ОТКАЗ ОТ НАСЛЕДСТВА
+
+  public void fly() {
+    <алгоритм полёта>
+  }
+}
+
+//ХОРОШО:
+abstract class Vehicle {
+}
+
+public class Car extends Vehicle {
+
+  public void drive() {
+    <алгоритм езды по земле>
+  }
+}
+
+public class Rocket extends Vehicle {
+
+  public void fly() {
+    <алгоритм полёта>
+  }
+}
+```
+
 *Фаулер "Рефакторинг", гл.3, "Отказ от наследства"*
 
 **12. abstract class Creature extends Entity**
