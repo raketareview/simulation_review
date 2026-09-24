@@ -754,7 +754,7 @@ public class Tree extends Entity {
 abstract class Vehicle {
 
   public void drive() {
-    <алгоритм езды по земле>
+    <код алгоритма езды по земле>
   }
 }
 
@@ -767,8 +767,8 @@ public class Rocket extends Vehicle {
   @Override
   public void drive() {}  <-- ОТКАЗ ОТ НАСЛЕДСТВА
 
-  public void fly() {
-    <алгоритм полёта>
+  public void fly()   public void drive() {
+    <код алгоритма полёта>
   }
 }
 
@@ -779,14 +779,14 @@ abstract class Vehicle {
 public class Car extends Vehicle {
 
   public void drive() {
-    <алгоритм езды по земле>
+    <код алгоритма езды по земле>
   }
 }
 
 public class Rocket extends Vehicle {
 
   public void fly() {
-    <алгоритм полёта>
+    <код алгоритма полёта>
   }
 }
 ```
@@ -830,8 +830,6 @@ public class InitEntitiesAction implements Action {...}
 ```
 
 **14. class InitEntitiesAction implements InitAction**
-
-- Нарушение DRY.  
 
 - Нарушение DRY.  
 
