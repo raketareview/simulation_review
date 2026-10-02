@@ -69,7 +69,7 @@ public abstract class Entity {
 }
 ```
 
-- Название методов должно быть глаголом в повелительном наклонении, а это- не пойми шо
+- Название методов должно быть глаголом в повелительном наклонении
 ```java
 abstract public class Action {
 
@@ -795,7 +795,7 @@ private String toSprite(Entity entity) {
 public Simulation(Map map, List<Action> initAction, List<Action> turnAction, Renderer renderer, PathFinder pathFinder) {...}
 
 //ПРАВИЛЬНО:
-public Simulation(GameMap gameMap, List<Action> initAction, List<Action> turnAction) {...}
+public Simulation(GameMap gameMap, List<Action> initActions, List<Action> turnActions) {...}
   //...
   this.renderer = new Renderer();
   this.pathFinder = new PathFinder(gameMap);
