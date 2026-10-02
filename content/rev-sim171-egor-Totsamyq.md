@@ -41,7 +41,7 @@ public class PathFinder {
 
 //ПОЧТИ ПРАВИЛЬНО ТАК:
 public class PathFinder {
-  publicList<Position> bfs(Entity entity) {...}  
+  public List<Position> bfs(Entity entity) {...}  
 }
 ```
 
@@ -49,7 +49,7 @@ public class PathFinder {
 Поэтому тут совсем правильно будет так:
 ```java
 public class BfsPathFinder {
-  publicList<Position> find(Entity entity) {...}  
+  public List<Position> find(Entity entity) {...}  
 }
 ```
 
@@ -63,7 +63,7 @@ public abstract class Entity {
 
 //ПРАВИЛЬНО:
 public abstract class Entity {
-  private String sprite;  <-- Изображение существа
+  private String sprite;  <-- Спрайт это графический объект в компьютерной графике, устоявшийся термин
  
   //...
 }
@@ -124,7 +124,6 @@ List<Action> turnAction;
 List<Action> initActions;
 List<Action> turnActions;
 ```
-
 
 *Oracle Java code conventions, part."Naming conventions"*  
 *Мартин, "Чистый код", гл.2*  
@@ -255,8 +254,7 @@ private LinkedList<Grass> grassList = new LinkedList<>();  <-- ЛИШНЕЕ
 ```
 Нарушение SRP: карта знает слишком много. 
 
-Нарушение OCP: 
-Касс открыт для изменений.  
+Нарушение OCP: класс открыт для изменений.  
 При добавлении нового существа в проект, придётся добавлять в класс новый код для этого существа:
 ```java
 private LinkedList<Bird> birdList = new LinkedList<>();  
@@ -271,7 +269,7 @@ private LinkedList<Bird> birdList = new LinkedList<>();
 
 Для того, чтобы карта работала так, как надо, достаточно использовать только одну мапу:
 ```java
-private HashMap<Position, Entity> entities = new HashMap<>();
+private Map<Position, Entity> entities = new HashMap<>();
 ```
 
 - Если во время жизни объекта не планируешь изменять в нём значение определенных полей, то делай их неизменяемыми 
@@ -311,12 +309,12 @@ public boolean removeEntity(Entity entity) {
 
 //ПРАВИЛЬНО:
 public boolean addEntity(Entity entity) {
-  Position position =  entity.getPosition(); 
+  Position position = entity.getPosition(); 
   if (isValidPosition(position)) {...}
 }  
 
 public boolean removeEntity(Entity entity) {
-  Position position =  entity.getPosition(); 
+  Position position = entity.getPosition(); 
   if (isValidPosition(position)) {...}
 }
 ```
@@ -370,7 +368,7 @@ boolean addEntity(Entity entity)
 if(gameMap.isEmpty(position)) {
   gameMap.addEntity(entity, position);  <-- Если попытаемся вставить на занятую координату, метод должен кинуть исключение  
 } else {
-  //пытаемся вставить существо на занятую координату    
+  //попытались вставить существо на занятую координату    
 }
 ```
 
@@ -440,7 +438,7 @@ public Entity position(Position position) {
 
 public boolean isCellFree(Position position) {
   validate(position);  <-- Если координата не в пределах карты, то бросает исключение  
-  return worldMap.containsKey(position));
+  return !worldMap.containsKey(position);
 }
 ```
 Ближайшая аналогия- стандартные хранилища типа List и массива.  
@@ -484,7 +482,7 @@ public boolean isWithinBounds(Position position) {
 - Нарушение SRP. 
 
 Класс должен просто искать путь от точки старта до точки, соответствующей заданным условиям согласно алгоритму BFS или AStar.  
-Эти условия класс должен принимать в себя и НЕ ДОЛЖЕН определять эти условия самостоятельно, например путем анализа принадлежности Creature тому или иному виду существ
+Эти условия класс должен принимать в себя. Он НЕ ДОЛЖЕН определять эти условия самостоятельно, например путем анализа принадлежности Creature тому или иному виду существ
 ```java
 public class PathFinder {
   //...
@@ -513,7 +511,7 @@ public class BfsPathFinder {
 }
 ```
 
-- Вообще, такие конструкции это абсолютный ад. Вводи вспомогательные методы
+- Такие конструкции это абсолютный ад. Вводи вспомогательные методы
 ```java
 if (!(map.getEntityAt(newposition) instanceof Rock) && !(map.getEntityAt(newposition) instanceof Tree)) {
 
@@ -542,7 +540,7 @@ while (!queue.isEmpty()) {
       if (map.isWithinBounds(newposition) && !visitedСells.contains(newposition)) {
         if (!(map.getEntityAt(newposition) instanceof Rock) && !(map.getEntityAt(newposition) instanceof Tree)) {
           if (entity instanceof Herbivore && map.getEntityAt(newposition) instanceof Grass) {
-           //наконечник стрелы
+            //наконечник стрелы
           }
         }
       }
@@ -632,7 +630,7 @@ abstract public class Action {
 
 //ПРАВИЛЬНО:
 abstract public class Action {
-  abstract public void perform(Map map);
+  abstract public void perform(GameMap gameMap);
 }
 ```
 
@@ -769,6 +767,7 @@ public void Process(Map map) {
   if (!map.isCellFree(position)) {
     Entity entity = map.getEntityAt(position);
     String sprite = toSprite(entity);
+
     System.out.print(sprite);
     //...
   }
@@ -796,7 +795,7 @@ private String toSprite(Entity entity) {
 public Simulation(Map map, List<Action> initAction, List<Action> turnAction, Renderer renderer, PathFinder pathFinder) {...}
 
 //ПРАВИЛЬНО:
-public Simulation(GameMap gameMap, List<Action> initAction, List<Action> turnAction, Renderer renderer, PathFinder pathFinder) {...}
+public Simulation(GameMap gameMap, List<Action> initAction, List<Action> turnAction) {...}
   //...
   this.renderer = new Renderer();
   this.pathFinder = new PathFinder(gameMap);
@@ -815,12 +814,12 @@ Creator гласит, что создавать объект должен тот
 
 Но принимать в конструктор `Renderer` и `PathFinder`- уже неправильно.  
 Потому что эти классы не параметризуются и `Simulation` их может создать самостоятельно.  
-`PathFinder` параметризуется картой, но это может сделать и `Simulation`.
+`PathFinder` параметризуется картой, но это может сделать сам `Simulation`.
+А экземпляр `Renderer` вообще всегда одинаковый.  
 
-Экземпляр `Renderer` всегда одинаковый.  
-Поэтому, согласно паттерну Creator, объект `Renderer` *здесь* должен создавать сам класс Simulation.
+Поэтому, согласно паттерну Creator, эти объекты *здесь* должен создавать сам класс Simulation.
 
-Технически, можно создать наследника `Renderer`, переопределить в нем методы и передавать в конструктор Simulation.  
+Технически, сейчас можно создать наследника `Renderer`, переопределить в нем методы и передавать в конструктор Simulation.  
 Но если программист хочет использовать в своем классе другие классы через полиморфизм, то он должен обозначить свои намерения более явно.  
 Например, передавать в конструктор интерфейс или абстрактный класс:
 ```java
