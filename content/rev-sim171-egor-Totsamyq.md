@@ -56,14 +56,14 @@ public class BfsPathFinder {
 - Для переменных используй простые, устоявшиеся имена. Коллеги могут не знать английский на уровне Oxford 3000
 ```java
 public abstract class Entity {
-  private String appearance;  <-- Изображение существа
+  private String appearance;  <-- "Внешний вид"
  
   //...
 }
 
 //ПРАВИЛЬНО:
 public abstract class Entity {
-  private String sprite;  <-- Спрайт это графический объект в компьютерной графике, устоявшийся термин
+  private String sprite;  <-- "Спрайт" это графический объект в компьютерной графике, устоявшийся термин
  
   //...
 }
