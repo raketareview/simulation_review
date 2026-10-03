@@ -17,7 +17,7 @@ https://github.com/AlbertComander/Simulation
 
 **1. Нейминг**
 
-- Правильнее такие методы называть по аналогии с тем, как это делается в стандартной библиотеке: `toList()`, `toString()` etc
+- Правильнее такие методы называть по аналогии с тем, как это делается в стандартной библиотеке: `toList()`, `toString()` 
 ```java
 public class WorldMap {
   private final Map<Coordinate, Entity> entities = new HashMap<>();
@@ -140,8 +140,6 @@ throw new IllegalStateException("Не удалось загрузить файл
 Record'ы по умолчанию умеют правильно делать `hashCode()`, `equals()` и `toString()`.  
 Про возможности рекордов почитай [тут](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html).
 
-- Зависимость модели от представления.
-
 - Неправильный `toString()`, модель зависит от представления. 
 
 toString() должен быть стандартным(как делает IDE по Alt+Ins) и использоваться только для отладки.  
@@ -250,7 +248,7 @@ public Map<Coordinate, Entity> getEntitiesSnapshot() {
 }
 ```
 
-Если клиенту надо, то пусть он через этот метод получит всех существ, и сам пересчитает, сколько среди них травы, грибов, зайчиков.
+Если клиенту надо, то пусть он через этот метод получит всех существ и сам пересчитает, сколько среди них травы, грибов, зайчиков.
 
 - Последствия использования параллельных коллекций для хранения существ: громоздкий запутанный код
 ```java
@@ -332,6 +330,11 @@ public boolean isOccupied(Coordinate coordinate) {
 boolean placeEntity(Coordinate coordinate, Entity entity)
 ```
 Метод должен или выполнять команду, или отвечать на запрос.
+
+Здесь этот метод должен просто вставить существо по координате. А если что-то пойдёт не так, то бросить исключение:
+```java
+void placeEntity(Coordinate coordinate, Entity entity)
+```
  
 *Мартин, "Чистый код", гл.3, "Разделение команд и запросов"* 
 ```java
@@ -453,7 +456,7 @@ public record SimulationConfig(
 
 **10. interface Action**
 
-👍 Норм. Но "abstract" в интерфейсах не пишется- там все методы по умолчанию абстракт 
+👍 Норм. Но "abstract" в интерфейсах не пишется- там все методы по умолчанию абстрактные 
 ```java
 public interface Action {
   abstract void execute();
