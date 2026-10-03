@@ -11,7 +11,7 @@ https://github.com/AlbertComander/Simulation
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim172/img0.png) 
 
 + 👍 Две скорости работы
-+ 👍 Возобновление ресурсов во время работы
++ 👍 Возобновление ресурсов на карте во время работы
 
 ## ЗАМЕЧАНИЯ
 
