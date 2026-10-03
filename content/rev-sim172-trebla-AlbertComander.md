@@ -344,9 +344,7 @@ void placeEntity(Coordinate coordinate, Entity entity)
 
 **6. class PathFinder**
 
-- Как пользоваться поиском- неясно.
-
-Поиск возвращает что-то предельно непонятное
+- Как пользоваться поиском- неясно, он возвращает что-то непонятное
 ```java
 public class PathFinder {
   //...
@@ -361,7 +359,7 @@ public record PathResult(
 ```
 
 От поиска пути я хочу просто получить путь, то есть последовательность точек от начала пути до конца пути.  
-Правильно так:
+Например так:
 ```java
 public class PathFinder {
   //...
@@ -403,7 +401,7 @@ public void makeMove(WorldMap worldMap, PathFinder pathFinder, Coordinate curren
 }
 
 //ПРАВИЛЬНО:
-public void makeMove(WorldMap worldMap, PathFinder pathFinder, Coordinate currentLocation) {
+public void makeMove(WorldMap worldMap, PathFinder pathFinder) {
   Coordinate current = worldMap.getCoordinate(this);  
   PathResult pathResult = pathFinder.findPath(current, targets);
   //...
@@ -489,7 +487,7 @@ public void execute() {
   }
 }
 
-//ПРАВИЛЬНО:
+//ЛУЧШЕ:
 public void execute() {
   List<Creature> creatures = getCreatures(worldMap);
   for(Creature creature : creatures) {
@@ -513,7 +511,7 @@ private static List<Creature> getCreatures(Карта карта) {
 
 - Нейминг. 
 
-Этот класс не только рисует карту. Это в целом визуальный интерфейс
+Этот класс не только рисует карту. Это в целом визуальный интерфейс программы
 ```java
 public class MapRenderer {
   //...
@@ -605,7 +603,7 @@ static void main(String[] args) {
 
 ## ВЫВОД
 
-Интеграция с графической библиотекой Swing сделана хорошо.
+Интеграция с графической библиотекой Swing сделана хорошо.  
 
 n.172(372)  
 #ревью #симуляция #swing  
