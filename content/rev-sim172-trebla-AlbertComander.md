@@ -56,13 +56,11 @@ void addIndexEntity(Coordinate coordinate, Entity entity)
 Мы и так понимаем, что метод поиска в классе поиска пути ищет именно путь, а не что-то иное
 ```java
 public class PathFinder {
-  //...
   public PathResult findPath(...) {...}
 }
 
 //ПРАВИЛЬНО:
 public class PathFinder {
-  //...
   public PathResult find(...) {...}
 }
 ```
