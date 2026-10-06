@@ -288,7 +288,7 @@ public void putEntity(Coordinate coordinate, Entity entity) {  <-- МОЖНО В
 }
 
 //ПРАВИЛЬНО:
-public void putEntity(Coordinate coordinate, Entity entity) {  <-- МОЖНО ВСТАВИТЬ СУЩЕСТВО НА КООРДИНАТУ (+100500, -100500) ПРИ РАЗМЕРЕ КАРТЫ 10 x 10
+public void putEntity(Coordinate coordinate, Entity entity) {  
   validate(coordinates);  <-- Если координата вне пределов карты, бросает исключение
   entities.put(coordinate, entity);
 }
@@ -340,10 +340,7 @@ new CarrotInit(this).create();
 Смысл экшенов по ТЗ ровно противоположный- это экшены должны работать с картой.  
 Карта не должны ничего знать про экшены.
 
-Вообще никто не должен знать про экшены, кроме класса `Simulation`.  
-Разве что, чисто теоретически, про них может ещё знать какая-нибудь фабрика экшенов.
-
-Циклические связи между классами в большинстве случаев означают,  
+Вообще здесь никто не должен знать про экшены, кроме класса `Simulation`.  
 
 - Побочный эффект. 
 
