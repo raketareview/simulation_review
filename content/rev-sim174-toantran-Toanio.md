@@ -6,8 +6,7 @@ https://github.com/Toanio/simulation_by_Toanio
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
 
-1. Карта распечатывается неровно, нужно подобрать спрайты одинаковой ширины  
-![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim????/img0.png) 
+1. Карта распечатывается неровно, нужно подобрать спрайты одинаковой ширины.
 
 2. Нет паузы/пуск во время работы. Хотя это требование есть в ТЗ.
 
@@ -46,7 +45,7 @@ List<Creature> creatures = new ArrayList<>();
 List<Creature> getCreature() 
 
 //ПРАВИЛЬНО:
-List<Creature> getCreature()
+List<Creature> getCreatures()
 ```
 
 - Согласовывай названия 
