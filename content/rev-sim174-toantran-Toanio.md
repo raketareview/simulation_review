@@ -1,7 +1,6 @@
 https://github.com/Toanio/simulation_by_Toanio  
 [Toan Tran]
 
-
 Есть над чем поработать. Программа сделана частично.
 
 ## НЕДОСТАТКИ РЕАЛИЗАЦИИ
