@@ -82,7 +82,7 @@ public Entity getEntity(Coordinates coordinates) {
 
 При всех операциях с участием координаты (добавить, выдать, удалить и т.д.) нужно проверять координату на корректность.  
 Сейчас, если у карты спросить, свободна ли ячейка с координатой (+100500, -100500), то карта скажет, что она свободна.  
-А правильный ответ- ячейки с такой координатой в карте нет вообще
+А правильный ответ - в карте вообще нет ячейки с такой координатой
 ```java
   public boolean isCellEmpty(Coordinates coordinates) {
     return (entities.get(coordinates) == null);
@@ -90,7 +90,7 @@ public Entity getEntity(Coordinates coordinates) {
 
 //ПРАВИЛЬНО:
 public boolean isCellEmpty(Coordinates coordinates) {
-  validate(coordinates);  <-- Бросает исключение если координата не находится в пределах карты
+  validate(coordinates);  <-- Бросает исключение, если координата не находится в пределах карты
   return entities.get(coordinates) == null;
 }
 ```
@@ -204,7 +204,7 @@ if (!cameFrom.containsKey(target) && !start.equals(target)) {
 ```
 Если путь не существует- просто возвращай пустой список координат.  
 
-*Блох "Java. Эффективное программирование", изд.3, 8.6. "Возвращайте пустые массивы коллекции, а не null"*
+*Блох "Java. Эффективное программирование", изд.3, 8.6. "Возвращайте пустые массивы и коллекции, а не null"*
 
 **5. abstract class Entity**
 
@@ -310,8 +310,8 @@ public abstract class Action {
 ```java
 System.out.println("Свободных клеток больше нет!");
 ```
-Экшены это модели (а по сути это сервисы с бизнес логикой), они не должны ничего печатать, тем более в консоль.  
-Иначе при использовании в других визуальный средах (Swing, Android) они или не скомпилируются, или просто ничего не смогут напечатать в визуальный интерфейс.
+Экшены это модели (а по сути это сервисы с бизнес-логикой), они не должны ничего печатать, тем более в консоль.  
+Иначе при использовании в других визуальных средах (Swing, Android) они или не скомпилируются, или просто ничего не смогут напечатать в визуальный интерфейс.
 
 - Главные публичные методы должны стоять выше вспомогательных приватных.
 
@@ -322,7 +322,7 @@ System.out.println("Свободных клеток больше нет!");
 - Нарушение DRY.
 
 Код в этих классах во многом дублируется.  
-Оба эти класса по сути делают одно и то же: если количество существ определенного типа меньше минимального, то заселить на карту нужное количество новых существ.
+Оба класса по сути делают одно и то же: если количество существ определенного типа меньше минимального, то заселить на карту нужное количество новых существ.
 
 Общий код нужно вынести в общего предка.  
 Для упрощения кода можно использовать стандартные функциональные интерфейсы Java.  
@@ -347,7 +347,7 @@ public class ReSpawnAction<T extends Entity> extends Action {
     List<T> entities = simulationMap.getAllBy(type);
     int current = entities.size();
 
-    if(min < current) {
+    if (min < current) {
        reSpawn(simulationMap, max - current);
     }
   }
@@ -365,20 +365,20 @@ public class ReSpawnAction<T extends Entity> extends Action {
 
 Использование:
 ```java
-List<Action> turnActions = List.of {
+List<Action> turnActions = List.of (
   //....
   new ReSpawnAction<>(Grass.class, (c) -> new Grass(c), MIN_GRASS_COUNT, MAX_GRASS_COUNT),
   new ReSpawnAction<>(Herbivore.class, (c) -> new Herbivore(c, 1, 2), MIN_HERBIVORE_COUNT, MAX_HERBIVORE_COUNT)
-};
+);
 ```
 
 Или так:
 ```java
-List<Action> turnActions = List.of {
+List<Action> turnActions = List.of ()
   //....
   new GrassReSpawnAction(MIN_GRASS_COUNT, MAX_GRASS_COUNT),
   new HerbivoreReSpawnAction(MIN_HERBIVORE_COUNT, MAX_HERBIVORE_COUNT)
-};
+);
 
 //...
 public class GrassReSpawnAction extends ReSpawnAction<Grass> {
@@ -428,7 +428,7 @@ public abstract class SpawnAction extends Action {
 **14. class Simulation**
 
 + 👍 Принимает в конструктор достаточное количество зависимостей, в том числе списки действий.  
-Это позволяет делать майны с разными игровыми конфигурациями, не меняя код в классе `Simulation`
+Это позволяет делать main'ы с разными игровыми конфигурациями, не меняя код в классе `Simulation`
 ```java
 public Simulation(SimulationMap map, MapRenderer renderer, List<Action> initActions, List<Action> turnActions)
 ```
@@ -457,12 +457,12 @@ Creator гласит, что создавать объект должен тот
 Потому что список экшенов может быть разным. 
 
 Но принимать в конструктор `MapRenderer`- уже неправильно.  
-Потому что `MapRenderer` это конкретный класс, а не интерфейс и этот класс не параметризируется. 
+Потому что `MapRenderer` - это конкретный класс, а не интерфейс и этот класс не параметризируется. 
 
 Экземпляр `MapRenderer` всегда одинаковый.  
 Поэтому, согласно паттерну Creator, объект `MapRenderer` *здесь* должен создавать сам класс Simulation.
 
-Технически, можно создать наследника `MapRenderer`, переопределить в нем методы и передавать в конструктор Simulation.  
+Технически можно создать наследника `MapRenderer`, переопределить в нем методы и передавать в конструктор Simulation.  
 Но если программист хочет использовать в своем классе другие классы через полиморфизм, то он должен обозначить свои намерения более явно.  
 Например, передавать в конструктор интерфейс или абстрактный класс.
 
