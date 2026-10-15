@@ -116,8 +116,8 @@ public void setEntity(Coordinates coordinates, Entity entity) {
   entities.put(coordinates, entity);
 }
 ```
-Потому что если эта команда будет молча проигнорирована при попытке вставить существо на запрещенную координату, то будет баг. 
-Тогда на карте во время работы программы будут таинственно исчезать существа: в одном месте ты их удалишь, а в другом не вставишь.
+Потому что если команда вставить существо на указанную координату будет молча проигнорирована, это баг. 
+Тогда на карте во время работы программы будут таинственно исчезать существа: в одном месте ты их удалишь, а в другом они не вставятся.
 
 + 👍 В целом нарушения SOLID в классе минимальны.
 
@@ -131,7 +131,7 @@ public void setEntity(Coordinates coordinates, Entity entity) {
 
 *Блох, "Java. Эффективное программирование", изд.3, гл.2.4*
 
-- В Java не используй метки вообще никогда
+- В Java не используй метки
 ```java
 BFS:
 {
@@ -140,22 +140,21 @@ BFS:
 }
 ```
 
-В Java использование перехода по метке- дно дна.  
-Строй алгоритмы так, чтобы не приходилось перелетать код по меткам. 
+Строй алгоритмы так, чтобы не приходилось перелетать код по меткам - это плохо читается.  
 Нет такой ситуации, с которой можно было бы справиться только с помощью метки.
 
 - Нарушение SRP.
 
-Поиск пути между двумя координатами нужен для алгоритма A*.  
+Поиск пути между двумя координатами нужен только для алгоритма A*.  
 Алгоритм BFS должен искать путь от точки старта до точки, где находится объект нужного класса:
 ```java
 public static List<Coordinates> findPath(Coordinates start, Coordinates target, SimulationMap map) {
   //Ищет путь по алгоритму BFS
-  //Но сравнивает не найденное по координате существо с заданным типом,
-  //а найденную координату с заданной
+  //Но не сравнивает найденное по координате существо с заданным типом,
+  //а сравнивает найденную координату с заданной
 }
 
-//ПРАВИЛЬНО:
+//ПРАВИЛЬНО ДЛЯ BFS:
 public static List<Coordinates> findPath(SimulationMap simulationMap, Coordinates start, Class<? extends Entity> target) {
   //ищет путь на карте от точки start
   //до точки, где находится существо нужного класса(напр. target == Grass.class)    
@@ -188,7 +187,6 @@ public static List<Coordinates> findPath(...) {
 private static final List<Coordinates> SHIFT_COORDINATES = List.of(new Coordinates(0, -1), ...);
 
 public static List<Coordinates> findPath(...) {
-
   for (Coordinates shift : SHIFT_COORDINATES) {
     Coordinates neighbor = new Coordinates(current.getX() + shift.getX(), current.getY() + shift.getY());
     //...
@@ -202,7 +200,7 @@ if (!cameFrom.containsKey(target) && !start.equals(target)) {
   return null; // пути не существует
 }
 ```
-Если путь не существует- просто возвращай пустой список координат.  
+Если пути не существует- просто возвращай пустой список координат.  
 
 *Блох "Java. Эффективное программирование", изд.3, 8.6. "Возвращайте пустые массивы и коллекции, а не null"*
 
@@ -210,10 +208,7 @@ if (!cameFrom.containsKey(target) && !start.equals(target)) {
 
 - Содержит координату
 ```java
-public abstract class Entity {
-  private Coords coords;
-  //...
-}
+private Coordinates coordinates;
 ```
 
 Но координата нужна только тому существу, которое ходит.  
@@ -344,17 +339,17 @@ public class ReSpawnAction<T extends Entity> extends Action {
 
   @Override
   public void perform(SimulationMap simulationMap) {
-    List<T> entities = simulationMap.getAllBy(type);
+    List<T> entities = simulationMap.getEntitiesBy(type);
     int current = entities.size();
 
-    if (min < current) {
+    if (min > current) {
        reSpawn(simulationMap, max - current);
     }
   }
 
   private void reSpawn(SimulationMap simulationMap, int count) {
     for(int i = 0; i < count; i++) {
-       Coordinates coordinates = getRandomCoordinates(simulationMap);
+       Coordinates coordinates = getRandomFreeCoordinates(simulationMap);
        Entity entity = entityCreator.apply(coordinates);
 
        simulationMap.putEntity(entity, coordinates);
@@ -391,7 +386,7 @@ public class GrassReSpawnAction extends ReSpawnAction<Grass> {
 
 Темы: стандартные функциональные интерфейсы Java, дженерики.
 
-**13. Классы-спавнеры PredatorSpawnAction, RockSpawnAction etc**
+**13. Классы-спавнеры: PredatorSpawnAction, RockSpawnAction etc**
 
 Используя функциональные интерфейсы, можно упростить код и в других спавнерах.  
 Сейчас так:
@@ -529,7 +524,7 @@ Main должен только сконфигурировать зависимо
 Определи сущности, которые сейчас сидят в этом классе и вынеси их в отдельные классы.  
 Например, сущность, которая управляет симуляцией, получая от юзера команды пауза/пуск.
 
-Создание экшенов в мейне тоже выглядит сложным- эту логику можно вынести в фабрику экшенов.
+Создание списков экшенов в мейне тоже выглядит сложным- эту логику можно вынести в фабрику экшенов.
 
 ## ВЫВОД
 
