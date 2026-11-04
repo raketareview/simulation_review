@@ -769,7 +769,7 @@ public class Simulation {
     }
 
     public Builder addInitAction(Action action) {
-      this.initActions = initActions.add(action);
+      initActions.add(action);
       return this;
     }
 
