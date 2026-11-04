@@ -82,7 +82,7 @@ int stepCount = Math.min(path.size(), getSpeed());
 void addActionToInitActions(Action action) 
 
 //ПРАВИЛЬНО:
-void addInitActions(Action action) 
+void addInitAction(Action action) 
 ```
 
 - Н вбрсв глсн бкв в нзвнх
@@ -277,7 +277,7 @@ public boolean isCellContainsRelative(Coordinates neighborCell, Class<? extends 
   return ((!isCellEmpty(neighborCell)) && (getEntity(neighborCell).getClass() == targetClassEntity));
 }
 ```
-Что бы ни делал этот метод, он не нужен для выполнения картой своих обязанностей по хранению существ внутри себя. 
+Что бы ни делал этот метод (а что он делает я хз), он не нужен для выполнения картой своих обязанностей по хранению существ внутри себя. 
 
 Карта должна только хранить существа и обеспечить базовые операции с ними:  
 Вставить, вернуть существо по координате, вернуть координату по существу, удалить существо, вернуть список всех хранимых существ.  
@@ -299,7 +299,8 @@ public void moveEntity(Coordinates destination, Entity entityToMove) {
   addEntity(destination, entityToMove);
 }
 ```
-Вся логика по выполнению перемещения существа по карте должна находиться в одном месте. Например, в `Creature.makeMove(...)`.  
+Вся логика по выполнению перемещения существа по карте должна находиться в одном месте.  
+Например, в `Creature.makeMove(...)`.  
 Эта логика не должна быть размазана по нескольким классам.
 
 + 👍 В целом с точки зрения SRP класс хороший. Имеющиеся нарушения SRP в нем - незначительные.
@@ -374,7 +375,7 @@ public void makeMove(WorldMap worldMap) {
 ```
 
 Существо из карты может удалить другое существо.  
-Например, Волк съев Зайца может его удалить из карты.  
+Например, Волк, съев Зайца, может его удалить из карты.  
 
 Альтернативный подход: мёртвых существ с карты может убирать специальный экшен.  
 А пока он это не сделает, мертвые существа можно показывать на карте вот так: 💀  
@@ -513,7 +514,7 @@ public class WorldMap {
   //...
 
   public Collection<Entity> getAllEntities() {
-    return List.copyOf(entityPositions.values()); <-- Делает копию 
+    return List.copyOf(entityPositions.values()); <-- Делает копию (это правильно)
   }
 }
 ```
@@ -740,9 +741,10 @@ public class Main {
 public class Main {
   public static void main(String[] args) {
     Simulation simulation = new Simulation.Builder()
-        .addWorldMap(new WorldMap(WIDTH, HEIGHT))
+        .addWorldMap(new WorldMap(10, 10))
         .addInitAction(new UnoAction())
-        .addTurnAction(new CataclysmAction())
+        .addTurnAction(new DosAction())
+        .addTurnAction(new TresAction())
         .addTurnAction(new MoveAction())
         .build();
 
