@@ -9,7 +9,7 @@ https://github.com/klescevg/simulation
 + 👍 Спрайты существ не хранятся в самих существах
 + 👍 Координаты существ не хранятся в самих существах (мне так больше нравится)
 + 👍 Несколько алгоритмов поиска: BFS, A*
-+ 👍 Точки расширения в проекте через использование интерфейсов: поиск, рендерер.
++ 👍 Точки расширения в проекте через использование интерфейсов: поиск, рендерер
 + 👍 Оригинальная распечатка карты: цветными буквами  
 ![pic](https://github.com/raketareview/simulation_review/blob/master/content/resources/rev-sim178/img0.png) 
 
@@ -173,13 +173,13 @@ public static Set<Coordinate> getNeighbors(WorldMap map, Coordinate coordinate) 
 
 //ПРАВИЛЬНО:
 
-private static final List<Coordinates> SHIFT_COORDINATES = List.of(new Coordinate(0, -1), ...);
+private static final List<Coordinate> SHIFT_COORDINATES = List.of(new Coordinate(0, -1), ...);
 
 public static Set<Coordinate> getNeighbors(WorldMap map, Coordinate coordinate) {
   Set<Coordinate> neighborsInBounds = new HashSet<>();
 
   for (Coordinate shift : SHIFT_COORDINATES) {
-    Coordinate neighbor = new Coordinates(coordinate.row() + shift.row(), coordinate.column() + shift.column());
+    Coordinate neighbor = new Coordinate(coordinate.row() + shift.row(), coordinate.column() + shift.column());
     if (map.isInBounds(neighbor)) {
       neighborsInBounds.add(neighbor);
     }
@@ -192,7 +192,7 @@ public static Set<Coordinate> getNeighbors(WorldMap map, Coordinate coordinate) 
 
 Класс для хранения найденного пути.  
 
-Мне кажется, это несколько избыточно по сравнению с представлением пути в виде простого `List<Coordinates>`.  
+Мне кажется, это несколько избыточно по сравнению с представлением пути в виде простого `List<Coordinate>`.  
 Но почему бы и нет, если хочется.
 
 **7. interface PathfindingStrategy**
@@ -304,7 +304,8 @@ throw new IllegalArgumentException("mapSideLength must be between 1 and " + MAX_
 
 То есть должно быть разделение ответственностей: хранение конфигурационных данных и заполнение этих данных.
 
-Сейчас уже есть класс-создатель конфига: `SimulationConfigProvider`. Вот он и должен инкапсулировать в себе всю эту сложную логику заполнения конфига. 
+Сейчас уже есть класс-создатель конфига: `SimulationConfigProvider`.  
+Вот он и должен инкапсулировать в себе всю эту сложную логику заполнения конфига. 
 
 **13. interface Action**
 
@@ -451,8 +452,8 @@ public class TestMain {
   public static void main(String[] args) {
 
     WorldMap worldMap = new WorldMap(6, 6);
-    worldMap.addEntity(new Заяц(), new Coordinates(0, 0));
-    worldMap.addEntity(new Морковка(), new Coordinates(5, 5));
+    worldMap.addEntity(new Заяц(), new Coordinate(0, 0));
+    worldMap.addEntity(new Морковка(), new Coordinate(5, 5));
 
     Renderer renderer = new ConsoleОсенняяТайгаRenderer();
 
@@ -469,8 +470,9 @@ public class TestMain {
 
 ## ВЫВОД
 
-Немного перемудрил с конфигами и тем самым сделал архитектуру менее ясной и более громоздкой - лучше бы конфиги вообще убрать.  
-Но в целом ок 👍
+Немного перемудрил с конфигами и тем самым сделал архитектуру менее ясной и более громоздкой - лучше бы конфиги вообще убрать.
+
+В целом ок 👍
 
 n.178(381)  
 #ревью #симуляция  
