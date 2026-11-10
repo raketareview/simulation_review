@@ -56,10 +56,6 @@ public void setEntity(Coordinates coordinates, Creature creature) {
   entities.put(coordinates, creature); <-- ДОБАВЛЯЕТ объект, а не устанавливает его значение 
 }
 
-public void setEntitys(Coordinates coordinates, Entity entity) {
-  //добавляет entity в entitys    
-}
-
 //ПРАВИЛЬНО:
 void putEntity(Coordinates coordinates, Entity entity) //или addEntity(...)
 ```
@@ -176,7 +172,7 @@ System.out.println("Enter a correct option!");
 - Совместная магия.
 
 Если к одной и той же магической штуке обращаются два разных класса, то делай ее константой в одном из этих двух классов.  
-Либо перенеси ее в третий класс и из первых двух классов обращайся к этим константам- эти данные должны быть синхронизированы между собой
+Либо перенеси ее в третий класс и из первых двух классов обращайся к этим константам - эти данные должны быть синхронизированы между собой
 ```java
 public class InputReader implements Runnable {
 
@@ -301,7 +297,7 @@ private final HashMap<Coordinates, Entity> objects = new HashMap<>();  <-- ОС�
 Нарушение SRP: карта знает слишком много. 
 
 Нарушение OCP: 
-Касс открыт для изменений.  
+Класс открыт для изменений.  
 При добавлении нового существа в проект, придётся добавлять в класс новый код для этого существа:
 ```java
 private final HashMap<Coordinates, Bird> birds = new HashMap<>();  
@@ -411,7 +407,7 @@ public class MoveCounter {
 Иначе модель перестает быть универсальной и становится заточенной под конкретную среду и конкретное представление себя в этой среде- в данном случае, консоль.
 В других средах нужно будет менять код в этом классе, чтобы вывод осуществлялся по правилам этой среды, то есть, это лишняя причина для изменения класса.
 В других средах(напр. Андроид) эту модель нельзя будет использовать- она там просто не скомпилируется. 
-Другое представление для модели(напр. если одну и ту же модель нужно в программе показвать по-разному) нельзя будет сделать, или придется делать через костыль.
+Другое представление для модели(напр. если одну и ту же модель нужно в программе показывать по-разному) нельзя будет сделать, или придется делать через костыль.
 
 Модель, которая зависит от представления, перестает быть моделью. Сейчас твой счетчик ходов может работать только в программе с консольным интерфейсом.
 
@@ -502,7 +498,7 @@ public class MapRenderer {
 }
 ```
 
-- Не бойся использовать там, где уместно, названия индексов циклов, которые состоят больше чем из одной буквы 
+- Не бойся использовать там, где уместно, названия индексов циклов, которые состоят более чем из одной буквы 
 ```java
 for (int r = 0; r <= height; r++) {
   for (int c = 0; c <= width; c++) {
@@ -777,7 +773,7 @@ class PathFinder implements MoveValidator
 
 - Этот класс не ищет путь.
 
-Путь это последовательность точек от точки старта до точки финиша.  
+Путь - это последовательность точек от точки старта до точки финиша.  
 Этот класс не ищет путь. Его единственный публичный метод возвращает одиночную координату
 ```java
 public static Coordinates findNextStep(...) {...}
@@ -792,7 +788,7 @@ public static Coordinates findNextStep(...) {...}
 ```java
 public final class BfsPathFinder {
 
-  private class BfsPathFinder() {}
+  private BfsPathFinder() {}
 
   public static List<Coordinates> find(Карта карта, Coordinates start, Class<? extends Entity> target) {
   //ищет путь на карте от точки start
@@ -810,7 +806,7 @@ public abstract class Creature extends Entity {
   public Creature(Class<? extends Entity> food, ...) {...}
 
   public void makeMove(SimulationMap simulationMap) {
-    List<Coordinates> path =  BfsPathFinder.find(simulationMap, coordinates, food); //текущая coordinates хранится на уровне Entity
+    List<Coordinates> path = BfsPathFinder.find(simulationMap, coordinates, food); //текущая coordinates хранится на уровне Entity
     // Пройти по пути path текущее количество шагов до цели
   }
 }
@@ -856,7 +852,7 @@ public class Herbivore extends Creature {
 
   @Override
   public void makeMove(SimulationMap simulationMap) {
-    List<Coordinates> path =  BfsPathFinder.find(simulationMap, coordinates, FOOD);
+    List<Coordinates> path = BfsPathFinder.find(simulationMap, coordinates, FOOD);
     // Пройти по пути path текущее количество шагов до цели
   }
   //...
@@ -872,7 +868,7 @@ public class Predator extends Creature {
 
   @Override
   public void makeMove(SimulationMap simulationMap) {
-    List<Coordinates> path =  BfsPathFinder.find(simulationMap, coordinates, FOOD);
+    List<Coordinates> path = BfsPathFinder.find(simulationMap, coordinates, FOOD);
     // Пройти по пути path текущее количество шагов до цели
   }
   //...
@@ -881,15 +877,15 @@ public class Predator extends Creature {
 
 ### Пакет utils
 
-Содержит три утилитных класса. Каждый из них - какая-то лютая процедурщина с джененриками.  
+Содержит три утилитных класса. Каждый из них - какая-то лютая процедурщина с джененериками.  
 Разбираться с ними не имеет смысла, всё плохо.  
-При рефакторнге эти классы нужно просто удалить, а проект заново декомпозировать на классы.  
+При рефакторинге эти классы нужно просто удалить, а проект заново декомпозировать на классы.  
 
 ### Пакет elements
 
 **14. abstract class Entity**
 
-Обычно я против, чтобы в `Entity` хранилась координата - она по моему мнению должна храниться начиная с `Creature`
+Обычно я против, чтобы в `Entity` хранилась координата - она, по моему мнению, должна храниться начиная с `Creature`
 ```java
 protected Coordinates coordinates;
 ```
@@ -921,13 +917,13 @@ public interface StepFinder {
   CellsGetter cellsGetter = new CellsGetter();  
   CoordinatesFinder coordinatesFinder = new CoordinatesFinder();
 
-  default <T> Coordinates findStep(Class<T> targetClass, Creature creature , SimulationMap simulationMap, List<Coordinates> entityMoves, Coordinates coordinates) {
+  default <T> Coordinates findStep(Class<T> targetClass, Creature creature, SimulationMap simulationMap, List<Coordinates> entityMoves, Coordinates coordinates) {
     //4 строки кода
   }
 }
 ```
 
-Методы из этих "интерфейсов" нужно либо перенести перенести напрямую в класс `Creature`.  
+Методы из этих "интерфейсов" нужно либо перенести напрямую в класс `Creature`.  
 Либо, после переделывания декомпозиции, перенести в другие классы.  
 Например, логика нахождения соседних координат из `interface MovesGetter` должна быть перенесена в класс поиска пути.
 
@@ -945,7 +941,7 @@ public interface StepFinder {
 Плохо, когда такие методы используют в неправильном контексте.  
 Здесь - контекст неправильный.
 
-Пока не разобрался с ООП на хоть сколько-то хорошем уровне, лучше вообще не делай default методы в интерфейсах.
+Пока не разобрался с ООП на хоть сколько-то хорошем уровне, лучше вообще не делай default-методы в интерфейсах.
 
 **16. class Herbivore/Predator extends Creature**
 
@@ -1082,13 +1078,13 @@ public class House {
 
 ВСЁ СЖЕЧЬ НАПАЛМОМ. 
 
-Классы в этом пакете это не те actions, которые имеются ввиду в ТЗ. Это очередная процедурная вакханалия.
+Классы в этом пакете - это не те actions, которые имеются ввиду в ТЗ. Это очередная процедурная вакханалия.
 
 Идея Action's состоит в том, что нужно создать семейство родственных классов, объединенных общим интерфейсом.  
 Каждый из этих классов должен делать что-то свое с картой: одна акция должна заселять карту существами, другая делать ходы и т.д.  
 Action'ы, изложенные в ТЗ, это вариант реализации паттерна Command. 
 
-В каждом экшене должен быть только один публичный метод(не публичных может быть сколько угодно).  
+В каждом экшене должен быть только один публичный метод (не публичных может быть сколько угодно).  
 Это вариация паттерна Command- экшены должны быть родственны и одинаково использоваться через полиморфизм.  
 Примерно так
 ```java
@@ -1180,6 +1176,13 @@ if (c1 instanceof Herbivore && c2 instanceof Predator) return -1;
 etc. 
 ```
 Ролики короткие и нестрашные, как раз для новичков.
+
+Вот ещё короткие ролики для новичков:
+```
+"Правильные методы по Clean Code"
+"Принцип хорошего кода KISS"
+"Принцип хорошего кода DRY"
+```
 
 Делай только указанный в ТЗ функционал.  
 Дополнительные усложнения, при недостаточном умении строить архитектуру программы, приносят больше вреда, чем пользы.  
